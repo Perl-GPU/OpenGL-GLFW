@@ -24,7 +24,8 @@
 #========================================================================
 
 use OpenGL::GLFW qw(:all);
-use OpenGL::Modern;
+use OpenGL::Modern qw(:all);
+use OpenGL::Modern::Helpers qw(glGenBuffers_p glBufferData_p);
 
 # #include "linmath.h"
 
@@ -81,7 +82,7 @@ die "glfwInit failed, $!\n" if !glfwInit();
 # TODO: implement NULL pointer (is 0 or undef enough?)
 # $window = glfwCreateWindow(640, 480, "Simple example", NULL, NULL);
 #
-$window = glfwCreateWindow(640, 480, "Simple example", undef, undef);
+$window = glfwCreateWindow(640, 480, "Simple example", 0, 0);
 unless (defined $window) {
     glfwTerminate();
     die "glfwCreateWindow failed, $!\n";
@@ -91,7 +92,7 @@ unless (defined $window) {
 
 glfwMakeContextCurrent($window);
 
-die "glewInit failed, $!\n" if !glewInit();
+die "glewInit failed, $!\n" if GLEW_OK != glewInit();
 
 glfwSwapInterval(1);
 
@@ -101,7 +102,8 @@ glfwSwapInterval(1);
 
 glGenBuffers_p(1, $vertex_buffer);  # TODO
 glBindBuffer(GL_ARRAY_BUFFER, $vertex_buffer);
-glBufferData_p(GL_ARRAY_BUFFER, sizeof(@vertices), @vertices, GL_STATIC_DRAW);  # TODO
+# glBufferData_p(GL_ARRAY_BUFFER, sizeof(@vertices), @vertices, GL_STATIC_DRAW);  # TODO
+glBufferData_p(GL_ARRAY_BUFFER, 4*scalar(@vertices), @vertices, GL_STATIC_DRAW);  # TODO
 
 my $vertex_shader = glCreateShader(GL_VERTEX_SHADER);
 glShaderSource_p($vertex_shader, 1, @vertex_shader_text, NULL);  # TODO

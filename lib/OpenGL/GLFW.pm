@@ -4,6 +4,8 @@ use 5.010001;
 use strict;
 use warnings;
 
+do './glfw3_constants';
+
 require Exporter;
 
 our @ISA = qw(Exporter);
@@ -16,8 +18,80 @@ our @ISA = qw(Exporter);
 # If you do not need this, moving things directly into @EXPORT or @EXPORT_OK
 # will save memory.
 our %EXPORT_TAGS = ( 'all' => [ qw(
-	
-) ] );
+        glfwCreateCursor
+        glfwCreateStandardCursor
+        glfwCreateWindow
+        glfwDefaultWindowHints
+        glfwDestroyCursor
+        glfwDestroyWindow
+        glfwExtensionSupported
+        glfwFocusWindow
+        glfwGetClipboardString
+        glfwGetCurrentContext
+        glfwGetCursorPos
+        glfwGetFramebufferSize
+        glfwGetGammaRamp
+        glfwGetInputMode
+        glfwGetJoystickAxes
+        glfwGetJoystickButtons
+        glfwGetJoystickName
+        glfwGetKey
+        glfwGetKeyName
+        glfwGetMonitorName
+        glfwGetMonitorPhysicalSize
+        glfwGetMonitorPos
+        glfwGetMonitors
+        glfwGetMouseButton
+        glfwGetPrimaryMonitor
+        glfwGetRequiredInstanceExtensions
+        glfwGetTime
+        glfwGetTimerFrequency
+        glfwGetTimerValue
+        glfwGetVersion
+        glfwGetVersionString
+        glfwGetVideoMode
+        glfwGetVideoModes
+        glfwGetWindowAttrib
+        glfwGetWindowFrameSize
+        glfwGetWindowMonitor
+        glfwGetWindowPos
+        glfwGetWindowSize
+        glfwGetWindowUserPointer
+        glfwHideWindow
+        glfwIconifyWindow
+        glfwInit
+        glfwJoystickPresent
+        glfwMakeContextCurrent
+        glfwMaximizeWindow
+        glfwPollEvents
+        glfwPostEmptyEvent
+        glfwRestoreWindow
+        glfwSetClipboardString
+        glfwSetCursor
+        glfwSetCursorPos
+        glfwSetGamma
+        glfwSetGammaRamp
+        glfwSetInputMode
+        glfwSetTime
+        glfwSetWindowAspectRatio
+        glfwSetWindowIcon
+        glfwSetWindowMonitor
+        glfwSetWindowPos
+        glfwSetWindowShouldClose
+        glfwSetWindowSize
+        glfwSetWindowSizeLimits
+        glfwSetWindowTitle
+        glfwSetWindowUserPointer
+        glfwShowWindow
+        glfwSwapBuffers
+        glfwSwapInterval
+        glfwTerminate
+        glfwVulkanSupported
+        glfwWaitEvents
+        glfwWaitEventsTimeout
+        glfwWindowHint
+        glfwWindowShouldClose
+        ) ] );
 
 our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
 
