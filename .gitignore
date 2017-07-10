@@ -8,6 +8,8 @@
 *.bs
 *~
 
+/GLFW.c
+
 # Devel::Cover
 cover_db/
 
