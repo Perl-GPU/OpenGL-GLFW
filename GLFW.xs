@@ -8,7 +8,7 @@
 #include "/cygdrive/c/Perl/local64/glfw/include/GLFW/glfw3.h"
 
 
-MODULE = OpenGL::GLFW           PACKAGE = OpenGL::GLFW          
+MODULE = OpenGL::GLFW           PACKAGE = OpenGL::GLFW
 
 void
 glfwSetWindowIcon(GLFWwindow* window, int count, const GLFWimage* images);
@@ -31,16 +31,31 @@ GLFWmonitor*
 glfwGetPrimaryMonitor();
 
 GLFWmonitor**
-glfwGetMonitors(int &count);
+glfwGetMonitors(count)
+        int &count = NO_INIT
+    OUTPUT:
+        count
 
 const char*
 glfwGetMonitorName(GLFWmonitor* monitor);
 
 void
-glfwGetMonitorPhysicalSize(GLFWmonitor* monitor, int &widthMM, int &heightMM);
+glfwGetMonitorPhysicalSize(monitor, widthMM, heightMM)
+        GLFWmonitor* monitor
+        int &widthMM = NO_INIT
+        int &heightMM = NO_INIT
+    OUTPUT:
+        widthMM
+        heightMM
 
 void
-glfwGetMonitorPos(GLFWmonitor* monitor, int &xpos, int &ypos);
+glfwGetMonitorPos(monitor, xpos, ypos)
+        GLFWmonitor* monitor
+        int &xpos = NO_INIT
+        int &ypos = NO_INIT
+    OUTPUT:
+        xpos
+        ypos
 
 void
 glfwSetGamma(GLFWmonitor* monitor, float gamma);
@@ -51,7 +66,11 @@ const GLFWvidmode*
 glfwGetVideoMode(GLFWmonitor* monitor);
 
 const GLFWvidmode*
-glfwGetVideoModes(GLFWmonitor* monitor, int &count);
+glfwGetVideoModes(monitor, count)
+        GLFWmonitor* monitor
+        int &count = NO_INIT
+    OUTPUT:
+        count
 
 ## /* GLFWmonitor with GLFWwindow routines */
 GLFWmonitor*
@@ -92,7 +111,13 @@ const char*
 glfwGetClipboardString(GLFWwindow* window);
 
 void
-glfwGetCursorPos(GLFWwindow* window, double &xpos, double &ypos);
+glfwGetCursorPos(window, xpos, ypos)
+        GLFWwindow* window
+        double &xpos = NO_INIT
+        double &ypos = NO_INIT
+    OUTPUT:
+        xpos
+        ypos
 
 void
 glfwGetFramebufferSize(window, width, height)
@@ -104,13 +129,35 @@ glfwGetFramebufferSize(window, width, height)
         height
 
 void
-glfwGetWindowFrameSize(GLFWwindow* window, int &left, int &top, int &right, int &bottom);
+glfwGetWindowFrameSize(window, left, top, right, bottom)
+        GLFWwindow* window
+        int &left = NO_INIT
+        int &top = NO_INIT
+        int &right = NO_INIT
+        int &bottom = NO_INIT
+    OUTPUT:
+        left
+        top
+        right
+        bottom
 
 void
-glfwGetWindowPos(GLFWwindow* window, int &xpos, int &ypos);
+glfwGetWindowPos(window, xpos, ypos)
+        GLFWwindow* window
+        int &xpos = NO_INIT
+        int &ypos = NO_INIT
+    OUTPUT:
+        xpos
+        ypos
 
 void
-glfwGetWindowSize(GLFWwindow* window, int &width, int &height);
+glfwGetWindowSize(window, width, height)
+        GLFWwindow* window
+        int &width = NO_INIT
+        int &height = NO_INIT
+    OUTPUT:
+        width
+        height
 
 void
 glfwHideWindow(GLFWwindow* window);
@@ -171,7 +218,14 @@ void
 glfwDefaultWindowHints();
 
 void
-glfwGetVersion(int &major, int &minor, int &rev);
+glfwGetVersion(major, minor, rev)
+        int &major = NO_INIT
+        int &minor = NO_INIT
+        int &rev   = NO_INIT
+    OUTPUT:
+        major
+	minor
+	rev
 
 void
 glfwPollEvents();
@@ -207,13 +261,24 @@ const char*
 glfwGetVersionString();
 
 const char**
-glfwGetRequiredInstanceExtensions(uint32_t &count);
+glfwGetRequiredInstanceExtensions(count)
+        uint32_t &count = NO_INIT
+    OUTPUT:
+        count
 
 const float*
-glfwGetJoystickAxes(int joy, int &count);
+glfwGetJoystickAxes(joy, count)
+        int joy
+        int &count = NO_INIT
+    OUTPUT:
+        count
 
 const unsigned char*
-glfwGetJoystickButtons(int joy, int &count);
+glfwGetJoystickButtons(joy, count)
+        int joy
+        int &count = NO_INIT
+    OUTPUT:
+        count
 
 int
 glfwExtensionSupported(const char* extension);
