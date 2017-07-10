@@ -100,17 +100,17 @@ glfwSwapInterval(1);
 #  NOTE: OpenGL error checks have been omitted for brevity
 #-----------------------------------------------------------
 
-glGenBuffers_p(1, $vertex_buffer);  # TODO
+my $vertex_buffer = glGenBuffers_p(1);  # TODO
 glBindBuffer(GL_ARRAY_BUFFER, $vertex_buffer);
 # glBufferData_p(GL_ARRAY_BUFFER, sizeof(@vertices), @vertices, GL_STATIC_DRAW);  # TODO
 glBufferData_p(GL_ARRAY_BUFFER, 4*scalar(@vertices), @vertices, GL_STATIC_DRAW);  # TODO
 
 my $vertex_shader = glCreateShader(GL_VERTEX_SHADER);
-glShaderSource_p($vertex_shader, 1, @vertex_shader_text, NULL);  # TODO
+glShaderSource_p($vertex_shader, @vertex_shader_text);  # TODO
 glCompileShader($vertex_shader);
 
 my $fragment_shader = glCreateShader(GL_FRAGMENT_SHADER);
-glShaderSource_p($fragment_shader, 1, @fragment_shader_text, NULL);  # TODO
+glShaderSource_p($fragment_shader, @fragment_shader_text);  # TODO
 glCompileShader($fragment_shader);
 
 my $program = glCreateProgram();
@@ -135,7 +135,7 @@ while (!glfwWindowShouldClose($window))
     my ($angle, $c, $s, $cor, $sor);
     # mat4x4 $m, $p, $mvp;  # TODO
 
-    glfwGetFramebufferSize($window, \$width, \$height);  # TODO return list of values
+    glfwGetFramebufferSize($window, $width, $height);  # TODO return list of values
     my $ratio = $width / $height;
 
     glViewport(0, 0, $width, $height);
