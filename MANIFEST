@@ -1,8 +1,11 @@
 Changes
 GLFW.xs
-Makefile.PL
 MANIFEST
-ppport.h
+Makefile.PL
 README.md
-t/OpenGL-GLFW.t
 lib/OpenGL/GLFW.pm
+lib/OpenGL/glfw3_constants.pm
+ppport.h
+simple.pl
+t/OpenGL-GLFW.t
+typemap
