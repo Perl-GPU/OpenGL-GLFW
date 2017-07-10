@@ -9,7 +9,7 @@ WriteMakefile(
     ABSTRACT_FROM     => 'lib/OpenGL/GLFW.pm', # retrieve abstract from module
     AUTHOR            => 'Chris Marshall <chm@cpan.org>',
     LICENSE           => 'perl',
-    LIBS              => [''], # e.g., '-lm'
+    LIBS              => ['-L/cygdrive/c/Perl/local64/glfw/lib -lglfw3 -lX11 -lxrandr -lxinerama -lxcursor'], # e.g., '-lm'
     DEFINE            => '', # e.g., '-DHAVE_SOMETHING'
     INC               => '-I.', # e.g., '-I. -I/usr/include/other'
     # Un-comment this if you add C files to link with later:
