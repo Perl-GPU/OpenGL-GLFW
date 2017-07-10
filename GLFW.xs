@@ -8,7 +8,7 @@
 #include "/cygdrive/c/Perl/local64/glfw/include/GLFW/glfw3.h"
 
 
-MODULE = OpenGL::GLFW		PACKAGE = OpenGL::GLFW		
+MODULE = OpenGL::GLFW           PACKAGE = OpenGL::GLFW          
 
 void
 glfwSetWindowIcon(GLFWwindow* window, int count, const GLFWimage* images);
@@ -95,7 +95,13 @@ void
 glfwGetCursorPos(GLFWwindow* window, double &xpos, double &ypos);
 
 void
-glfwGetFramebufferSize(GLFWwindow* window, int &width, int &height);
+glfwGetFramebufferSize(window, width, height)
+        GLFWwindow* window
+        int &width = NO_INIT
+        int &height = NO_INIT
+    OUTPUT:
+        width
+        height
 
 void
 glfwGetWindowFrameSize(GLFWwindow* window, int &left, int &top, int &right, int &bottom);
