@@ -7,6 +7,30 @@
 
 #include "/cygdrive/c/Perl/local64/glfw/include/GLFW/glfw3.h"
 
+// AV index values for callbacks which are stored as an *AV
+// in the GLFW user pointer.  The first element of the array
+// is used to hold the user pointer (a.k.a. perl user ref).
+//
+enum AVindex {
+    userpointer = 0,
+    charfun,
+    charmodsfun,
+    cursorenterfun,
+    cursorposfun,
+    dropfun,
+    framebuffersizefun,
+    keyfun,
+    mousebuttonfun,
+    scrollfun,
+    windowclosefun,
+    windowfocusfun,
+    windowiconifyfun,
+    windowposfun,
+    windowrefreshfun,
+    windowsizefun,
+    AVlen
+};
+
 // Static memory for global GLFW3 callbacks
 static SV * errorfunsv = 0;
 static SV * monitorfunsv = 0;
