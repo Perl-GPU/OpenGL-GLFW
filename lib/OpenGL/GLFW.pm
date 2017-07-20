@@ -591,29 +591,60 @@ OpenGL::GLFW - Perl bindings for the GLFW library
 
 =head1 SYNOPSIS
 
-  use OpenGL::GLFW;
+  use OpenGL::GLFW qw(:all);
   blah blah blah
 
 =head1 DESCRIPTION
 
-Stub documentation for OpenGL::GLFW, created by h2xs. It looks like the
-author of the extension was negligent enough to leave the stub
-unedited.
+L<OpenGL::GLFW> provides perl5 bindings to the GLFW
+library for OpenGL, OpenGL ES, and Vulkan application
+development.  This is a straight translation of the
+GLFW C interface and you can use their documentation at
+L<http://www.glfw.org/documentation.html>.
 
-Blah blah blah.
+This will be cleaned up for the first official
+release of C<OpenGL::GLFW> but for these first
+bindings we have the following correspondences
+between the perl bindings and the C API:
+
+=over 4
+
+=item *
+
+C<GLFWwindow>, C<GLFWmonitor>, and C<GLFWcursor> are
+opaque data types and pointers to them are returned as
+perl scalar references.
+
+=item *
+
+Return scalar values from the GLFW API in C that are of
+type such as C<int*> are currently stuffed into perl
+scalars passed as the arguments to the function.  This
+is ugly and confusing and needs to be fixed.
+
+=item *
+
+Vulkan is not currently supported and C<glfwVulkanSupported>
+alwyas returns false.
+
+=item *
+
+C<glfwGetProcAddress> is not implemented.  Use the 
+L<OpenGL::Modern> or L<OpenGL> bindings instead.
+
+=back
+
 
 =head2 EXPORT
 
 None by default.
 
 
-
 =head1 SEE ALSO
 
-Mention other useful documentation such as the documentation of
-related modules or operating system documentation (such as man pages
-in UNIX), or any relevant external documentation such as RFCs or
-standards.
+See the L<OpenGL::Modern> module for the perl bindings
+for modern OpenGL APIs and the original perl L<OpenGL>
+module bindings for OpenGL 1.x-2 with and some extensions.
 
 If you have a mailing list set up for your module, mention it here.
 
