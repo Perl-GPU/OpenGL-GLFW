@@ -308,6 +308,7 @@ our %EXPORT_TAGS = ( 'all' => [ qw(
         glfwSetClipboardString
         glfwSetCursor
         glfwSetCursorPos
+        glfwSetErrorCallback
         glfwSetGamma
         glfwSetGammaRamp
         glfwSetInputMode

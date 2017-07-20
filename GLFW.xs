@@ -32,20 +32,31 @@ enum AVindex {
 };
 
 // Static memory for global GLFW3 callbacks
-static SV * errorfunsv = 0;
-static SV * monitorfunsv = 0;
-static SV * joystickfunsv = 0;
+static SV * errorfunsv    = (SV*)0;
+static SV * monitorfunsv  = (SV*)0;
+static SV * joystickfunsv = (SV*)0;
 
+void errorfun_callback(int error, const char* description)
+{
+    puts("errorfun_callback:");
+    puts(description);
+}
 
 MODULE = OpenGL::GLFW           PACKAGE = OpenGL::GLFW
 
 SV*
 glfwSetErrorCallback(cbfun)
-     CV * cbfun
+     SV * cbfun
    CODE:
      // Need to add wrapper cb that calls the perl CV
      RETVAL = errorfunsv;
-     errorfunsv = (SV *) cbfun;
+     if (errorfunsv == (SV*)0) {
+     	errorfunsv = newSVsv(cbfun);
+     } else {
+        SvSetSV(errorfunsv, cbfun);
+     }
+     // Enable the C wrapper errorfun callback
+     glfwSetErrorCallback(errorfun_callback);  // TODO: add C return value and check
    OUTPUT:
      RETVAL
 

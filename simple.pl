@@ -72,7 +72,7 @@ my ($window);
 my ($vertex_buffer, $vertex_shader, $fragment_shader, $program);
 my ($mvp_location, $vpos_location, $vcol_location);
 
-#### glfwSetErrorCallback($error_callback);
+glfwSetErrorCallback($error_callback);
 
 die "glfwInit failed, $!\n" if !glfwInit();
 
@@ -89,6 +89,7 @@ unless (defined $window) {
 }
 
 #### glfwSetKeyCallback($window, $key_callback);
+
 
 glfwMakeContextCurrent($window);
 
