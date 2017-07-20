@@ -4,7 +4,6 @@ MANIFEST
 Makefile.PL
 README.md
 lib/OpenGL/GLFW.pm
-lib/OpenGL/glfw3_constants.pm
 ppport.h
 simple.pl
 t/OpenGL-GLFW.t
