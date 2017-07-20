@@ -56,7 +56,7 @@ my @fragment_shader_text = (
 
 my $error_callback = sub {
     my ($error, $description) = @_;
-    printf STDERR "Error: %s\n", $description;
+    printf STDERR "Error #%d from perl: %s\n", $error, $description;
 };
 
 my $key_callback = sub {

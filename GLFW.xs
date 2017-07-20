@@ -31,15 +31,82 @@ enum AVindex {
     AVlen
 };
 
-// Static memory for global GLFW3 callbacks
 static SV * errorfunsv    = (SV*)0;
-static SV * monitorfunsv  = (SV*)0;
-static SV * joystickfunsv = (SV*)0;
 
 void errorfun_callback(int error, const char* description)
 {
-    puts("errorfun_callback:");
-    puts(description);
+    dTHX;
+
+    dSP;
+
+    ENTER;
+    SAVETMPS;
+    PUSHMARK(SP);
+
+    XPUSHs(sv_2mortal(newSViv(error)));
+    XPUSHs(sv_2mortal(newSVpv(description, 0)));
+
+    PUTBACK;
+
+    call_sv(errorfunsv, G_VOID);
+
+    SPAGAIN;
+
+    FREETMPS;
+    LEAVE;
+
+}
+
+static SV * monitorfunsv  = (SV*)0;
+
+void monitorfun_callback(GLFWmonitor* monitor, int event)
+{
+    dTHX;
+
+    dSP;
+
+    ENTER;
+    SAVETMPS;
+    PUSHMARK(SP);
+
+    // XPUSHs(sv_2mortal(newSVpv(description, 0))); // needs to handle GLFWmonitor pointer
+    XPUSHs(sv_2mortal(newSViv(event)));
+
+    PUTBACK;
+
+    call_sv(monitorfunsv, G_VOID);
+
+    SPAGAIN;
+
+    FREETMPS;
+    LEAVE;
+
+}
+
+static SV * joystickfunsv = (SV*)0;
+
+void joystickfun_callback(int joy_id, int event)
+{
+    dTHX;
+
+    dSP;
+
+    ENTER;
+    SAVETMPS;
+    PUSHMARK(SP);
+
+    XPUSHs(sv_2mortal(newSViv(joy_id)));
+    XPUSHs(sv_2mortal(newSViv(event)));
+
+    PUTBACK;
+
+    call_sv(joystickfunsv, G_VOID);
+
+    SPAGAIN;
+
+    FREETMPS;
+    LEAVE;
+
 }
 
 MODULE = OpenGL::GLFW           PACKAGE = OpenGL::GLFW
