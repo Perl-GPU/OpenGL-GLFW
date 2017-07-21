@@ -136,7 +136,7 @@ while (!glfwWindowShouldClose($window))
     my ($angle, $c, $s, $cor, $sor);
     # mat4x4 $m, $p, $mvp;  # TODO
 
-    glfwGetFramebufferSize($window, $width, $height);  # TODO return list of values
+    my ($width, $height) = glfwGetFramebufferSize($window);
     my $ratio = $width / $height;
 
     glViewport(0, 0, $width, $height);
