@@ -32,7 +32,6 @@ enum AVindex {
 };
 
 static SV * errorfunsv    = (SV*)0;
-
 void errorfun_callback(int error, const char* description)
 {
     dTHX;
@@ -58,7 +57,6 @@ void errorfun_callback(int error, const char* description)
 }
 
 static SV * monitorfunsv  = (SV*)0;
-
 void monitorfun_callback(GLFWmonitor* monitor, int event)
 {
     dTHX;
@@ -69,7 +67,7 @@ void monitorfun_callback(GLFWmonitor* monitor, int event)
     SAVETMPS;
     PUSHMARK(SP);
 
-    // XPUSHs(sv_2mortal(newSVpv(description, 0))); // needs to handle GLFWmonitor pointer
+    XPUSHs(sv_2mortal(newSViv(PTR2IV(monitor))));
     XPUSHs(sv_2mortal(newSViv(event)));
 
     PUTBACK;
@@ -84,7 +82,6 @@ void monitorfun_callback(GLFWmonitor* monitor, int event)
 }
 
 static SV * joystickfunsv = (SV*)0;
-
 void joystickfun_callback(int joy_id, int event)
 {
     dTHX;
@@ -123,27 +120,39 @@ glfwSetErrorCallback(cbfun)
         SvSetSV(errorfunsv, cbfun);
      }
      // Enable the C wrapper errorfun callback
-     glfwSetErrorCallback(errorfun_callback);  // TODO: add C return value and check
+     glfwSetErrorCallback(errorfun_callback);
    OUTPUT:
      RETVAL
 
 SV*
 glfwSetMonitorCallback(cbfun)
-     CV * cbfun
+     SV * cbfun
    CODE:
      // Need to add wrapper cb that calls the perl CV
      RETVAL = monitorfunsv;
-     monitorfunsv = (SV *) cbfun;
+     if (monitorfunsv == (SV*)0) {
+     	monitorfunsv = newSVsv(cbfun);
+     } else {
+        SvSetSV(monitorfunsv, cbfun);
+     }
+     // Enable the C wrapper errorfun callback
+     glfwSetMonitorCallback(monitorfun_callback);
    OUTPUT:
      RETVAL
 
 SV*
 glfwSetJoystickCallback(cbfun)
-     CV * cbfun
+     SV * cbfun
    CODE:
      // Need to add wrapper cb that calls the perl CV
      RETVAL = joystickfunsv;
-     joystickfunsv = (SV *) cbfun;
+     if (joystickfunsv == (SV*)0) {
+     	joystickfunsv = newSVsv(cbfun);
+     } else {
+        SvSetSV(joystickfunsv, cbfun);
+     }
+     // Enable the C wrapper errorfun callback
+     glfwSetJoystickCallback(joystickfun_callback);
    OUTPUT:
      RETVAL
 
