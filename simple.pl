@@ -23,6 +23,32 @@
 #
 #========================================================================
 
+#========================================================================
+# OpenGL routines used:
+# 
+#   glAttachShader
+#   glBindBuffer
+#   glClear
+#   glCompileShader
+#   glCreateProgram
+#   glCreateShader
+#   glDrawArrays
+#   glEnableVertexAttribArray
+#   glLinkProgram
+#   glUseProgram
+#   glViewport
+#   
+#   glGetAttribLocation_c
+#   glGetUniformLocation_c
+#   glUniformMatrix4fv_c
+#   glVertexAttribPointer_c
+#   
+#   glBufferData_p
+#   glGenBuffers_p
+#   glGenBuffers_p 
+#   glShaderSource_p
+#========================================================================
+
 use OpenGL::GLFW qw(:all);
 use OpenGL::Modern qw(:all);
 use OpenGL::Modern::Helpers qw(glGenBuffers_p glBufferData_p);
