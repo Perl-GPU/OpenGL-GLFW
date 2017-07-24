@@ -31,6 +31,9 @@ enum AVindex {
     AVlen
 };
 
+//----------------------------------------------------------------
+// Global callbacks
+//----------------------------------------------------------------
 static SV * errorfunsv    = (SV*)0;
 void errorfun_callback(int error, const char* description)
 {
@@ -106,8 +109,97 @@ void joystickfun_callback(int joy_id, int event)
 
 }
 
+//----------------------------------------------------------------
+// Per-window callbacks
+//
+// The per-window callbacks are stored in a perl array
+// whose reference is kept in the User Pointer.
+//----------------------------------------------------------------
+
+
 MODULE = OpenGL::GLFW           PACKAGE = OpenGL::GLFW
 
+#//----------------------------------------------------
+#// Set Per-window callbacks
+#//----------------------------------------------------
+SV*
+glfwSetWindowPosCallback(window, cbfun);
+      GLFWwindow* window
+      SV * cbfun
+
+SV*
+glfwSetWindowSizeCallback(window, cbfun);
+      GLFWwindow* window
+      SV * cbfun
+
+SV*
+glfwSetWindowCloseCallback(window, cbfun);
+      GLFWwindow* window
+      SV * cbfun
+
+SV*
+glfwSetWindowRefreshCallback(window, cbfun);
+      GLFWwindow* window
+      SV * cbfun
+
+SV*
+glfwSetWindowFocusCallback(window, cbfun);
+      GLFWwindow* window
+      SV * cbfun
+
+SV*
+glfwSetWindowIconifyCallback(window, cbfun);
+      GLFWwindow* window
+      SV * cbfun
+
+SV*
+glfwSetFramebufferSizeCallback(window, cbfun);
+      GLFWwindow* window
+      SV * cbfun
+
+SV*
+glfwSetKeyCallback(window, cbfun);
+      GLFWwindow* window
+      SV * cbfun
+
+SV*
+glfwSetCharCallback(window, cbfun);
+      GLFWwindow* window
+      SV * cbfun
+
+SV*
+glfwSetCharModsCallback(window, cbfun);
+      GLFWwindow* window
+      SV * cbfun
+
+SV*
+glfwSetMouseButtonCallback(window, cbfun);
+      GLFWwindow* window
+      SV * cbfun
+
+SV*
+glfwSetCursorPosCallback(window, cbfun);
+      GLFWwindow* window
+      SV * cbfun
+
+SV*
+glfwSetCursorEnterCallback(window, cbfun);
+      GLFWwindow* window
+      SV * cbfun
+
+SV*
+glfwSetScrollCallback(window, cbfun);
+      GLFWwindow* window
+      SV * cbfun
+
+SV*
+glfwSetDropCallback(window, cbfun);
+      GLFWwindow* window
+      SV * cbfun
+
+#//----------------------------------------------------
+#// Set Global callbacks
+#//----------------------------------------------------
 SV*
 glfwSetErrorCallback(cbfun)
      SV * cbfun
@@ -156,10 +248,15 @@ glfwSetJoystickCallback(cbfun)
    OUTPUT:
      RETVAL
 
+#//-------------------------------------------------------------------
+#// Uses GLFWimage
+#//-------------------------------------------------------------------
 void
 glfwSetWindowIcon(GLFWwindow* window, int count, const GLFWimage* images);
 
-## /* GLFWcursor routines */
+#//-------------------------------------------------------------------
+#// GLFWcursor routines
+#//-------------------------------------------------------------------
 GLFWcursor*
 glfwCreateCursor(const GLFWimage* image, int xhot, int yhot);
 
@@ -172,7 +269,9 @@ glfwDestroyCursor(GLFWcursor* cursor);
 void
 glfwSetCursor(GLFWwindow* window, GLFWcursor* cursor);
 
-## /* GLFWmonitor routines */
+#//-------------------------------------------------------------------
+#// GLFWmonitor routines
+#//-------------------------------------------------------------------
 GLFWmonitor*
 glfwGetPrimaryMonitor();
 
@@ -188,9 +287,15 @@ glfwGetMonitorPhysicalSize(GLFWmonitor* monitor, OUTLIST int widthMM, OUTLIST in
 void
 glfwGetMonitorPos(GLFWmonitor* monitor, OUTLIST int xpos, OUTLIST int ypos);
 
+
 void
 glfwSetGamma(GLFWmonitor* monitor, float gamma);
 
+const GLFWgammaramp*
+glfwGetGammaRamp(GLFWmonitor* monitor);
+
+void
+glfwSetGammaRamp(GLFWmonitor* monitor, const GLFWgammaramp* ramp);
 
 
 const GLFWvidmode*
@@ -199,7 +304,9 @@ glfwGetVideoMode(GLFWmonitor* monitor);
 const GLFWvidmode*
 glfwGetVideoModes(GLFWmonitor* monitor, OUTLIST int count);
 
-## /* GLFWmonitor with GLFWwindow routines */
+#//-------------------------------------------------------------------
+#// GLFWmonitor with GLFWwindow routines
+#//-------------------------------------------------------------------
 GLFWmonitor*
 glfwGetWindowMonitor(GLFWwindow* window);
 
@@ -209,7 +316,9 @@ glfwCreateWindow(int width, int height, const char* title, GLFWmonitor* monitor,
 void
 glfwSetWindowMonitor(GLFWwindow* window, GLFWmonitor* monitor, int xpos, int ypos, int width, int height, int refreshRate);
 
-## /* GLFWwindow routines */
+#//-------------------------------------------------------------------
+#// GLFWwindow routines
+#//-------------------------------------------------------------------
 GLFWwindow*
 glfwGetCurrentContext();
 
@@ -306,7 +415,9 @@ glfwSwapBuffers(GLFWwindow* window);
 void*
 glfwGetWindowUserPointer(GLFWwindow* window);
 
-## /* Standard types routines */
+#//-------------------------------------------------------------------
+#// Standard types routines
+#//-------------------------------------------------------------------
 void
 glfwDefaultWindowHints();
 
@@ -346,17 +457,11 @@ glfwGetKeyName(int key, int scancode);
 const char*
 glfwGetVersionString();
 
-const char**
-glfwGetRequiredInstanceExtensions(OUTLIST uint32_t count);
-
 const float*
 glfwGetJoystickAxes(int joy, OUTLIST int count);
 
 const unsigned char*
 glfwGetJoystickButtons(int joy, OUTLIST int count);
-
-int
-glfwExtensionSupported(const char* extension);
 
 int
 glfwInit();
@@ -373,13 +478,33 @@ glfwGetTimerFrequency();
 uint64_t
 glfwGetTimerValue();
 
-## /* Return false until someone with Vulkan can implement */
+#//-------------------------------------------------------------------
+#// OpenGL not supported (use GLEW)
+#//-------------------------------------------------------------------
+int
+glfwExtensionSupported(const char* extension);
+
+GLFWglproc
+glfwGetProcAddress(const char* procname);
+
+#//-------------------------------------------------------------------
+#// Vulkan not supported
+#//-------------------------------------------------------------------
 int
 glfwVulkanSupported();
+   CODE:
+     RETVAL = 0;
+   OUTPUT:
+     RETVAL
 
-const GLFWgammaramp*
-glfwGetGammaRamp(GLFWmonitor* monitor);
+const char**
+glfwGetRequiredInstanceExtensions(OUTLIST uint32_t count); // TODO: die
 
-void
-glfwSetGammaRamp(GLFWmonitor* monitor, const GLFWgammaramp* ramp);
+GLFWvkproc
+glfwGetInstanceProcAddress(VkInstance instance, const char* procname); // TODO: die
 
+int
+glfwGetPhysicalDevicePresentationSupport(VkInstance instance, VkPhysicalDevice device, uint32_t queuefamily); // TODO: die
+
+VkResult
+glfwCreateWindowSurface(VkInstance instance, GLFWwindow* window, const VkAllocationCallbacks* allocator, VkSurfaceKHR* surface); // TODO: die
