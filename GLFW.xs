@@ -7,6 +7,8 @@
 
 #include "/cygdrive/c/Perl/local64/glfw/include/GLFW/glfw3.h"
 
+#include <stdio.h>
+
 // AV index values for callbacks which are stored as an *AV
 // in the GLFW user pointer.  The first element of the array
 // is used to hold the user pointer (a.k.a. perl user ref).
@@ -50,7 +52,9 @@ void errorfun_callback(int error, const char* description)
 
     PUTBACK;
 
-    call_sv(errorfunsv, G_VOID);
+    if ( SvOK(errorfunsv) ) {
+       call_sv(errorfunsv, G_VOID);
+    }
 
     SPAGAIN;
 
@@ -75,7 +79,9 @@ void monitorfun_callback(GLFWmonitor* monitor, int event)
 
     PUTBACK;
 
-    call_sv(monitorfunsv, G_VOID);
+    if ( SvOK(monitorfunsv) ) {
+       call_sv(monitorfunsv, G_VOID);
+    }
 
     SPAGAIN;
 
@@ -100,7 +106,9 @@ void joystickfun_callback(int joy_id, int event)
 
     PUTBACK;
 
-    call_sv(joystickfunsv, G_VOID);
+    if ( SvOK(joystickfunsv) ) {
+       call_sv(joystickfunsv, G_VOID);
+    }
 
     SPAGAIN;
 
@@ -122,80 +130,80 @@ MODULE = OpenGL::GLFW           PACKAGE = OpenGL::GLFW
 #//----------------------------------------------------
 #// Set Per-window callbacks
 #//----------------------------------------------------
-SV*
-glfwSetWindowPosCallback(window, cbfun);
-      GLFWwindow* window
-      SV * cbfun
+#// SV*
+#// glfwSetWindowPosCallback(window, cbfun);
+#//       GLFWwindow* window
+#//       SV * cbfun
 
-SV*
-glfwSetWindowSizeCallback(window, cbfun);
-      GLFWwindow* window
-      SV * cbfun
+#// SV*
+#// glfwSetWindowSizeCallback(window, cbfun);
+#//       GLFWwindow* window
+#//       SV * cbfun
 
-SV*
-glfwSetWindowCloseCallback(window, cbfun);
-      GLFWwindow* window
-      SV * cbfun
+#// SV*
+#// glfwSetWindowCloseCallback(window, cbfun);
+#//       GLFWwindow* window
+#//       SV * cbfun
 
-SV*
-glfwSetWindowRefreshCallback(window, cbfun);
-      GLFWwindow* window
-      SV * cbfun
+#// SV*
+#// glfwSetWindowRefreshCallback(window, cbfun);
+#//       GLFWwindow* window
+#//       SV * cbfun
 
-SV*
-glfwSetWindowFocusCallback(window, cbfun);
-      GLFWwindow* window
-      SV * cbfun
+#// SV*
+#// glfwSetWindowFocusCallback(window, cbfun);
+#//       GLFWwindow* window
+#//       SV * cbfun
 
-SV*
-glfwSetWindowIconifyCallback(window, cbfun);
-      GLFWwindow* window
-      SV * cbfun
+#// SV*
+#// glfwSetWindowIconifyCallback(window, cbfun);
+#//       GLFWwindow* window
+#//       SV * cbfun
 
-SV*
-glfwSetFramebufferSizeCallback(window, cbfun);
-      GLFWwindow* window
-      SV * cbfun
+#// SV*
+#// glfwSetFramebufferSizeCallback(window, cbfun);
+#//       GLFWwindow* window
+#//       SV * cbfun
 
-SV*
-glfwSetKeyCallback(window, cbfun);
-      GLFWwindow* window
-      SV * cbfun
+#// SV*
+#// glfwSetKeyCallback(window, cbfun);
+#//       GLFWwindow* window
+#//       SV * cbfun
 
-SV*
-glfwSetCharCallback(window, cbfun);
-      GLFWwindow* window
-      SV * cbfun
+#// SV*
+#// glfwSetCharCallback(window, cbfun);
+#//       GLFWwindow* window
+#//       SV * cbfun
 
-SV*
-glfwSetCharModsCallback(window, cbfun);
-      GLFWwindow* window
-      SV * cbfun
+#// SV*
+#// glfwSetCharModsCallback(window, cbfun);
+#//       GLFWwindow* window
+#//       SV * cbfun
 
-SV*
-glfwSetMouseButtonCallback(window, cbfun);
-      GLFWwindow* window
-      SV * cbfun
+#// SV*
+#// glfwSetMouseButtonCallback(window, cbfun);
+#//       GLFWwindow* window
+#//       SV * cbfun
 
-SV*
-glfwSetCursorPosCallback(window, cbfun);
-      GLFWwindow* window
-      SV * cbfun
+#// SV*
+#// glfwSetCursorPosCallback(window, cbfun);
+#//       GLFWwindow* window
+#//       SV * cbfun
 
-SV*
-glfwSetCursorEnterCallback(window, cbfun);
-      GLFWwindow* window
-      SV * cbfun
+#// SV*
+#// glfwSetCursorEnterCallback(window, cbfun);
+#//       GLFWwindow* window
+#//       SV * cbfun
 
-SV*
-glfwSetScrollCallback(window, cbfun);
-      GLFWwindow* window
-      SV * cbfun
+#// SV*
+#// glfwSetScrollCallback(window, cbfun);
+#//       GLFWwindow* window
+#//       SV * cbfun
 
-SV*
-glfwSetDropCallback(window, cbfun);
-      GLFWwindow* window
-      SV * cbfun
+#// SV*
+#// glfwSetDropCallback(window, cbfun);
+#//       GLFWwindow* window
+#//       SV * cbfun
 
 #//----------------------------------------------------
 #// Set Global callbacks
@@ -484,8 +492,8 @@ glfwGetTimerValue();
 int
 glfwExtensionSupported(const char* extension);
 
-GLFWglproc
-glfwGetProcAddress(const char* procname);
+#// GLFWglproc
+#// glfwGetProcAddress(const char* procname);
 
 #//-------------------------------------------------------------------
 #// Vulkan not supported
@@ -497,14 +505,14 @@ glfwVulkanSupported();
    OUTPUT:
      RETVAL
 
-const char**
-glfwGetRequiredInstanceExtensions(OUTLIST uint32_t count); // TODO: die
+#// const char**
+#// glfwGetRequiredInstanceExtensions(OUTLIST uint32_t count); // TODO: die
 
-GLFWvkproc
-glfwGetInstanceProcAddress(VkInstance instance, const char* procname); // TODO: die
+#// GLFWvkproc
+#// glfwGetInstanceProcAddress(VkInstance instance, const char* procname); // TODO: die
 
-int
-glfwGetPhysicalDevicePresentationSupport(VkInstance instance, VkPhysicalDevice device, uint32_t queuefamily); // TODO: die
+#// int
+#// glfwGetPhysicalDevicePresentationSupport(VkInstance instance, VkPhysicalDevice device, uint32_t queuefamily); // TODO: die
 
-VkResult
-glfwCreateWindowSurface(VkInstance instance, GLFWwindow* window, const VkAllocationCallbacks* allocator, VkSurfaceKHR* surface); // TODO: die
+#// VkResult
+#// glfwCreateWindowSurface(VkInstance instance, GLFWwindow* window, const VkAllocationCallbacks* allocator, VkSurfaceKHR* surface); // TODO: die
