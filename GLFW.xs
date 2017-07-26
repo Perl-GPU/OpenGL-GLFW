@@ -124,16 +124,131 @@ void joystickfun_callback(int joy_id, int event)
 // whose reference is kept in the User Pointer.
 //----------------------------------------------------------------
 
+// (* GLFWcharfun)(GLFWwindow*,unsigned int);
+void charfun_callback (GLFWwindow* window, GLFWcharfun cbfun)
+{ 
+}
+
+// (* GLFWcharmodsfun)(GLFWwindow*,unsigned int,int);
+void charmodsfun_callback (GLFWwindow* window, GLFWcharmodsfun cbfun)
+{ 
+}
+
+// (* GLFWcursorenterfun)(GLFWwindow*,int);
+void cursorenterfun_callback (GLFWwindow* window, GLFWcursorenterfun cbfun)
+{ 
+}
+
+// (* GLFWcursorposfun)(GLFWwindow*,double,double);
+void cursorposfun_callback (GLFWwindow* window, GLFWcursorposfun cbfun)
+{ 
+}
+
+// (* GLFWdropfun)(GLFWwindow*,int,const char**);
+void dropfun_callback (GLFWwindow* window, GLFWdropfun cbfun)
+{ 
+}
+
+// (* GLFWframebuffersizefun)(GLFWwindow*,int,int);
+void framebuffersizefun_callback (GLFWwindow* window, GLFWframebuffersizefun cbfun)
+{ 
+}
+
+// void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
+void keyfun_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
+{ 
+    dTHX;
+
+    dSP;
+
+    AV* winav;
+    enum AVindex cvind = keyfun;
+    SV** fetch;
+    SV* keyfunsv;
+
+    if (winav == (AV*) NULL)
+       croak("keyfun_callback: winav is NULL");
+
+    fetch = av_fetch(winav, cvind, 0);
+
+    if (! fetch)
+       croak("keyfun_callback: winav[keyfun] is NULL");
+
+    keyfunsv = *fetch;
+
+    ENTER;
+    SAVETMPS;
+    PUSHMARK(SP);
+
+    XPUSHs(sv_2mortal(newSViv(PTR2IV(window))));
+    XPUSHs(sv_2mortal(newSViv(key)));
+    XPUSHs(sv_2mortal(newSViv(scancode)));
+    XPUSHs(sv_2mortal(newSViv(action)));
+    XPUSHs(sv_2mortal(newSViv(mods)));
+
+    PUTBACK;
+
+    call_sv(keyfunsv, G_VOID);
+
+    SPAGAIN;
+
+    FREETMPS;
+    LEAVE;
+}
+
+// (* GLFWmousebuttonfun)(GLFWwindow*,int,int,int);
+void mousebuttonfun_callback (GLFWwindow* window, GLFWmousebuttonfun cbfun)
+{ 
+}
+
+// (* GLFWscrollfun)(GLFWwindow*,double,double);
+void scrollfun_callback (GLFWwindow* window, GLFWscrollfun cbfun)
+{ 
+}
+
+// (* GLFWwindowclosefun)(GLFWwindow*);
+void windowclosefun_callback (GLFWwindow* window, GLFWwindowclosefun cbfun)
+{ 
+}
+
+// (* GLFWwindowfocusfun)(GLFWwindow*,int);
+void windowfocusfun_callback (GLFWwindow* window, GLFWwindowfocusfun cbfun)
+{ 
+}
+
+// (* GLFWwindowiconifyfun)(GLFWwindow*,int);
+void windowiconifyfun_callback (GLFWwindow* window, GLFWwindowiconifyfun cbfun)
+{ 
+}
+
+// (* GLFWwindowposfun)(GLFWwindow*,int,int);
+void windowposfun_callback (GLFWwindow* window, GLFWwindowposfun cbfun)
+{ 
+}
+
+// (* GLFWwindowrefreshfun)(GLFWwindow*);
+void windowrefreshfun_callback (GLFWwindow* window, GLFWwindowrefreshfun cbfun)
+{ 
+}
+
+// (* GLFWwindowsizefun)(GLFWwindow*,int,int);
+void windowsizefun_callback (GLFWwindow* window, GLFWwindowsizefun cbfun)
+{ 
+}
+
 
 MODULE = OpenGL::GLFW           PACKAGE = OpenGL::GLFW
+
 
 #//----------------------------------------------------
 #// Set Per-window callbacks
 #//----------------------------------------------------
+
 #// SV*
 #// glfwSetWindowPosCallback(window, cbfun);
 #//       GLFWwindow* window
 #//       SV * cbfun
+
 
 #// SV*
 #// glfwSetWindowSizeCallback(window, cbfun);
@@ -165,10 +280,28 @@ MODULE = OpenGL::GLFW           PACKAGE = OpenGL::GLFW
 #//       GLFWwindow* window
 #//       SV * cbfun
 
-#// SV*
-#// glfwSetKeyCallback(window, cbfun);
-#//       GLFWwindow* window
-#//       SV * cbfun
+#// want SV*
+void
+glfwSetKeyCallback(window, cbfun);
+      GLFWwindow* window
+      SV * cbfun
+   CODE:
+     // Get user pointer
+     // Allocate AV if NULL
+     // Populate with NULL SV*s
+     //
+     // If AV exists, fetch element keyfun
+     // If keyfun is NULL, then save cbfun there
+     // Otherwise set the SV there to the new cbfun
+     // 
+     if (errorfunsv == (SV*) NULL) {
+        errorfunsv = newSVsv(cbfun);
+     } else {
+        SvSetSV(errorfunsv, cbfun);
+     }
+     // Enable the C wrapper keyfun callback
+     glfwSetKeyCallback(window, keyfun_callback);
+
 
 #// SV*
 #// glfwSetCharCallback(window, cbfun);
@@ -219,7 +352,7 @@ glfwSetErrorCallback(cbfun)
      // which was causing a segfault in re.pl
      //
      if (errorfunsv == (SV*) NULL) {
-     	errorfunsv = newSVsv(cbfun);
+        errorfunsv = newSVsv(cbfun);
      } else {
         SvSetSV(errorfunsv, cbfun);
      }
@@ -235,7 +368,7 @@ glfwSetMonitorCallback(cbfun)
      // which was causing a segfault in re.pl
      //
      if (monitorfunsv == (SV*) NULL) {
-     	monitorfunsv = newSVsv(cbfun);
+        monitorfunsv = newSVsv(cbfun);
      } else {
         SvSetSV(monitorfunsv, cbfun);
      }
@@ -251,7 +384,7 @@ glfwSetJoystickCallback(cbfun)
      // which was causing a segfault in re.pl
      //
      if (joystickfunsv == (SV*) NULL) {
-     	joystickfunsv = newSVsv(cbfun);
+        joystickfunsv = newSVsv(cbfun);
      } else {
         SvSetSV(joystickfunsv, cbfun);
      }
