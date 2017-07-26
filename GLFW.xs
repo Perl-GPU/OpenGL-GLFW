@@ -36,7 +36,7 @@ enum AVindex {
 //----------------------------------------------------------------
 // Global callbacks
 //----------------------------------------------------------------
-static SV * errorfunsv    = (SV*)0;
+static SV * errorfunsv    = (SV*) NULL;
 void errorfun_callback(int error, const char* description)
 {
     dTHX;
@@ -63,7 +63,7 @@ void errorfun_callback(int error, const char* description)
 
 }
 
-static SV * monitorfunsv  = (SV*)0;
+static SV * monitorfunsv  = (SV*) NULL;
 void monitorfun_callback(GLFWmonitor* monitor, int event)
 {
     dTHX;
@@ -90,7 +90,7 @@ void monitorfun_callback(GLFWmonitor* monitor, int event)
 
 }
 
-static SV * joystickfunsv = (SV*)0;
+static SV * joystickfunsv = (SV*) NULL;
 void joystickfun_callback(int joy_id, int event)
 {
     dTHX;
@@ -205,56 +205,59 @@ MODULE = OpenGL::GLFW           PACKAGE = OpenGL::GLFW
 #//       GLFWwindow* window
 #//       SV * cbfun
 
+
 #//----------------------------------------------------
 #// Set Global callbacks
 #//----------------------------------------------------
-SV*
+
+#// want to return SV*
+void
 glfwSetErrorCallback(cbfun)
      SV * cbfun
    CODE:
-     // Need to add wrapper cb that calls the perl CV
-     RETVAL = errorfunsv;
-     if (errorfunsv == (SV*)0) {
+     // Need to fix return of previous CV
+     // which was causing a segfault in re.pl
+     //
+     if (errorfunsv == (SV*) NULL) {
      	errorfunsv = newSVsv(cbfun);
      } else {
         SvSetSV(errorfunsv, cbfun);
      }
      // Enable the C wrapper errorfun callback
      glfwSetErrorCallback(errorfun_callback);
-   OUTPUT:
-     RETVAL
 
-SV*
+#// want to return SV*
+void
 glfwSetMonitorCallback(cbfun)
      SV * cbfun
    CODE:
-     // Need to add wrapper cb that calls the perl CV
-     RETVAL = monitorfunsv;
-     if (monitorfunsv == (SV*)0) {
+     // Need to fix return of previous CV
+     // which was causing a segfault in re.pl
+     //
+     if (monitorfunsv == (SV*) NULL) {
      	monitorfunsv = newSVsv(cbfun);
      } else {
         SvSetSV(monitorfunsv, cbfun);
      }
      // Enable the C wrapper errorfun callback
      glfwSetMonitorCallback(monitorfun_callback);
-   OUTPUT:
-     RETVAL
 
-SV*
+#// want to return SV*
+void
 glfwSetJoystickCallback(cbfun)
      SV * cbfun
    CODE:
-     // Need to add wrapper cb that calls the perl CV
-     RETVAL = joystickfunsv;
-     if (joystickfunsv == (SV*)0) {
+     // Need to fix return of previous CV
+     // which was causing a segfault in re.pl
+     //
+     if (joystickfunsv == (SV*) NULL) {
      	joystickfunsv = newSVsv(cbfun);
      } else {
         SvSetSV(joystickfunsv, cbfun);
      }
      // Enable the C wrapper errorfun callback
      glfwSetJoystickCallback(joystickfun_callback);
-   OUTPUT:
-     RETVAL
+
 
 #//-------------------------------------------------------------------
 #// Uses GLFWimage
