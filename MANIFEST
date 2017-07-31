@@ -3,6 +3,7 @@ GLFW.xs
 MANIFEST
 Makefile.PL
 README.md
+callback.pl
 lib/OpenGL/GLFW.pm
 ppport.h
 simple.pl
