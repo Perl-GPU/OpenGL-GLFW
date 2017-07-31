@@ -80,6 +80,11 @@ my @fragment_shader_text = (
     "}\n",
 );
 
+# my $drop_callback = sub {
+#     my ($window, @paths) = @_;
+#     print "Dropped (@paths)\n";
+# };
+
 my $error_callback = sub {
     my ($error, $description) = @_;
     printf STDERR "Error #%d from perl: %s\n", $error, $description;
@@ -116,6 +121,11 @@ unless (defined $window) {
 
 glfwSetKeyCallback($window, $key_callback);
 
+# TODO: It looks like you cant Drag-and-Drop between windows Explorer
+# and cygwin X11 applications.  Need to test for linux and for win32
+# native
+#
+# glfwSetDropCallback($window, $drop_callback);
 
 glfwMakeContextCurrent($window);
 
