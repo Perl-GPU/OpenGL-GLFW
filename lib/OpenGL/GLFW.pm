@@ -312,6 +312,7 @@ our %EXPORT_TAGS = ( 'all' => [ qw(
         glfwSetGamma
         glfwSetGammaRamp
         glfwSetInputMode
+        glfwSetKeyCallback
         glfwSetTime
         glfwSetWindowAspectRatio
         glfwSetWindowIcon

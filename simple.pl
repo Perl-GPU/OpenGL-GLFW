@@ -114,7 +114,7 @@ unless (defined $window) {
     die "glfwCreateWindow failed, $!\n";
 }
 
-#### glfwSetKeyCallback($window, $key_callback);
+glfwSetKeyCallback($window, $key_callback);
 
 
 glfwMakeContextCurrent($window);

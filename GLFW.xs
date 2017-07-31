@@ -162,19 +162,20 @@ void keyfun_callback(GLFWwindow* window, int key, int scancode, int action, int 
     dSP;
 
     AV* winav;
-    enum AVindex cvind = keyfun;
-    SV** fetch;
+    int cvind = keyfun;
+    SV** fetchval;
     SV* keyfunsv;
 
+    winav = glfwGetWindowUserPointer(window);
     if (winav == (AV*) NULL)
        croak("keyfun_callback: winav is NULL");
 
-    fetch = av_fetch(winav, cvind, 0);
+    fetchval = av_fetch(winav, cvind, 0);
 
-    if (! fetch)
+    if (! fetchval)
        croak("keyfun_callback: winav[keyfun] is NULL");
 
-    keyfunsv = *fetch;
+    keyfunsv = *fetchval;
 
     ENTER;
     SAVETMPS;
@@ -286,21 +287,22 @@ glfwSetKeyCallback(window, cbfun);
       GLFWwindow* window
       SV * cbfun
    CODE:
+     void * upoint;
+     int cvind = keyfun;
+     int i;
+     SV** fetchval;
      // Get user pointer
-     // Allocate AV if NULL
-     // Populate with NULL SV*s
-     //
-     // If AV exists, fetch element keyfun
-     // If keyfun is NULL, then save cbfun there
-     // Otherwise set the SV there to the new cbfun
-     // 
-     if (errorfunsv == (SV*) NULL) {
-        errorfunsv = newSVsv(cbfun);
-     } else {
-        SvSetSV(errorfunsv, cbfun);
+     upoint = glfwGetWindowUserPointer(window);
+     if (NULL == upoint) {
+        upoint = newAV();
+	av_fill((AV*)upoint,AVlen);
+	for (i=0; i<AVlen; i++)
+	   av_store((AV*)upoint,i,&PL_sv_undef);
      }
+     av_store((AV*)upoint,keyfun,cbfun);
      // Enable the C wrapper keyfun callback
      glfwSetKeyCallback(window, keyfun_callback);
+     glfwSetWindowUserPointer(window,upoint);
 
 
 #// SV*
