@@ -568,6 +568,11 @@ our %EXPORT_TAGS = ( 'all' => [ qw(
         GLFW_CONNECTED
         GLFW_DISCONNECTED
         GLFW_DONT_CARE
+        glfwCreateWindowSurface
+        glfwGetInstanceProcAddress
+        glfwGetPhysicalDevicePresentationSupport
+        glfwGetProcAddress
+        glfwGetRequiredInstanceExtensions
         ) ] );
 
 our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );

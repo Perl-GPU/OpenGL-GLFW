@@ -627,9 +627,13 @@ glfwGetTimerValue();
 #//-------------------------------------------------------------------
 int
 glfwExtensionSupported(const char* extension);
+   CODE:
+     croak("glfwExtensionSupported not implemented (use glewIsSupported)");
 
-#// GLFWglproc
-#// glfwGetProcAddress(const char* procname);
+void
+glfwGetProcAddress(const char* procname);
+   CODE:
+     croak("glfwGetProcAddress not implemented (use GLEW)");
 
 #//-------------------------------------------------------------------
 #// Vulkan not supported
@@ -641,14 +645,22 @@ glfwVulkanSupported();
    OUTPUT:
      RETVAL
 
-#// const char**
-#// glfwGetRequiredInstanceExtensions(OUTLIST uint32_t count); // TODO: die
+void
+glfwGetRequiredInstanceExtensions(...)
+   CODE:
+     croak("No Vulkan Support: glfwGetRequiredInstanceExtensions not implemented!");
 
-#// GLFWvkproc
-#// glfwGetInstanceProcAddress(VkInstance instance, const char* procname); // TODO: die
+void
+glfwGetInstanceProcAddress(...)
+   CODE:
+     croak("No Vulkan Support: glfwGetInstanceProcAddress not implemented!");
 
-#// int
-#// glfwGetPhysicalDevicePresentationSupport(VkInstance instance, VkPhysicalDevice device, uint32_t queuefamily); // TODO: die
+void
+glfwGetPhysicalDevicePresentationSupport(...)
+   CODE:
+     croak("No Vulkan Support: glfwGetPhysicalDevicePresentationSupport not implemented!");
 
-#// VkResult
-#// glfwCreateWindowSurface(VkInstance instance, GLFWwindow* window, const VkAllocationCallbacks* allocator, VkSurfaceKHR* surface); // TODO: die
+void
+glfwCreateWindowSurface(...)
+   CODE:
+     croak("No Vulkan Support: glfwCreateWindowSurface not implemented!");
