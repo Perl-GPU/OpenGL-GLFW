@@ -308,11 +308,27 @@ our %EXPORT_TAGS = ( 'all' => [ qw(
         glfwSetClipboardString
         glfwSetCursor
         glfwSetCursorPos
+        glfwSetCharCallback
+        glfwSetCharModsCallback
+        glfwSetCursorEnterCallback
+        glfwSetCursorPosCallback
+        glfwSetDropCallback
         glfwSetErrorCallback
+        glfwSetFramebufferSizeCallback
+        glfwSetJoystickCallback
+        glfwSetKeyCallback
+        glfwSetMonitorCallback
+        glfwSetMouseButtonCallback
+        glfwSetScrollCallback
+        glfwSetWindowCloseCallback
+        glfwSetWindowFocusCallback
+        glfwSetWindowIconifyCallback
+        glfwSetWindowPosCallback
+        glfwSetWindowRefreshCallback
+        glfwSetWindowSizeCallback
         glfwSetGamma
         glfwSetGammaRamp
         glfwSetInputMode
-        glfwSetKeyCallback
         glfwSetTime
         glfwSetWindowAspectRatio
         glfwSetWindowIcon
