@@ -125,33 +125,249 @@ void joystickfun_callback(int joy_id, int event)
 //----------------------------------------------------------------
 
 // (* GLFWcharfun)(GLFWwindow*,unsigned int);
-void charfun_callback (GLFWwindow* window, GLFWcharfun cbfun)
+void charfun_callback (GLFWwindow* window, unsigned int codepoint)
 { 
+    dTHX;
+
+    dSP;
+
+    AV* winav;
+    int cvind = charfun;
+    SV** fetchval;
+    SV* charfunsv;
+
+    winav = glfwGetWindowUserPointer(window);
+    if (winav == (AV*) NULL)
+       croak("charfun_callback: winav is NULL");
+
+    fetchval = av_fetch(winav, cvind, 0);
+
+    if (! fetchval)
+       croak("charfun_callback: winav[charfun] is NULL");
+
+    charfunsv = *fetchval;
+
+    ENTER;
+    SAVETMPS;
+    PUSHMARK(SP);
+
+    XPUSHs(sv_2mortal(newSViv(PTR2IV(window))));
+    XPUSHs(sv_2mortal(newSVuv(codepoint)));
+
+    PUTBACK;
+
+    call_sv(charfunsv, G_VOID);
+
+    SPAGAIN;
+
+    FREETMPS;
+    LEAVE;
 }
 
 // (* GLFWcharmodsfun)(GLFWwindow*,unsigned int,int);
-void charmodsfun_callback (GLFWwindow* window, GLFWcharmodsfun cbfun)
+void charmodsfun_callback (GLFWwindow* window, unsigned int codepoint, int mods)
 { 
+    dTHX;
+
+    dSP;
+
+    AV* winav;
+    int cvind = charmodsfun;
+    SV** fetchval;
+    SV* charmodsfunsv;
+
+    winav = glfwGetWindowUserPointer(window);
+    if (winav == (AV*) NULL)
+       croak("charmodsfun_callback: winav is NULL");
+
+    fetchval = av_fetch(winav, cvind, 0);
+
+    if (! fetchval)
+       croak("charmodsfun_callback: winav[charmodsfun] is NULL");
+
+    charmodsfunsv = *fetchval;
+
+    ENTER;
+    SAVETMPS;
+    PUSHMARK(SP);
+
+    XPUSHs(sv_2mortal(newSViv(PTR2IV(window))));
+    XPUSHs(sv_2mortal(newSVuv(codepoint)));
+    XPUSHs(sv_2mortal(newSViv(mods)));
+
+    PUTBACK;
+
+    call_sv(charmodsfunsv, G_VOID);
+
+    SPAGAIN;
+
+    FREETMPS;
+    LEAVE;
 }
 
 // (* GLFWcursorenterfun)(GLFWwindow*,int);
-void cursorenterfun_callback (GLFWwindow* window, GLFWcursorenterfun cbfun)
+void cursorenterfun_callback (GLFWwindow* window, int entered)
 { 
+    dTHX;
+
+    dSP;
+
+    AV* winav;
+    int cvind = cursorenterfun;
+    SV** fetchval;
+    SV* cursorenterfunsv;
+
+    winav = glfwGetWindowUserPointer(window);
+    if (winav == (AV*) NULL)
+       croak("cursorenterfun_callback: winav is NULL");
+
+    fetchval = av_fetch(winav, cvind, 0);
+
+    if (! fetchval)
+       croak("cursorenterfun_callback: winav[cursorenterfun] is NULL");
+
+    cursorenterfunsv = *fetchval;
+
+    ENTER;
+    SAVETMPS;
+    PUSHMARK(SP);
+
+    XPUSHs(sv_2mortal(newSViv(PTR2IV(window))));
+    XPUSHs(sv_2mortal(newSViv(entered)));
+
+    PUTBACK;
+
+    call_sv(cursorenterfunsv, G_VOID);
+
+    SPAGAIN;
+
+    FREETMPS;
+    LEAVE;
 }
 
 // (* GLFWcursorposfun)(GLFWwindow*,double,double);
-void cursorposfun_callback (GLFWwindow* window, GLFWcursorposfun cbfun)
+void cursorposfun_callback (GLFWwindow* window, double xpos, double ypos)
 { 
+    dTHX;
+
+    dSP;
+
+    AV* winav;
+    int cvind = cursorposfun;
+    SV** fetchval;
+    SV* cursorposfunsv;
+
+    winav = glfwGetWindowUserPointer(window);
+    if (winav == (AV*) NULL)
+       croak("cursorposfun_callback: winav is NULL");
+
+    fetchval = av_fetch(winav, cvind, 0);
+
+    if (! fetchval)
+       croak("cursorposfun_callback: winav[cursorposfun] is NULL");
+
+    cursorposfunsv = *fetchval;
+
+    ENTER;
+    SAVETMPS;
+    PUSHMARK(SP);
+
+    XPUSHs(sv_2mortal(newSViv(PTR2IV(window))));
+    XPUSHs(sv_2mortal(newSVnv(xpos)));
+    XPUSHs(sv_2mortal(newSVnv(ypos)));
+
+    PUTBACK;
+
+    call_sv(cursorposfunsv, G_VOID);
+
+    SPAGAIN;
+
+    FREETMPS;
+    LEAVE;
 }
 
 // (* GLFWdropfun)(GLFWwindow*,int,const char**);
-void dropfun_callback (GLFWwindow* window, GLFWdropfun cbfun)
+void dropfun_callback (GLFWwindow* window, int count, const char** paths)
 { 
+    dTHX;
+
+    dSP;
+
+    AV* winav;
+    int cvind = dropfun;
+    SV** fetchval;
+    SV* dropfunsv;
+    int npath;
+
+    winav = glfwGetWindowUserPointer(window);
+    if (winav == (AV*) NULL)
+       croak("dropfun_callback: winav is NULL");
+
+    fetchval = av_fetch(winav, cvind, 0);
+
+    if (! fetchval)
+       croak("dropfun_callback: winav[dropfun] is NULL");
+
+    dropfunsv = *fetchval;
+
+    ENTER;
+    SAVETMPS;
+    PUSHMARK(SP);
+
+    XPUSHs(sv_2mortal(newSViv(PTR2IV(window))));
+    // XPUSHs(sv_2mortal(newSViv(count)));
+    for (npath=0; npath<count; npath++)
+       XPUSHs(sv_2mortal(newSVpv(paths[npath],0)));
+
+    PUTBACK;
+
+    call_sv(dropfunsv, G_VOID);
+
+    SPAGAIN;
+
+    FREETMPS;
+    LEAVE;
 }
 
 // (* GLFWframebuffersizefun)(GLFWwindow*,int,int);
-void framebuffersizefun_callback (GLFWwindow* window, GLFWframebuffersizefun cbfun)
+void framebuffersizefun_callback (GLFWwindow* window, int width, int height)
 { 
+    dTHX;
+
+    dSP;
+
+    AV* winav;
+    int cvind = framebuffersizefun;
+    SV** fetchval;
+    SV* framebuffersizefunsv;
+
+    winav = glfwGetWindowUserPointer(window);
+    if (winav == (AV*) NULL)
+       croak("framebuffersizefun_callback: winav is NULL");
+
+    fetchval = av_fetch(winav, cvind, 0);
+
+    if (! fetchval)
+       croak("framebuffersizefun_callback: winav[framebuffersizefun] is NULL");
+
+    framebuffersizefunsv = *fetchval;
+
+    ENTER;
+    SAVETMPS;
+    PUSHMARK(SP);
+
+    XPUSHs(sv_2mortal(newSViv(PTR2IV(window))));
+    XPUSHs(sv_2mortal(newSViv(width)));
+    XPUSHs(sv_2mortal(newSViv(height)));
+
+    PUTBACK;
+
+    call_sv(framebuffersizefunsv, G_VOID);
+
+    SPAGAIN;
+
+    FREETMPS;
+    LEAVE;
 }
 
 // void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
@@ -198,43 +414,326 @@ void keyfun_callback(GLFWwindow* window, int key, int scancode, int action, int 
 }
 
 // (* GLFWmousebuttonfun)(GLFWwindow*,int,int,int);
-void mousebuttonfun_callback (GLFWwindow* window, GLFWmousebuttonfun cbfun)
+void mousebuttonfun_callback (GLFWwindow* window, int button, int action, int mods)
 { 
+    dTHX;
+
+    dSP;
+
+    AV* winav;
+    int cvind = mousebuttonfun;
+    SV** fetchval;
+    SV* mousebuttonfunsv;
+
+    winav = glfwGetWindowUserPointer(window);
+    if (winav == (AV*) NULL)
+       croak("mousebuttonfun_callback: winav is NULL");
+
+    fetchval = av_fetch(winav, cvind, 0);
+
+    if (! fetchval)
+       croak("mousebuttonfun_callback: winav[mousebuttonfun] is NULL");
+
+    mousebuttonfunsv = *fetchval;
+
+    ENTER;
+    SAVETMPS;
+    PUSHMARK(SP);
+
+    XPUSHs(sv_2mortal(newSViv(PTR2IV(window))));
+    XPUSHs(sv_2mortal(newSViv(button)));
+    XPUSHs(sv_2mortal(newSViv(action)));
+    XPUSHs(sv_2mortal(newSViv(mods)));
+
+    PUTBACK;
+
+    call_sv(mousebuttonfunsv, G_VOID);
+
+    SPAGAIN;
+
+    FREETMPS;
+    LEAVE;
 }
 
 // (* GLFWscrollfun)(GLFWwindow*,double,double);
-void scrollfun_callback (GLFWwindow* window, GLFWscrollfun cbfun)
+void scrollfun_callback (GLFWwindow* window, double xoffset, double yoffset)
 { 
+    dTHX;
+
+    dSP;
+
+    AV* winav;
+    int cvind = scrollfun;
+    SV** fetchval;
+    SV* scrollfunsv;
+
+    winav = glfwGetWindowUserPointer(window);
+    if (winav == (AV*) NULL)
+       croak("scrollfun_callback: winav is NULL");
+
+    fetchval = av_fetch(winav, cvind, 0);
+
+    if (! fetchval)
+       croak("scrollfun_callback: winav[scrollfun] is NULL");
+
+    scrollfunsv = *fetchval;
+
+    ENTER;
+    SAVETMPS;
+    PUSHMARK(SP);
+
+    XPUSHs(sv_2mortal(newSViv(PTR2IV(window))));
+    XPUSHs(sv_2mortal(newSVnv(xoffset)));
+    XPUSHs(sv_2mortal(newSVnv(yoffset)));
+
+    PUTBACK;
+
+    call_sv(scrollfunsv, G_VOID);
+
+    SPAGAIN;
+
+    FREETMPS;
+    LEAVE;
 }
 
 // (* GLFWwindowclosefun)(GLFWwindow*);
-void windowclosefun_callback (GLFWwindow* window, GLFWwindowclosefun cbfun)
+void windowclosefun_callback (GLFWwindow* window)
 { 
+    dTHX;
+
+    dSP;
+
+    AV* winav;
+    int cvind = windowclosefun;
+    SV** fetchval;
+    SV* windowclosefunsv;
+
+    winav = glfwGetWindowUserPointer(window);
+    if (winav == (AV*) NULL)
+       croak("windowclosefun_callback: winav is NULL");
+
+    fetchval = av_fetch(winav, cvind, 0);
+
+    if (! fetchval)
+       croak("windowclosefun_callback: winav[windowclosefun] is NULL");
+
+    windowclosefunsv = *fetchval;
+
+    ENTER;
+    SAVETMPS;
+    PUSHMARK(SP);
+
+    XPUSHs(sv_2mortal(newSViv(PTR2IV(window))));
+
+    PUTBACK;
+
+    call_sv(windowclosefunsv, G_VOID);
+
+    SPAGAIN;
+
+    FREETMPS;
+    LEAVE;
 }
 
 // (* GLFWwindowfocusfun)(GLFWwindow*,int);
-void windowfocusfun_callback (GLFWwindow* window, GLFWwindowfocusfun cbfun)
+void windowfocusfun_callback (GLFWwindow* window, int focused)
 { 
+    dTHX;
+
+    dSP;
+
+    AV* winav;
+    int cvind = windowfocusfun;
+    SV** fetchval;
+    SV* windowfocusfunsv;
+
+    winav = glfwGetWindowUserPointer(window);
+    if (winav == (AV*) NULL)
+       croak("windowfocusfun_callback: winav is NULL");
+
+    fetchval = av_fetch(winav, cvind, 0);
+
+    if (! fetchval)
+       croak("windowfocusfun_callback: winav[windowfocusfun] is NULL");
+
+    windowfocusfunsv = *fetchval;
+
+    ENTER;
+    SAVETMPS;
+    PUSHMARK(SP);
+
+    XPUSHs(sv_2mortal(newSViv(PTR2IV(window))));
+    XPUSHs(sv_2mortal(newSViv(focused)));
+
+    PUTBACK;
+
+    call_sv(windowfocusfunsv, G_VOID);
+
+    SPAGAIN;
+
+    FREETMPS;
+    LEAVE;
 }
 
 // (* GLFWwindowiconifyfun)(GLFWwindow*,int);
-void windowiconifyfun_callback (GLFWwindow* window, GLFWwindowiconifyfun cbfun)
+void windowiconifyfun_callback (GLFWwindow* window, int iconified)
 { 
+    dTHX;
+
+    dSP;
+
+    AV* winav;
+    int cvind = windowiconifyfun;
+    SV** fetchval;
+    SV* windowiconifyfunsv;
+
+    winav = glfwGetWindowUserPointer(window);
+    if (winav == (AV*) NULL)
+       croak("windowiconifyfun_callback: winav is NULL");
+
+    fetchval = av_fetch(winav, cvind, 0);
+
+    if (! fetchval)
+       croak("windowiconifyfun_callback: winav[windowiconifyfun] is NULL");
+
+    windowiconifyfunsv = *fetchval;
+
+    ENTER;
+    SAVETMPS;
+    PUSHMARK(SP);
+
+    XPUSHs(sv_2mortal(newSViv(PTR2IV(window))));
+    XPUSHs(sv_2mortal(newSViv(iconified)));
+
+    PUTBACK;
+
+    call_sv(windowiconifyfunsv, G_VOID);
+
+    SPAGAIN;
+
+    FREETMPS;
+    LEAVE;
 }
 
 // (* GLFWwindowposfun)(GLFWwindow*,int,int);
-void windowposfun_callback (GLFWwindow* window, GLFWwindowposfun cbfun)
+void windowposfun_callback (GLFWwindow* window, int xpos, int ypos)
 { 
+    dTHX;
+
+    dSP;
+
+    AV* winav;
+    int cvind = windowposfun;
+    SV** fetchval;
+    SV* windowposfunsv;
+
+    winav = glfwGetWindowUserPointer(window);
+    if (winav == (AV*) NULL)
+       croak("windowposfun_callback: winav is NULL");
+
+    fetchval = av_fetch(winav, cvind, 0);
+
+    if (! fetchval)
+       croak("windowposfun_callback: winav[windowposfun] is NULL");
+
+    windowposfunsv = *fetchval;
+
+    ENTER;
+    SAVETMPS;
+    PUSHMARK(SP);
+
+    XPUSHs(sv_2mortal(newSViv(PTR2IV(window))));
+    XPUSHs(sv_2mortal(newSViv(xpos)));
+    XPUSHs(sv_2mortal(newSViv(ypos)));
+
+    PUTBACK;
+
+    call_sv(windowposfunsv, G_VOID);
+
+    SPAGAIN;
+
+    FREETMPS;
+    LEAVE;
 }
 
 // (* GLFWwindowrefreshfun)(GLFWwindow*);
-void windowrefreshfun_callback (GLFWwindow* window, GLFWwindowrefreshfun cbfun)
+void windowrefreshfun_callback (GLFWwindow* window)
 { 
+    dTHX;
+
+    dSP;
+
+    AV* winav;
+    int cvind = windowrefreshfun;
+    SV** fetchval;
+    SV* windowrefreshfunsv;
+
+    winav = glfwGetWindowUserPointer(window);
+    if (winav == (AV*) NULL)
+       croak("windowrefreshfun_callback: winav is NULL");
+
+    fetchval = av_fetch(winav, cvind, 0);
+
+    if (! fetchval)
+       croak("windowrefreshfun_callback: winav[windowrefreshfun] is NULL");
+
+    windowrefreshfunsv = *fetchval;
+
+    ENTER;
+    SAVETMPS;
+    PUSHMARK(SP);
+
+    XPUSHs(sv_2mortal(newSViv(PTR2IV(window))));
+
+    PUTBACK;
+
+    call_sv(windowrefreshfunsv, G_VOID);
+
+    SPAGAIN;
+
+    FREETMPS;
+    LEAVE;
 }
 
 // (* GLFWwindowsizefun)(GLFWwindow*,int,int);
-void windowsizefun_callback (GLFWwindow* window, GLFWwindowsizefun cbfun)
+void windowsizefun_callback (GLFWwindow* window, int width, int height)
 { 
+    dTHX;
+
+    dSP;
+
+    AV* winav;
+    int cvind = windowsizefun;
+    SV** fetchval;
+    SV* windowsizefunsv;
+
+    winav = glfwGetWindowUserPointer(window);
+    if (winav == (AV*) NULL)
+       croak("windowsizefun_callback: winav is NULL");
+
+    fetchval = av_fetch(winav, cvind, 0);
+
+    if (! fetchval)
+       croak("windowsizefun_callback: winav[windowsizefun] is NULL");
+
+    windowsizefunsv = *fetchval;
+
+    ENTER;
+    SAVETMPS;
+    PUSHMARK(SP);
+
+    XPUSHs(sv_2mortal(newSViv(PTR2IV(window))));
+    XPUSHs(sv_2mortal(newSViv(width)));
+    XPUSHs(sv_2mortal(newSViv(height)));
+
+    PUTBACK;
+
+    call_sv(windowsizefunsv, G_VOID);
+
+    SPAGAIN;
+
+    FREETMPS;
+    LEAVE;
 }
 
 
@@ -245,41 +744,167 @@ MODULE = OpenGL::GLFW           PACKAGE = OpenGL::GLFW
 #// Set Per-window callbacks
 #//----------------------------------------------------
 
-#// SV*
-#// glfwSetWindowPosCallback(window, cbfun);
-#//       GLFWwindow* window
-#//       SV * cbfun
+#// want SV*
+void
+glfwSetWindowPosCallback(window, cbfun);
+      GLFWwindow* window
+      SV * cbfun
+   CODE:
+     void * upoint;
+     int cvind = windowposfun;
+     int i;
+     SV** fetchval;
+     // Get user pointer
+     upoint = glfwGetWindowUserPointer(window);
+     if (NULL == upoint) {
+        upoint = newAV();
+	av_fill((AV*)upoint,AVlen);
+	for (i=0; i<AVlen; i++)
+	   av_store((AV*)upoint,i,&PL_sv_undef);
+        glfwSetWindowUserPointer(window,upoint);
+     }
+     av_store((AV*)upoint,windowposfun,cbfun);
+     // Enable the C wrapper windowposfun callback
+     glfwSetWindowPosCallback(window, windowposfun_callback);
 
 
-#// SV*
-#// glfwSetWindowSizeCallback(window, cbfun);
-#//       GLFWwindow* window
-#//       SV * cbfun
+#// want SV*
+void
+glfwSetWindowSizeCallback(window, cbfun);
+      GLFWwindow* window
+      SV * cbfun
+   CODE:
+     void * upoint;
+     int cvind = windowsizefun;
+     int i;
+     SV** fetchval;
+     // Get user pointer
+     upoint = glfwGetWindowUserPointer(window);
+     if (NULL == upoint) {
+        upoint = newAV();
+	av_fill((AV*)upoint,AVlen);
+	for (i=0; i<AVlen; i++)
+	   av_store((AV*)upoint,i,&PL_sv_undef);
+        glfwSetWindowUserPointer(window,upoint);
+     }
+     av_store((AV*)upoint,windowsizefun,cbfun);
+     // Enable the C wrapper windowsizefun callback
+     glfwSetWindowSizeCallback(window, windowsizefun_callback);
 
-#// SV*
-#// glfwSetWindowCloseCallback(window, cbfun);
-#//       GLFWwindow* window
-#//       SV * cbfun
+#// want SV*
+void
+glfwSetWindowCloseCallback(window, cbfun);
+      GLFWwindow* window
+      SV * cbfun
+   CODE:
+     void * upoint;
+     int cvind = windowclosefun;
+     int i;
+     SV** fetchval;
+     // Get user pointer
+     upoint = glfwGetWindowUserPointer(window);
+     if (NULL == upoint) {
+        upoint = newAV();
+	av_fill((AV*)upoint,AVlen);
+	for (i=0; i<AVlen; i++)
+	   av_store((AV*)upoint,i,&PL_sv_undef);
+        glfwSetWindowUserPointer(window,upoint);
+     }
+     av_store((AV*)upoint,windowclosefun,cbfun);
+     // Enable the C wrapper windowclosefun callback
+     glfwSetWindowCloseCallback(window, windowclosefun_callback);
 
-#// SV*
-#// glfwSetWindowRefreshCallback(window, cbfun);
-#//       GLFWwindow* window
-#//       SV * cbfun
+#// want SV*
+void
+glfwSetWindowRefreshCallback(window, cbfun);
+      GLFWwindow* window
+      SV * cbfun
+   CODE:
+     void * upoint;
+     int cvind = windowrefreshfun;
+     int i;
+     SV** fetchval;
+     // Get user pointer
+     upoint = glfwGetWindowUserPointer(window);
+     if (NULL == upoint) {
+        upoint = newAV();
+	av_fill((AV*)upoint,AVlen);
+	for (i=0; i<AVlen; i++)
+	   av_store((AV*)upoint,i,&PL_sv_undef);
+        glfwSetWindowUserPointer(window,upoint);
+     }
+     av_store((AV*)upoint,windowrefreshfun,cbfun);
+     // Enable the C wrapper windowrefreshfun callback
+     glfwSetWindowRefreshCallback(window, windowrefreshfun_callback);
 
-#// SV*
-#// glfwSetWindowFocusCallback(window, cbfun);
-#//       GLFWwindow* window
-#//       SV * cbfun
+#// want SV*
+void
+glfwSetWindowFocusCallback(window, cbfun);
+      GLFWwindow* window
+      SV * cbfun
+   CODE:
+     void * upoint;
+     int cvind = windowfocusfun;
+     int i;
+     SV** fetchval;
+     // Get user pointer
+     upoint = glfwGetWindowUserPointer(window);
+     if (NULL == upoint) {
+        upoint = newAV();
+	av_fill((AV*)upoint,AVlen);
+	for (i=0; i<AVlen; i++)
+	   av_store((AV*)upoint,i,&PL_sv_undef);
+        glfwSetWindowUserPointer(window,upoint);
+     }
+     av_store((AV*)upoint,windowfocusfun,cbfun);
+     // Enable the C wrapper windowfocusfun callback
+     glfwSetWindowFocusCallback(window, windowfocusfun_callback);
 
-#// SV*
-#// glfwSetWindowIconifyCallback(window, cbfun);
-#//       GLFWwindow* window
-#//       SV * cbfun
+#// want SV*
+void
+glfwSetWindowIconifyCallback(window, cbfun);
+      GLFWwindow* window
+      SV * cbfun
+   CODE:
+     void * upoint;
+     int cvind = windowiconifyfun;
+     int i;
+     SV** fetchval;
+     // Get user pointer
+     upoint = glfwGetWindowUserPointer(window);
+     if (NULL == upoint) {
+        upoint = newAV();
+	av_fill((AV*)upoint,AVlen);
+	for (i=0; i<AVlen; i++)
+	   av_store((AV*)upoint,i,&PL_sv_undef);
+        glfwSetWindowUserPointer(window,upoint);
+     }
+     av_store((AV*)upoint,windowiconifyfun,cbfun);
+     // Enable the C wrapper windowiconifyfun callback
+     glfwSetWindowIconifyCallback(window, windowiconifyfun_callback);
 
-#// SV*
-#// glfwSetFramebufferSizeCallback(window, cbfun);
-#//       GLFWwindow* window
-#//       SV * cbfun
+#// want SV*
+void
+glfwSetFramebufferSizeCallback(window, cbfun);
+      GLFWwindow* window
+      SV * cbfun
+   CODE:
+     void * upoint;
+     int cvind = framebuffersizefun;
+     int i;
+     SV** fetchval;
+     // Get user pointer
+     upoint = glfwGetWindowUserPointer(window);
+     if (NULL == upoint) {
+        upoint = newAV();
+	av_fill((AV*)upoint,AVlen);
+	for (i=0; i<AVlen; i++)
+	   av_store((AV*)upoint,i,&PL_sv_undef);
+        glfwSetWindowUserPointer(window,upoint);
+     }
+     av_store((AV*)upoint,framebuffersizefun,cbfun);
+     // Enable the C wrapper framebuffersizefun callback
+     glfwSetFramebufferSizeCallback(window, framebuffersizefun_callback);
 
 #// want SV*
 void
@@ -298,47 +923,173 @@ glfwSetKeyCallback(window, cbfun);
 	av_fill((AV*)upoint,AVlen);
 	for (i=0; i<AVlen; i++)
 	   av_store((AV*)upoint,i,&PL_sv_undef);
+        glfwSetWindowUserPointer(window,upoint);
      }
      av_store((AV*)upoint,keyfun,cbfun);
      // Enable the C wrapper keyfun callback
      glfwSetKeyCallback(window, keyfun_callback);
-     glfwSetWindowUserPointer(window,upoint);
 
 
-#// SV*
-#// glfwSetCharCallback(window, cbfun);
-#//       GLFWwindow* window
-#//       SV * cbfun
+#// want SV*
+void
+glfwSetCharCallback(window, cbfun);
+      GLFWwindow* window
+      SV * cbfun
+   CODE:
+     void * upoint;
+     int cvind = charfun;
+     int i;
+     SV** fetchval;
+     // Get user pointer
+     upoint = glfwGetWindowUserPointer(window);
+     if (NULL == upoint) {
+        upoint = newAV();
+	av_fill((AV*)upoint,AVlen);
+	for (i=0; i<AVlen; i++)
+	   av_store((AV*)upoint,i,&PL_sv_undef);
+        glfwSetWindowUserPointer(window,upoint);
+     }
+     av_store((AV*)upoint,charfun,cbfun);
+     // Enable the C wrapper charfun callback
+     glfwSetCharCallback(window, charfun_callback);
 
-#// SV*
-#// glfwSetCharModsCallback(window, cbfun);
-#//       GLFWwindow* window
-#//       SV * cbfun
+#// want SV*
+void
+glfwSetCharModsCallback(window, cbfun);
+      GLFWwindow* window
+      SV * cbfun
+   CODE:
+     void * upoint;
+     int cvind = charmodsfun;
+     int i;
+     SV** fetchval;
+     // Get user pointer
+     upoint = glfwGetWindowUserPointer(window);
+     if (NULL == upoint) {
+        upoint = newAV();
+	av_fill((AV*)upoint,AVlen);
+	for (i=0; i<AVlen; i++)
+	   av_store((AV*)upoint,i,&PL_sv_undef);
+        glfwSetWindowUserPointer(window,upoint);
+     }
+     av_store((AV*)upoint,charmodsfun,cbfun);
+     // Enable the C wrapper charmodsfun callback
+     glfwSetCharModsCallback(window, charmodsfun_callback);
 
-#// SV*
-#// glfwSetMouseButtonCallback(window, cbfun);
-#//       GLFWwindow* window
-#//       SV * cbfun
+#// want SV*
+void
+glfwSetMouseButtonCallback(window, cbfun);
+      GLFWwindow* window
+      SV * cbfun
+   CODE:
+     void * upoint;
+     int cvind = mousebuttonfun;
+     int i;
+     SV** fetchval;
+     // Get user pointer
+     upoint = glfwGetWindowUserPointer(window);
+     if (NULL == upoint) {
+        upoint = newAV();
+	av_fill((AV*)upoint,AVlen);
+	for (i=0; i<AVlen; i++)
+	   av_store((AV*)upoint,i,&PL_sv_undef);
+        glfwSetWindowUserPointer(window,upoint);
+     }
+     av_store((AV*)upoint,mousebuttonfun,cbfun);
+     // Enable the C wrapper mousebuttonfun callback
+     glfwSetMouseButtonCallback(window, mousebuttonfun_callback);
 
-#// SV*
-#// glfwSetCursorPosCallback(window, cbfun);
-#//       GLFWwindow* window
-#//       SV * cbfun
+#// want SV*
+void
+glfwSetCursorPosCallback(window, cbfun);
+      GLFWwindow* window
+      SV * cbfun
+   CODE:
+     void * upoint;
+     int cvind = cursorposfun;
+     int i;
+     SV** fetchval;
+     // Get user pointer
+     upoint = glfwGetWindowUserPointer(window);
+     if (NULL == upoint) {
+        upoint = newAV();
+	av_fill((AV*)upoint,AVlen);
+	for (i=0; i<AVlen; i++)
+	   av_store((AV*)upoint,i,&PL_sv_undef);
+        glfwSetWindowUserPointer(window,upoint);
+     }
+     av_store((AV*)upoint,cursorposfun,cbfun);
+     // Enable the C wrapper cursorposfun callback
+     glfwSetCursorPosCallback(window, cursorposfun_callback);
 
-#// SV*
-#// glfwSetCursorEnterCallback(window, cbfun);
-#//       GLFWwindow* window
-#//       SV * cbfun
+#// want SV*
+void
+glfwSetCursorEnterCallback(window, cbfun);
+      GLFWwindow* window
+      SV * cbfun
+   CODE:
+     void * upoint;
+     int cvind = cursorenterfun;
+     int i;
+     SV** fetchval;
+     // Get user pointer
+     upoint = glfwGetWindowUserPointer(window);
+     if (NULL == upoint) {
+        upoint = newAV();
+	av_fill((AV*)upoint,AVlen);
+	for (i=0; i<AVlen; i++)
+	   av_store((AV*)upoint,i,&PL_sv_undef);
+        glfwSetWindowUserPointer(window,upoint);
+     }
+     av_store((AV*)upoint,cursorenterfun,cbfun);
+     // Enable the C wrapper cursorenterfun callback
+     glfwSetCursorEnterCallback(window, cursorenterfun_callback);
 
-#// SV*
-#// glfwSetScrollCallback(window, cbfun);
-#//       GLFWwindow* window
-#//       SV * cbfun
+#// want SV*
+void
+glfwSetScrollCallback(window, cbfun);
+      GLFWwindow* window
+      SV * cbfun
+   CODE:
+     void * upoint;
+     int cvind = scrollfun;
+     int i;
+     SV** fetchval;
+     // Get user pointer
+     upoint = glfwGetWindowUserPointer(window);
+     if (NULL == upoint) {
+        upoint = newAV();
+	av_fill((AV*)upoint,AVlen);
+	for (i=0; i<AVlen; i++)
+	   av_store((AV*)upoint,i,&PL_sv_undef);
+        glfwSetWindowUserPointer(window,upoint);
+     }
+     av_store((AV*)upoint,scrollfun,cbfun);
+     // Enable the C wrapper scrollfun callback
+     glfwSetScrollCallback(window, scrollfun_callback);
 
-#// SV*
-#// glfwSetDropCallback(window, cbfun);
-#//       GLFWwindow* window
-#//       SV * cbfun
+#// want SV*
+void
+glfwSetDropCallback(window, cbfun);
+      GLFWwindow* window
+      SV * cbfun
+   CODE:
+     void * upoint;
+     int cvind = dropfun;
+     int i;
+     SV** fetchval;
+     // Get user pointer
+     upoint = glfwGetWindowUserPointer(window);
+     if (NULL == upoint) {
+        upoint = newAV();
+	av_fill((AV*)upoint,AVlen);
+	for (i=0; i<AVlen; i++)
+	   av_store((AV*)upoint,i,&PL_sv_undef);
+        glfwSetWindowUserPointer(window,upoint);
+     }
+     av_store((AV*)upoint,dropfun,cbfun);
+     // Enable the C wrapper dropfun callback
+     glfwSetDropCallback(window, dropfun_callback);
 
 
 #//----------------------------------------------------
