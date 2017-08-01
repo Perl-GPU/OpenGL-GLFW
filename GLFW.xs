@@ -1172,8 +1172,19 @@ glfwSetCursor(GLFWwindow* window, GLFWcursor* cursor);
 GLFWmonitor*
 glfwGetPrimaryMonitor();
 
-GLFWmonitor**
-glfwGetMonitors(OUTLIST int count);
+#// GLFWmonitor**
+#// glfwGetMonitors(OUTLIST int count);
+void
+glfwGetMonitors();
+   PREINIT:
+     GLFWmonitor** monitors = NULL;
+     int n, count;
+   PPCODE:
+     monitors = glfwGetMonitors(&count);
+     printf("glfwGetMonitors() returns %d values\n",count);
+     for (n=0; n<count; n++)
+        XPUSHs(sv_2mortal(newSViv(PTR2IV(monitors+n))));
+
 
 const char*
 glfwGetMonitorName(GLFWmonitor* monitor);
