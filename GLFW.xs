@@ -1195,11 +1195,60 @@ void
 glfwSetGammaRamp(GLFWmonitor* monitor, const GLFWgammaramp* ramp);
 
 
-const GLFWvidmode*
+#// const GLFWvidmode*
+HV*
 glfwGetVideoMode(GLFWmonitor* monitor);
+   PREINIT:
+     HV * hash;
+     const GLFWvidmode* vidm = NULL;
+   CODE:
+     // get video mode
+     vidm = glfwGetVideoMode(monitor);
+     if (!vidm) croak("null pointer as GLFWvidmode");
 
-const GLFWvidmode*
-glfwGetVideoModes(GLFWmonitor* monitor, OUTLIST int count);
+     // pack vidmode into hash
+     hash = (HV*)sv_2mortal((SV*)newHV());
+     hv_store(hash, "width",        5, newSViv(vidm->width),       0);
+     hv_store(hash, "height",       6, newSViv(vidm->height),      0);
+     hv_store(hash, "redBits",      7, newSViv(vidm->redBits),     0);
+     hv_store(hash, "greenBits",    9, newSViv(vidm->greenBits),   0);
+     hv_store(hash, "blueBits",     8, newSViv(vidm->blueBits),    0);
+     hv_store(hash, "refreshRate", 11, newSViv(vidm->refreshRate), 0);
+
+     // return hash reference
+     RETVAL = hash;
+   OUTPUT:
+     RETVAL
+
+
+#// const GLFWvidmode*
+void
+glfwGetVideoModes(GLFWmonitor* monitor);
+   PREINIT:
+     HV * hash;
+     const GLFWvidmode* vidms = NULL;
+     int nmodes = -1;
+     int n;
+   PPCODE:
+     // get video modes
+     vidms = glfwGetVideoModes(monitor,&nmodes);
+     if (!vidms) croak("null pointer as GLFWvidmode-s");
+     if (nmodes <= 0) croak("no GLFWvidmode-s returnd");
+
+     for (n=0; n<nmodes; n++) {
+        // pack vidmode into hash
+        hash = (HV*)sv_2mortal((SV*)newHV());
+        hv_store(hash, "width",        5, newSViv((vidms+n)->width),       0);
+        hv_store(hash, "height",       6, newSViv((vidms+n)->height),      0);
+        hv_store(hash, "redBits",      7, newSViv((vidms+n)->redBits),     0);
+        hv_store(hash, "greenBits",    9, newSViv((vidms+n)->greenBits),   0);
+        hv_store(hash, "blueBits",     8, newSViv((vidms+n)->blueBits),    0);
+        hv_store(hash, "refreshRate", 11, newSViv((vidms+n)->refreshRate), 0);
+
+	// push onto output stack
+        XPUSHs( newRV_noinc((SV*)hash) );
+     }
+
 
 #//-------------------------------------------------------------------
 #// GLFWmonitor with GLFWwindow routines
