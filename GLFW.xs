@@ -758,9 +758,9 @@ glfwSetWindowPosCallback(window, cbfun);
      upoint = glfwGetWindowUserPointer(window);
      if (NULL == upoint) {
         upoint = newAV();
-	av_fill((AV*)upoint,AVlen);
-	for (i=0; i<AVlen; i++)
-	   av_store((AV*)upoint,i,&PL_sv_undef);
+        av_fill((AV*)upoint,AVlen);
+        for (i=0; i<AVlen; i++)
+           av_store((AV*)upoint,i,&PL_sv_undef);
         glfwSetWindowUserPointer(window,upoint);
      }
      av_store((AV*)upoint,windowposfun,cbfun);
@@ -782,9 +782,9 @@ glfwSetWindowSizeCallback(window, cbfun);
      upoint = glfwGetWindowUserPointer(window);
      if (NULL == upoint) {
         upoint = newAV();
-	av_fill((AV*)upoint,AVlen);
-	for (i=0; i<AVlen; i++)
-	   av_store((AV*)upoint,i,&PL_sv_undef);
+        av_fill((AV*)upoint,AVlen);
+        for (i=0; i<AVlen; i++)
+           av_store((AV*)upoint,i,&PL_sv_undef);
         glfwSetWindowUserPointer(window,upoint);
      }
      av_store((AV*)upoint,windowsizefun,cbfun);
@@ -805,9 +805,9 @@ glfwSetWindowCloseCallback(window, cbfun);
      upoint = glfwGetWindowUserPointer(window);
      if (NULL == upoint) {
         upoint = newAV();
-	av_fill((AV*)upoint,AVlen);
-	for (i=0; i<AVlen; i++)
-	   av_store((AV*)upoint,i,&PL_sv_undef);
+        av_fill((AV*)upoint,AVlen);
+        for (i=0; i<AVlen; i++)
+           av_store((AV*)upoint,i,&PL_sv_undef);
         glfwSetWindowUserPointer(window,upoint);
      }
      av_store((AV*)upoint,windowclosefun,cbfun);
@@ -828,9 +828,9 @@ glfwSetWindowRefreshCallback(window, cbfun);
      upoint = glfwGetWindowUserPointer(window);
      if (NULL == upoint) {
         upoint = newAV();
-	av_fill((AV*)upoint,AVlen);
-	for (i=0; i<AVlen; i++)
-	   av_store((AV*)upoint,i,&PL_sv_undef);
+        av_fill((AV*)upoint,AVlen);
+        for (i=0; i<AVlen; i++)
+           av_store((AV*)upoint,i,&PL_sv_undef);
         glfwSetWindowUserPointer(window,upoint);
      }
      av_store((AV*)upoint,windowrefreshfun,cbfun);
@@ -851,9 +851,9 @@ glfwSetWindowFocusCallback(window, cbfun);
      upoint = glfwGetWindowUserPointer(window);
      if (NULL == upoint) {
         upoint = newAV();
-	av_fill((AV*)upoint,AVlen);
-	for (i=0; i<AVlen; i++)
-	   av_store((AV*)upoint,i,&PL_sv_undef);
+        av_fill((AV*)upoint,AVlen);
+        for (i=0; i<AVlen; i++)
+           av_store((AV*)upoint,i,&PL_sv_undef);
         glfwSetWindowUserPointer(window,upoint);
      }
      av_store((AV*)upoint,windowfocusfun,cbfun);
@@ -874,9 +874,9 @@ glfwSetWindowIconifyCallback(window, cbfun);
      upoint = glfwGetWindowUserPointer(window);
      if (NULL == upoint) {
         upoint = newAV();
-	av_fill((AV*)upoint,AVlen);
-	for (i=0; i<AVlen; i++)
-	   av_store((AV*)upoint,i,&PL_sv_undef);
+        av_fill((AV*)upoint,AVlen);
+        for (i=0; i<AVlen; i++)
+           av_store((AV*)upoint,i,&PL_sv_undef);
         glfwSetWindowUserPointer(window,upoint);
      }
      av_store((AV*)upoint,windowiconifyfun,cbfun);
@@ -897,9 +897,9 @@ glfwSetFramebufferSizeCallback(window, cbfun);
      upoint = glfwGetWindowUserPointer(window);
      if (NULL == upoint) {
         upoint = newAV();
-	av_fill((AV*)upoint,AVlen);
-	for (i=0; i<AVlen; i++)
-	   av_store((AV*)upoint,i,&PL_sv_undef);
+        av_fill((AV*)upoint,AVlen);
+        for (i=0; i<AVlen; i++)
+           av_store((AV*)upoint,i,&PL_sv_undef);
         glfwSetWindowUserPointer(window,upoint);
      }
      av_store((AV*)upoint,framebuffersizefun,cbfun);
@@ -920,9 +920,9 @@ glfwSetKeyCallback(window, cbfun);
      upoint = glfwGetWindowUserPointer(window);
      if (NULL == upoint) {
         upoint = newAV();
-	av_fill((AV*)upoint,AVlen);
-	for (i=0; i<AVlen; i++)
-	   av_store((AV*)upoint,i,&PL_sv_undef);
+        av_fill((AV*)upoint,AVlen);
+        for (i=0; i<AVlen; i++)
+           av_store((AV*)upoint,i,&PL_sv_undef);
         glfwSetWindowUserPointer(window,upoint);
      }
      av_store((AV*)upoint,keyfun,cbfun);
@@ -944,9 +944,9 @@ glfwSetCharCallback(window, cbfun);
      upoint = glfwGetWindowUserPointer(window);
      if (NULL == upoint) {
         upoint = newAV();
-	av_fill((AV*)upoint,AVlen);
-	for (i=0; i<AVlen; i++)
-	   av_store((AV*)upoint,i,&PL_sv_undef);
+        av_fill((AV*)upoint,AVlen);
+        for (i=0; i<AVlen; i++)
+           av_store((AV*)upoint,i,&PL_sv_undef);
         glfwSetWindowUserPointer(window,upoint);
      }
      av_store((AV*)upoint,charfun,cbfun);
@@ -967,9 +967,9 @@ glfwSetCharModsCallback(window, cbfun);
      upoint = glfwGetWindowUserPointer(window);
      if (NULL == upoint) {
         upoint = newAV();
-	av_fill((AV*)upoint,AVlen);
-	for (i=0; i<AVlen; i++)
-	   av_store((AV*)upoint,i,&PL_sv_undef);
+        av_fill((AV*)upoint,AVlen);
+        for (i=0; i<AVlen; i++)
+           av_store((AV*)upoint,i,&PL_sv_undef);
         glfwSetWindowUserPointer(window,upoint);
      }
      av_store((AV*)upoint,charmodsfun,cbfun);
@@ -990,9 +990,9 @@ glfwSetMouseButtonCallback(window, cbfun);
      upoint = glfwGetWindowUserPointer(window);
      if (NULL == upoint) {
         upoint = newAV();
-	av_fill((AV*)upoint,AVlen);
-	for (i=0; i<AVlen; i++)
-	   av_store((AV*)upoint,i,&PL_sv_undef);
+        av_fill((AV*)upoint,AVlen);
+        for (i=0; i<AVlen; i++)
+           av_store((AV*)upoint,i,&PL_sv_undef);
         glfwSetWindowUserPointer(window,upoint);
      }
      av_store((AV*)upoint,mousebuttonfun,cbfun);
@@ -1013,9 +1013,9 @@ glfwSetCursorPosCallback(window, cbfun);
      upoint = glfwGetWindowUserPointer(window);
      if (NULL == upoint) {
         upoint = newAV();
-	av_fill((AV*)upoint,AVlen);
-	for (i=0; i<AVlen; i++)
-	   av_store((AV*)upoint,i,&PL_sv_undef);
+        av_fill((AV*)upoint,AVlen);
+        for (i=0; i<AVlen; i++)
+           av_store((AV*)upoint,i,&PL_sv_undef);
         glfwSetWindowUserPointer(window,upoint);
      }
      av_store((AV*)upoint,cursorposfun,cbfun);
@@ -1036,9 +1036,9 @@ glfwSetCursorEnterCallback(window, cbfun);
      upoint = glfwGetWindowUserPointer(window);
      if (NULL == upoint) {
         upoint = newAV();
-	av_fill((AV*)upoint,AVlen);
-	for (i=0; i<AVlen; i++)
-	   av_store((AV*)upoint,i,&PL_sv_undef);
+        av_fill((AV*)upoint,AVlen);
+        for (i=0; i<AVlen; i++)
+           av_store((AV*)upoint,i,&PL_sv_undef);
         glfwSetWindowUserPointer(window,upoint);
      }
      av_store((AV*)upoint,cursorenterfun,cbfun);
@@ -1059,9 +1059,9 @@ glfwSetScrollCallback(window, cbfun);
      upoint = glfwGetWindowUserPointer(window);
      if (NULL == upoint) {
         upoint = newAV();
-	av_fill((AV*)upoint,AVlen);
-	for (i=0; i<AVlen; i++)
-	   av_store((AV*)upoint,i,&PL_sv_undef);
+        av_fill((AV*)upoint,AVlen);
+        for (i=0; i<AVlen; i++)
+           av_store((AV*)upoint,i,&PL_sv_undef);
         glfwSetWindowUserPointer(window,upoint);
      }
      av_store((AV*)upoint,scrollfun,cbfun);
@@ -1082,9 +1082,9 @@ glfwSetDropCallback(window, cbfun);
      upoint = glfwGetWindowUserPointer(window);
      if (NULL == upoint) {
         upoint = newAV();
-	av_fill((AV*)upoint,AVlen);
-	for (i=0; i<AVlen; i++)
-	   av_store((AV*)upoint,i,&PL_sv_undef);
+        av_fill((AV*)upoint,AVlen);
+        for (i=0; i<AVlen; i++)
+           av_store((AV*)upoint,i,&PL_sv_undef);
         glfwSetWindowUserPointer(window,upoint);
      }
      av_store((AV*)upoint,dropfun,cbfun);
@@ -1256,7 +1256,7 @@ glfwGetVideoModes(GLFWmonitor* monitor);
         hv_store(hash, "blueBits",     8, newSViv((vidms+n)->blueBits),    0);
         hv_store(hash, "refreshRate", 11, newSViv((vidms+n)->refreshRate), 0);
 
-	// push onto output stack
+        // push onto output stack
         XPUSHs( newRV_noinc((SV*)hash) );
      }
 
@@ -1414,11 +1414,31 @@ glfwGetKeyName(int key, int scancode);
 const char*
 glfwGetVersionString();
 
-const float*
-glfwGetJoystickAxes(int joy, OUTLIST int count);
+#// const float*
+#// glfwGetJoystickAxes(int joy, OUTLIST int count);
+void
+glfwGetJoystickAxes(int joy);
+   PREINIT:
+     const float* axes = NULL;
+     int n, count;
+   PPCODE:
+     axes = glfwGetJoystickAxes(joy,&count);
+     printf("glfwGetJoystickAxes() returns %d values\n",count);
+     for (n=0; n<count; n++)
+        XPUSHs(sv_2mortal(newSVnv(*(axes+n))));
 
-const unsigned char*
-glfwGetJoystickButtons(int joy, OUTLIST int count);
+#// const unsigned char*
+#// glfwGetJoystickButtons(int joy, OUTLIST int count);
+void
+glfwGetJoystickButtons(int joy);
+   PREINIT:
+     const unsigned char* buttons = NULL;
+     int n, count;
+   PPCODE:
+     buttons = glfwGetJoystickButtons(joy,&count);
+     printf("glfwGetJoystickButtons() returns %d values\n",count);
+     for (n=0; n<count; n++)
+        XPUSHs(sv_2mortal(newSViv(*(buttons+n))));
 
 int
 glfwInit();
