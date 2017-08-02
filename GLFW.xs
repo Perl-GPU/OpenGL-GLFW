@@ -1199,11 +1199,52 @@ glfwGetMonitorPos(GLFWmonitor* monitor, OUTLIST int xpos, OUTLIST int ypos);
 void
 glfwSetGamma(GLFWmonitor* monitor, float gamma);
 
-const GLFWgammaramp*
+#// const GLFWgammaramp*
+HV*
 glfwGetGammaRamp(GLFWmonitor* monitor);
+   PREINIT:
+     HV * hash;
+     const GLFWgammaramp * gramp = NULL;
+   CODE:
+     // get video mode
+     gramp = glfwGetGammaRamp(monitor);
+     if (!gramp) croak("null pointer as GLFWgammaramp");
 
+     // pack gammaramp into hash
+     hash = (HV*)sv_2mortal((SV*)newHV());
+     hv_store(hash, "size",  4, newSViv(gramp->size),  0);   // implict
+     hv_store(hash, "red",   3, newSVpvn((char*)gramp->red,  2*gramp->size), 0);
+     hv_store(hash, "green", 5, newSVpvn((char*)gramp->green,2*gramp->size), 0);
+     hv_store(hash, "blue",  4, newSVpvn((char*)gramp->blue, 2*gramp->size), 0);
+
+     // return hash reference
+     RETVAL = hash;
+   OUTPUT:
+     RETVAL
+
+#// void
+#// glfwSetGammaRamp(GLFWmonitor* monitor, const GLFWgammaramp* ramp);
 void
-glfwSetGammaRamp(GLFWmonitor* monitor, const GLFWgammaramp* ramp);
+glfwSetGammaRamp(GLFWmonitor* monitor, SV* ramp);
+   PREINIT:
+     GLFWgammaramp rampstruct;
+     HV * ramphv;
+     SV** svp;
+     int size;
+   CODE:
+   if ( SvROK(ramp) && SvTYPE(SvRV(ramp))==SVt_PVHV) {
+      ramphv = (HV *)SvRV(ramp);
+   }
+   if (svp = hv_fetch(ramphv, "size",  4, 0))
+      rampstruct.size = size = SvIV(*svp);
+   if (svp = hv_fetch(ramphv, "red",   3, 0))
+      rampstruct.red = (unsigned short *)SvPV_nolen(*svp);
+   if (svp = hv_fetch(ramphv, "green", 5, 0))
+      rampstruct.green = (unsigned short *)SvPV_nolen(*svp);
+   if (svp = hv_fetch(ramphv, "blue",  4, 0))
+      rampstruct.blue = (unsigned short *)SvPV_nolen(*svp);
+   glfwSetGammaRamp(monitor,&rampstruct);
+     
 
 
 #// const GLFWvidmode*
