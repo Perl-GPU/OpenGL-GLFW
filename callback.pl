@@ -162,6 +162,11 @@ my $windowsize_callback = sub {
    printf STDERR "WindowSize callback: ($width,$height)\n";
 };
 
+my $joystick_callback = sub {
+   my ($joy_id,$event) = @_;
+   printf STDERR "Joystick callback: joy_id=$joy_id with event=$event\n";
+};
+
 
 # int main(void) {
 #
@@ -200,6 +205,8 @@ glfwSetKeyCallback($window, $key_callback);
 # glfwSetMouseButtonCallback($window, $mousebutton_callback);
 
 # glfwSetScrollCallback($window, $scroll_callback);
+
+# glfwSetJoystickCallback($joystick_callback);
 
 glfwSetWindowCloseCallback($window, $windowclose_callback);
 
