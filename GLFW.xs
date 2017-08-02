@@ -1154,22 +1154,25 @@ glfwSetJoystickCallback(cbfun)
 void
 glfwSetWindowIcon(GLFWwindow* window, SV* image, ...);
    PREINIT:
-     GLFWimage imgstruct;
+     GLFWimage* imgstruct;
      HV * imghv;
      SV** svp;
-     int width, height;
+     int width, height, n;
      unsigned char* pixels;
    CODE:
+   // loop over input image structure hashes
    if ( SvROK(image) && SvTYPE(SvRV(image))==SVt_PVHV) {
       imghv = (HV *)SvRV(image);
+      New(0, imgstruct, sizeof(GLFWimage), GLFWimage);
+      SAVEFREEPV(imgstruct);
    }
    if (svp = hv_fetch(imghv, "width", 5, 0))
-      imgstruct.width = width = SvIV(*svp);
+      imgstruct->width = width = SvIV(*svp);
    if (svp = hv_fetch(imghv, "height", 6, 0))
-      imgstruct.height = height = SvIV(*svp);
+      imgstruct->height = height = SvIV(*svp);
    if (svp = hv_fetch(imghv, "pixels", 6, 0))
-      imgstruct.pixels = pixels = (unsigned char *)SvPV_nolen(*svp);
-   glfwSetWindowIcon(window,1,&imgstruct);  // TODO: handle more than one image
+      imgstruct->pixels = pixels = (unsigned char *)SvPV_nolen(*svp);
+   glfwSetWindowIcon(window,1,imgstruct);  // TODO: handle more than one image
 
 
 #//-------------------------------------------------------------------
