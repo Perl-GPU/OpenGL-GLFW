@@ -1148,14 +1148,56 @@ glfwSetJoystickCallback(cbfun)
 #//-------------------------------------------------------------------
 #// Uses GLFWimage
 #//-------------------------------------------------------------------
+
+#// void
+#// glfwSetWindowIcon(GLFWwindow* window, int count, const GLFWimage* images);
 void
-glfwSetWindowIcon(GLFWwindow* window, int count, const GLFWimage* images);
+glfwSetWindowIcon(GLFWwindow* window, SV* image, ...);
+   PREINIT:
+     GLFWimage imgstruct;
+     HV * imghv;
+     SV** svp;
+     int width, height;
+     unsigned char* pixels;
+   CODE:
+   if ( SvROK(image) && SvTYPE(SvRV(image))==SVt_PVHV) {
+      imghv = (HV *)SvRV(image);
+   }
+   if (svp = hv_fetch(imghv, "width", 5, 0))
+      imgstruct.width = width = SvIV(*svp);
+   if (svp = hv_fetch(imghv, "height", 6, 0))
+      imgstruct.height = height = SvIV(*svp);
+   if (svp = hv_fetch(imghv, "pixels", 6, 0))
+      imgstruct.pixels = pixels = (unsigned char *)SvPV_nolen(*svp);
+   glfwSetWindowIcon(window,1,&imgstruct);  // TODO: handle more than one image
+
 
 #//-------------------------------------------------------------------
 #// GLFWcursor routines
 #//-------------------------------------------------------------------
+#// GLFWcursor*
+#// glfwCreateCursor(const GLFWimage* image, int xhot, int yhot);
 GLFWcursor*
-glfwCreateCursor(const GLFWimage* image, int xhot, int yhot);
+glfwCreateCursor(SV* image, int xhot, int yhot);
+   PREINIT:
+     GLFWimage imgstruct;
+     HV * imghv;
+     SV** svp;
+     int width, height;
+     unsigned char* pixels;
+   CODE:
+     if ( SvROK(image) && SvTYPE(SvRV(image))==SVt_PVHV) {
+        imghv = (HV *)SvRV(image);
+     }
+     if (svp = hv_fetch(imghv, "width", 5, 0))
+        imgstruct.width = width = SvIV(*svp);
+     if (svp = hv_fetch(imghv, "height", 6, 0))
+        imgstruct.height = height = SvIV(*svp);
+     if (svp = hv_fetch(imghv, "pixels", 6, 0))
+        imgstruct.pixels = pixels = (unsigned char *)SvPV_nolen(*svp);
+     RETVAL = glfwCreateCursor(&imgstruct, xhot, yhot);
+   OUTPUT:
+     RETVAL
 
 GLFWcursor*
 glfwCreateStandardCursor(int shape);
