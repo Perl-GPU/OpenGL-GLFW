@@ -1543,7 +1543,23 @@ void
 glfwSetWindowTitle(GLFWwindow* window, const char* title);
 
 void
-glfwSetWindowUserPointer(GLFWwindow* window, void* pointer);
+glfwSetWindowUserPointer(GLFWwindow* window, SV* reference);
+   PREINIT:
+     void* upoint;
+     int i;
+   CODE:
+     // Get user pointer
+     upoint = glfwGetWindowUserPointer(window);
+     if (NULL == upoint) {
+        upoint = newAV();
+        av_fill((AV*)upoint,AVlen);
+        for (i=0; i<AVlen; i++)
+           av_store((AV*)upoint,i,&PL_sv_undef);
+        glfwSetWindowUserPointer(window,upoint);
+     }
+     if (!SvROK(reference))
+        croak("glfwSetWindowUserPointer: pointer must be a perl reference\n");
+     av_store((AV*)upoint,userpointer,newSVsv(reference));
 
 void
 glfwShowWindow(GLFWwindow* window);
@@ -1551,8 +1567,28 @@ glfwShowWindow(GLFWwindow* window);
 void
 glfwSwapBuffers(GLFWwindow* window);
 
-void*
+SV*
 glfwGetWindowUserPointer(GLFWwindow* window);
+   PREINIT:
+     SV* upoint;
+     SV** sav;
+     int i;
+   CODE:
+     // Get user pointer
+     upoint = glfwGetWindowUserPointer(window);
+     if (NULL == upoint) {
+        upoint = (SV *)newAV();
+        av_fill((AV*)upoint,AVlen);
+        for (i=0; i<AVlen; i++)
+           av_store((AV*)upoint,i,&PL_sv_undef);
+        glfwSetWindowUserPointer(window,upoint);
+	RETVAL = &PL_sv_undef;
+     } else {
+        sav = av_fetch((AV*)upoint,userpointer,0);
+	RETVAL = *sav;
+     }
+   OUTPUT:
+     RETVAL
 
 #//-------------------------------------------------------------------
 #// Standard types routines
