@@ -1,10 +1,10 @@
-GLFWcursor *           T_PTR
+GLFWcursor *           T_PTRREF
+GLFWmonitor *          T_PTRREF
+GLFWwindow *           T_PTRREF
+
 GLFWgammaramp *        T_PTR
 GLFWimage *            T_PTR
-GLFWmonitor *          T_PTR
-GLFWmonitor * *        T_PTR
 GLFWvidmode *          T_PTR
-GLFWwindow *           T_PTR
 
 const GLFWgammaramp *  T_PTR
 const GLFWimage *      T_PTR

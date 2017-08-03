@@ -7,6 +7,7 @@ use warnings;
 #
 # Declare GLFW constants with the constant pragma for perl
 #
+use constant NULL => \0;
 use constant GLFW_VERSION_MAJOR => 3;
 use constant GLFW_VERSION_MINOR => 2;
 use constant GLFW_VERSION_REVISION => 1;
@@ -590,6 +591,7 @@ our %EXPORT_TAGS = ( 'all' => [ qw(
         glfwGetPhysicalDevicePresentationSupport
         glfwGetProcAddress
         glfwGetRequiredInstanceExtensions
+        NULL
         ) ] );
 
 our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
@@ -604,6 +606,8 @@ require XSLoader;
 XSLoader::load('OpenGL::GLFW', $VERSION);
 
 # Preloaded methods go here.
+
+## sub NULL { return \0 }
 
 1;
 __END__

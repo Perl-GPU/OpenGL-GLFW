@@ -74,7 +74,7 @@ void monitorfun_callback(GLFWmonitor* monitor, int event)
     SAVETMPS;
     PUSHMARK(SP);
 
-    XPUSHs(sv_2mortal(newSViv(PTR2IV(monitor))));
+    XPUSHs(sv_2mortal(newRV_noinc(newSViv(PTR2IV(monitor)))));
     XPUSHs(sv_2mortal(newSViv(event)));
 
     PUTBACK;
@@ -151,7 +151,7 @@ void charfun_callback (GLFWwindow* window, unsigned int codepoint)
     SAVETMPS;
     PUSHMARK(SP);
 
-    XPUSHs(sv_2mortal(newSViv(PTR2IV(window))));
+    XPUSHs(sv_2mortal(newRV_noinc(newSViv(PTR2IV(window)))));
     XPUSHs(sv_2mortal(newSVuv(codepoint)));
 
     PUTBACK;
@@ -191,7 +191,7 @@ void charmodsfun_callback (GLFWwindow* window, unsigned int codepoint, int mods)
     SAVETMPS;
     PUSHMARK(SP);
 
-    XPUSHs(sv_2mortal(newSViv(PTR2IV(window))));
+    XPUSHs(sv_2mortal(newRV_noinc(newSViv(PTR2IV(window)))));
     XPUSHs(sv_2mortal(newSVuv(codepoint)));
     XPUSHs(sv_2mortal(newSViv(mods)));
 
@@ -232,7 +232,7 @@ void cursorenterfun_callback (GLFWwindow* window, int entered)
     SAVETMPS;
     PUSHMARK(SP);
 
-    XPUSHs(sv_2mortal(newSViv(PTR2IV(window))));
+    XPUSHs(sv_2mortal(newRV_noinc(newSViv(PTR2IV(window)))));
     XPUSHs(sv_2mortal(newSViv(entered)));
 
     PUTBACK;
@@ -272,7 +272,7 @@ void cursorposfun_callback (GLFWwindow* window, double xpos, double ypos)
     SAVETMPS;
     PUSHMARK(SP);
 
-    XPUSHs(sv_2mortal(newSViv(PTR2IV(window))));
+    XPUSHs(sv_2mortal(newRV_noinc(newSViv(PTR2IV(window)))));
     XPUSHs(sv_2mortal(newSVnv(xpos)));
     XPUSHs(sv_2mortal(newSVnv(ypos)));
 
@@ -314,7 +314,7 @@ void dropfun_callback (GLFWwindow* window, int count, const char** paths)
     SAVETMPS;
     PUSHMARK(SP);
 
-    XPUSHs(sv_2mortal(newSViv(PTR2IV(window))));
+    XPUSHs(sv_2mortal(newRV_noinc(newSViv(PTR2IV(window)))));
     // XPUSHs(sv_2mortal(newSViv(count)));
     for (npath=0; npath<count; npath++)
        XPUSHs(sv_2mortal(newSVpv(paths[npath],0)));
@@ -356,7 +356,7 @@ void framebuffersizefun_callback (GLFWwindow* window, int width, int height)
     SAVETMPS;
     PUSHMARK(SP);
 
-    XPUSHs(sv_2mortal(newSViv(PTR2IV(window))));
+    XPUSHs(sv_2mortal(newRV_noinc(newSViv(PTR2IV(window)))));
     XPUSHs(sv_2mortal(newSViv(width)));
     XPUSHs(sv_2mortal(newSViv(height)));
 
@@ -397,7 +397,7 @@ void keyfun_callback(GLFWwindow* window, int key, int scancode, int action, int 
     SAVETMPS;
     PUSHMARK(SP);
 
-    XPUSHs(sv_2mortal(newSViv(PTR2IV(window))));
+    XPUSHs(sv_2mortal(newRV_noinc(newSViv(PTR2IV(window)))));
     XPUSHs(sv_2mortal(newSViv(key)));
     XPUSHs(sv_2mortal(newSViv(scancode)));
     XPUSHs(sv_2mortal(newSViv(action)));
@@ -440,7 +440,7 @@ void mousebuttonfun_callback (GLFWwindow* window, int button, int action, int mo
     SAVETMPS;
     PUSHMARK(SP);
 
-    XPUSHs(sv_2mortal(newSViv(PTR2IV(window))));
+    XPUSHs(sv_2mortal(newRV_noinc(newSViv(PTR2IV(window)))));
     XPUSHs(sv_2mortal(newSViv(button)));
     XPUSHs(sv_2mortal(newSViv(action)));
     XPUSHs(sv_2mortal(newSViv(mods)));
@@ -482,7 +482,7 @@ void scrollfun_callback (GLFWwindow* window, double xoffset, double yoffset)
     SAVETMPS;
     PUSHMARK(SP);
 
-    XPUSHs(sv_2mortal(newSViv(PTR2IV(window))));
+    XPUSHs(sv_2mortal(newRV_noinc(newSViv(PTR2IV(window)))));
     XPUSHs(sv_2mortal(newSVnv(xoffset)));
     XPUSHs(sv_2mortal(newSVnv(yoffset)));
 
@@ -523,7 +523,7 @@ void windowclosefun_callback (GLFWwindow* window)
     SAVETMPS;
     PUSHMARK(SP);
 
-    XPUSHs(sv_2mortal(newSViv(PTR2IV(window))));
+    XPUSHs(sv_2mortal(newRV_noinc(newSViv(PTR2IV(window)))));
 
     PUTBACK;
 
@@ -562,7 +562,7 @@ void windowfocusfun_callback (GLFWwindow* window, int focused)
     SAVETMPS;
     PUSHMARK(SP);
 
-    XPUSHs(sv_2mortal(newSViv(PTR2IV(window))));
+    XPUSHs(sv_2mortal(newRV_noinc(newSViv(PTR2IV(window)))));
     XPUSHs(sv_2mortal(newSViv(focused)));
 
     PUTBACK;
@@ -602,7 +602,7 @@ void windowiconifyfun_callback (GLFWwindow* window, int iconified)
     SAVETMPS;
     PUSHMARK(SP);
 
-    XPUSHs(sv_2mortal(newSViv(PTR2IV(window))));
+    XPUSHs(sv_2mortal(newRV_noinc(newSViv(PTR2IV(window)))));
     XPUSHs(sv_2mortal(newSViv(iconified)));
 
     PUTBACK;
@@ -642,7 +642,7 @@ void windowposfun_callback (GLFWwindow* window, int xpos, int ypos)
     SAVETMPS;
     PUSHMARK(SP);
 
-    XPUSHs(sv_2mortal(newSViv(PTR2IV(window))));
+    XPUSHs(sv_2mortal(newRV_noinc(newSViv(PTR2IV(window)))));
     XPUSHs(sv_2mortal(newSViv(xpos)));
     XPUSHs(sv_2mortal(newSViv(ypos)));
 
@@ -683,7 +683,7 @@ void windowrefreshfun_callback (GLFWwindow* window)
     SAVETMPS;
     PUSHMARK(SP);
 
-    XPUSHs(sv_2mortal(newSViv(PTR2IV(window))));
+    XPUSHs(sv_2mortal(newRV_noinc(newSViv(PTR2IV(window)))));
 
     PUTBACK;
 
@@ -722,7 +722,7 @@ void windowsizefun_callback (GLFWwindow* window, int width, int height)
     SAVETMPS;
     PUSHMARK(SP);
 
-    XPUSHs(sv_2mortal(newSViv(PTR2IV(window))));
+    XPUSHs(sv_2mortal(newRV_noinc(newSViv(PTR2IV(window)))));
     XPUSHs(sv_2mortal(newSViv(width)));
     XPUSHs(sv_2mortal(newSViv(height)));
 
@@ -1252,7 +1252,7 @@ glfwGetMonitors();
      monitors = glfwGetMonitors(&count);
      printf("glfwGetMonitors() returns %d values\n",count);
      for (n=0; n<count; n++)
-        XPUSHs(sv_2mortal(newSViv(PTR2IV(monitors+n))));
+        XPUSHs(sv_2mortal(newRV_noinc(newSViv(PTR2IV(monitors+n)))));
 
 
 const char*

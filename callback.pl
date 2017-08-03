@@ -184,7 +184,7 @@ die "glfwInit failed, $!\n" if !glfwInit();
 # TODO: implement NULL pointer (is 0 or undef enough?)
 # $window = glfwCreateWindow(640, 480, "Simple example", NULL, NULL);
 #
-$window = glfwCreateWindow(640, 480, "Simple example", 0, 0);
+$window = glfwCreateWindow(640, 480, "Simple example", NULL, NULL);
 unless (defined $window) {
     glfwTerminate();
     die "glfwCreateWindow failed, $!\n";
