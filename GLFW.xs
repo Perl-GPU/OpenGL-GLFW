@@ -750,10 +750,14 @@ glfwSetWindowPosCallback(window, cbfun);
       GLFWwindow* window
       SV * cbfun
    CODE:
+     void (*fpstatus)();
      void * upoint;
      int cvind = windowposfun;
      int i;
      SV** fetchval;
+     // Die if used in non-void context
+     if (GIMME_V != G_VOID)
+        croak("Callback set in non-void context!  Return values not implemented");
      // Get user pointer
      upoint = glfwGetWindowUserPointer(window);
      if (NULL == upoint) {
@@ -765,7 +769,7 @@ glfwSetWindowPosCallback(window, cbfun);
      }
      av_store((AV*)upoint,windowposfun,cbfun);
      // Enable the C wrapper windowposfun callback
-     glfwSetWindowPosCallback(window, windowposfun_callback);
+     fpstatus = glfwSetWindowPosCallback(window, windowposfun_callback);
 
 
 #// want SV*
@@ -774,10 +778,14 @@ glfwSetWindowSizeCallback(window, cbfun);
       GLFWwindow* window
       SV * cbfun
    CODE:
+     void (*fpstatus)();
      void * upoint;
      int cvind = windowsizefun;
      int i;
      SV** fetchval;
+     // Die if used in non-void context
+     if (GIMME_V != G_VOID)
+        croak("Callback set in non-void context!  Return values not implemented");
      // Get user pointer
      upoint = glfwGetWindowUserPointer(window);
      if (NULL == upoint) {
@@ -789,7 +797,7 @@ glfwSetWindowSizeCallback(window, cbfun);
      }
      av_store((AV*)upoint,windowsizefun,cbfun);
      // Enable the C wrapper windowsizefun callback
-     glfwSetWindowSizeCallback(window, windowsizefun_callback);
+     fpstatus = glfwSetWindowSizeCallback(window, windowsizefun_callback);
 
 #// want SV*
 void
@@ -797,10 +805,14 @@ glfwSetWindowCloseCallback(window, cbfun);
       GLFWwindow* window
       SV * cbfun
    CODE:
+     void (*fpstatus)();
      void * upoint;
      int cvind = windowclosefun;
      int i;
      SV** fetchval;
+     // Die if used in non-void context
+     if (GIMME_V != G_VOID)
+        croak("Callback set in non-void context!  Return values not implemented");
      // Get user pointer
      upoint = glfwGetWindowUserPointer(window);
      if (NULL == upoint) {
@@ -812,7 +824,7 @@ glfwSetWindowCloseCallback(window, cbfun);
      }
      av_store((AV*)upoint,windowclosefun,cbfun);
      // Enable the C wrapper windowclosefun callback
-     glfwSetWindowCloseCallback(window, windowclosefun_callback);
+     fpstatus = glfwSetWindowCloseCallback(window, windowclosefun_callback);
 
 #// want SV*
 void
@@ -820,10 +832,14 @@ glfwSetWindowRefreshCallback(window, cbfun);
       GLFWwindow* window
       SV * cbfun
    CODE:
+     void (*fpstatus)();
      void * upoint;
      int cvind = windowrefreshfun;
      int i;
      SV** fetchval;
+     // Die if used in non-void context
+     if (GIMME_V != G_VOID)
+        croak("Callback set in non-void context!  Return values not implemented");
      // Get user pointer
      upoint = glfwGetWindowUserPointer(window);
      if (NULL == upoint) {
@@ -835,7 +851,7 @@ glfwSetWindowRefreshCallback(window, cbfun);
      }
      av_store((AV*)upoint,windowrefreshfun,cbfun);
      // Enable the C wrapper windowrefreshfun callback
-     glfwSetWindowRefreshCallback(window, windowrefreshfun_callback);
+     fpstatus = glfwSetWindowRefreshCallback(window, windowrefreshfun_callback);
 
 #// want SV*
 void
@@ -843,10 +859,14 @@ glfwSetWindowFocusCallback(window, cbfun);
       GLFWwindow* window
       SV * cbfun
    CODE:
+     void (*fpstatus)();
      void * upoint;
      int cvind = windowfocusfun;
      int i;
      SV** fetchval;
+     // Die if used in non-void context
+     if (GIMME_V != G_VOID)
+        croak("Callback set in non-void context!  Return values not implemented");
      // Get user pointer
      upoint = glfwGetWindowUserPointer(window);
      if (NULL == upoint) {
@@ -858,7 +878,7 @@ glfwSetWindowFocusCallback(window, cbfun);
      }
      av_store((AV*)upoint,windowfocusfun,cbfun);
      // Enable the C wrapper windowfocusfun callback
-     glfwSetWindowFocusCallback(window, windowfocusfun_callback);
+     fpstatus = glfwSetWindowFocusCallback(window, windowfocusfun_callback);
 
 #// want SV*
 void
@@ -866,10 +886,14 @@ glfwSetWindowIconifyCallback(window, cbfun);
       GLFWwindow* window
       SV * cbfun
    CODE:
+     void (*fpstatus)();
      void * upoint;
      int cvind = windowiconifyfun;
      int i;
      SV** fetchval;
+     // Die if used in non-void context
+     if (GIMME_V != G_VOID)
+        croak("Callback set in non-void context!  Return values not implemented");
      // Get user pointer
      upoint = glfwGetWindowUserPointer(window);
      if (NULL == upoint) {
@@ -881,7 +905,7 @@ glfwSetWindowIconifyCallback(window, cbfun);
      }
      av_store((AV*)upoint,windowiconifyfun,cbfun);
      // Enable the C wrapper windowiconifyfun callback
-     glfwSetWindowIconifyCallback(window, windowiconifyfun_callback);
+     fpstatus = glfwSetWindowIconifyCallback(window, windowiconifyfun_callback);
 
 #// want SV*
 void
@@ -889,10 +913,14 @@ glfwSetFramebufferSizeCallback(window, cbfun);
       GLFWwindow* window
       SV * cbfun
    CODE:
+     void (*fpstatus)();
      void * upoint;
      int cvind = framebuffersizefun;
      int i;
      SV** fetchval;
+     // Die if used in non-void context
+     if (GIMME_V != G_VOID)
+        croak("Callback set in non-void context!  Return values not implemented");
      // Get user pointer
      upoint = glfwGetWindowUserPointer(window);
      if (NULL == upoint) {
@@ -904,7 +932,7 @@ glfwSetFramebufferSizeCallback(window, cbfun);
      }
      av_store((AV*)upoint,framebuffersizefun,cbfun);
      // Enable the C wrapper framebuffersizefun callback
-     glfwSetFramebufferSizeCallback(window, framebuffersizefun_callback);
+     fpstatus = glfwSetFramebufferSizeCallback(window, framebuffersizefun_callback);
 
 #// want SV*
 void
@@ -912,10 +940,14 @@ glfwSetKeyCallback(window, cbfun);
       GLFWwindow* window
       SV * cbfun
    CODE:
+     void (*fpstatus)();
      void * upoint;
      int cvind = keyfun;
      int i;
      SV** fetchval;
+     // Die if used in non-void context
+     if (GIMME_V != G_VOID)
+        croak("Callback set in non-void context!  Return values not implemented");
      // Get user pointer
      upoint = glfwGetWindowUserPointer(window);
      if (NULL == upoint) {
@@ -927,7 +959,7 @@ glfwSetKeyCallback(window, cbfun);
      }
      av_store((AV*)upoint,keyfun,cbfun);
      // Enable the C wrapper keyfun callback
-     glfwSetKeyCallback(window, keyfun_callback);
+     fpstatus = glfwSetKeyCallback(window, keyfun_callback);
 
 
 #// want SV*
@@ -936,10 +968,14 @@ glfwSetCharCallback(window, cbfun);
       GLFWwindow* window
       SV * cbfun
    CODE:
+     void (*fpstatus)();
      void * upoint;
      int cvind = charfun;
      int i;
      SV** fetchval;
+     // Die if used in non-void context
+     if (GIMME_V != G_VOID)
+        croak("Callback set in non-void context!  Return values not implemented");
      // Get user pointer
      upoint = glfwGetWindowUserPointer(window);
      if (NULL == upoint) {
@@ -951,7 +987,7 @@ glfwSetCharCallback(window, cbfun);
      }
      av_store((AV*)upoint,charfun,cbfun);
      // Enable the C wrapper charfun callback
-     glfwSetCharCallback(window, charfun_callback);
+     fpstatus = glfwSetCharCallback(window, charfun_callback);
 
 #// want SV*
 void
@@ -959,10 +995,14 @@ glfwSetCharModsCallback(window, cbfun);
       GLFWwindow* window
       SV * cbfun
    CODE:
+     void (*fpstatus)();
      void * upoint;
      int cvind = charmodsfun;
      int i;
      SV** fetchval;
+     // Die if used in non-void context
+     if (GIMME_V != G_VOID)
+        croak("Callback set in non-void context!  Return values not implemented");
      // Get user pointer
      upoint = glfwGetWindowUserPointer(window);
      if (NULL == upoint) {
@@ -974,7 +1014,7 @@ glfwSetCharModsCallback(window, cbfun);
      }
      av_store((AV*)upoint,charmodsfun,cbfun);
      // Enable the C wrapper charmodsfun callback
-     glfwSetCharModsCallback(window, charmodsfun_callback);
+     fpstatus = glfwSetCharModsCallback(window, charmodsfun_callback);
 
 #// want SV*
 void
@@ -982,10 +1022,14 @@ glfwSetMouseButtonCallback(window, cbfun);
       GLFWwindow* window
       SV * cbfun
    CODE:
+     void (*fpstatus)();
      void * upoint;
      int cvind = mousebuttonfun;
      int i;
      SV** fetchval;
+     // Die if used in non-void context
+     if (GIMME_V != G_VOID)
+        croak("Callback set in non-void context!  Return values not implemented");
      // Get user pointer
      upoint = glfwGetWindowUserPointer(window);
      if (NULL == upoint) {
@@ -997,7 +1041,7 @@ glfwSetMouseButtonCallback(window, cbfun);
      }
      av_store((AV*)upoint,mousebuttonfun,cbfun);
      // Enable the C wrapper mousebuttonfun callback
-     glfwSetMouseButtonCallback(window, mousebuttonfun_callback);
+     fpstatus = glfwSetMouseButtonCallback(window, mousebuttonfun_callback);
 
 #// want SV*
 void
@@ -1005,10 +1049,14 @@ glfwSetCursorPosCallback(window, cbfun);
       GLFWwindow* window
       SV * cbfun
    CODE:
+     void (*fpstatus)();
      void * upoint;
      int cvind = cursorposfun;
      int i;
      SV** fetchval;
+     // Die if used in non-void context
+     if (GIMME_V != G_VOID)
+        croak("Callback set in non-void context!  Return values not implemented");
      // Get user pointer
      upoint = glfwGetWindowUserPointer(window);
      if (NULL == upoint) {
@@ -1020,7 +1068,7 @@ glfwSetCursorPosCallback(window, cbfun);
      }
      av_store((AV*)upoint,cursorposfun,cbfun);
      // Enable the C wrapper cursorposfun callback
-     glfwSetCursorPosCallback(window, cursorposfun_callback);
+     fpstatus = glfwSetCursorPosCallback(window, cursorposfun_callback);
 
 #// want SV*
 void
@@ -1028,10 +1076,14 @@ glfwSetCursorEnterCallback(window, cbfun);
       GLFWwindow* window
       SV * cbfun
    CODE:
+     void (*fpstatus)();
      void * upoint;
      int cvind = cursorenterfun;
      int i;
      SV** fetchval;
+     // Die if used in non-void context
+     if (GIMME_V != G_VOID)
+        croak("Callback set in non-void context!  Return values not implemented");
      // Get user pointer
      upoint = glfwGetWindowUserPointer(window);
      if (NULL == upoint) {
@@ -1043,7 +1095,7 @@ glfwSetCursorEnterCallback(window, cbfun);
      }
      av_store((AV*)upoint,cursorenterfun,cbfun);
      // Enable the C wrapper cursorenterfun callback
-     glfwSetCursorEnterCallback(window, cursorenterfun_callback);
+     fpstatus = glfwSetCursorEnterCallback(window, cursorenterfun_callback);
 
 #// want SV*
 void
@@ -1051,10 +1103,14 @@ glfwSetScrollCallback(window, cbfun);
       GLFWwindow* window
       SV * cbfun
    CODE:
+     void (*fpstatus)();
      void * upoint;
      int cvind = scrollfun;
      int i;
      SV** fetchval;
+     // Die if used in non-void context
+     if (GIMME_V != G_VOID)
+        croak("Callback set in non-void context!  Return values not implemented");
      // Get user pointer
      upoint = glfwGetWindowUserPointer(window);
      if (NULL == upoint) {
@@ -1066,7 +1122,7 @@ glfwSetScrollCallback(window, cbfun);
      }
      av_store((AV*)upoint,scrollfun,cbfun);
      // Enable the C wrapper scrollfun callback
-     glfwSetScrollCallback(window, scrollfun_callback);
+     fpstatus = glfwSetScrollCallback(window, scrollfun_callback);
 
 #// want SV*
 void
@@ -1074,10 +1130,14 @@ glfwSetDropCallback(window, cbfun);
       GLFWwindow* window
       SV * cbfun
    CODE:
+     void (*fpstatus)();
      void * upoint;
      int cvind = dropfun;
      int i;
      SV** fetchval;
+     // Die if used in non-void context
+     if (GIMME_V != G_VOID)
+        croak("Callback set in non-void context!  Return values not implemented");
      // Get user pointer
      upoint = glfwGetWindowUserPointer(window);
      if (NULL == upoint) {
@@ -1089,7 +1149,7 @@ glfwSetDropCallback(window, cbfun);
      }
      av_store((AV*)upoint,dropfun,cbfun);
      // Enable the C wrapper dropfun callback
-     glfwSetDropCallback(window, dropfun_callback);
+     fpstatus = glfwSetDropCallback(window, dropfun_callback);
 
 
 #//----------------------------------------------------
@@ -1101,6 +1161,10 @@ void
 glfwSetErrorCallback(cbfun)
      SV * cbfun
    CODE:
+     void (*fpstatus)();
+     // Die if used in non-void context
+     if (GIMME_V != G_VOID)
+        croak("Callback set in non-void context!  Return values not implemented");
      // Need to fix return of previous CV
      // which was causing a segfault in re.pl
      //
@@ -1110,13 +1174,17 @@ glfwSetErrorCallback(cbfun)
         SvSetSV(errorfunsv, cbfun);
      }
      // Enable the C wrapper errorfun callback
-     glfwSetErrorCallback(errorfun_callback);
+     fpstatus = glfwSetErrorCallback(errorfun_callback);
 
 #// want to return SV*
 void
 glfwSetMonitorCallback(cbfun)
      SV * cbfun
    CODE:
+     void (*fpstatus)();
+     // Die if used in non-void context
+     if (GIMME_V != G_VOID)
+        croak("Callback set in non-void context!  Return values not implemented");
      // Need to fix return of previous CV
      // which was causing a segfault in re.pl
      //
@@ -1126,13 +1194,17 @@ glfwSetMonitorCallback(cbfun)
         SvSetSV(monitorfunsv, cbfun);
      }
      // Enable the C wrapper errorfun callback
-     glfwSetMonitorCallback(monitorfun_callback);
+     fpstatus = glfwSetMonitorCallback(monitorfun_callback);
 
 #// want to return SV*
 void
 glfwSetJoystickCallback(cbfun)
      SV * cbfun
    CODE:
+     void (*fpstatus)();
+     // Die if used in non-void context
+     if (GIMME_V != G_VOID)
+        croak("Callback set in non-void context!  Return values not implemented");
      // Need to fix return of previous CV
      // which was causing a segfault in re.pl
      //
@@ -1142,7 +1214,7 @@ glfwSetJoystickCallback(cbfun)
         SvSetSV(joystickfunsv, cbfun);
      }
      // Enable the C wrapper errorfun callback
-     glfwSetJoystickCallback(joystickfun_callback);
+     fpstatus = glfwSetJoystickCallback(joystickfun_callback);
 
 
 #//-------------------------------------------------------------------
@@ -1162,7 +1234,7 @@ glfwSetWindowIcon(GLFWwindow* window, ...);
      int width, height, n, numimages;
      unsigned char* pixels;
    CODE:
-     printf("glfwSetWindowIcon got %d items\n", items);
+     // printf("glfwSetWindowIcon got %d items\n", items);
      if (items == 1) {
         glfwSetWindowIcon(window, 0, NULL);
      } else if (1 < items && items < 10) {
