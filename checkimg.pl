@@ -192,13 +192,13 @@ glfwSwapInterval(1);
 use PDL; # make things easy!
 use PDL::NiceSlice;
 
-my $icon16 = zeros(4,16,16);
+my $icon16 = zeros(4,16,16);  # red
 $icon16(0) .= 255;
 $icon16(3) .= 255;
-my $icon32 = zeros(4,32,32);
+my $icon32 = zeros(4,32,32);  # green
 $icon32(1) .= 255;
 $icon32(3) .= 255;
-my $icon48 = zeros(4,48,48);
+my $icon48 = zeros(4,48,48);  # blue
 $icon48(2) .= 255;
 $icon48(3) .= 255;
 
@@ -206,7 +206,7 @@ $img16 = { width => $icon16->dim(0), height => $icon16->dim(1), pixels => pack('
 $img32 = { width => $icon32->dim(0), height => $icon32->dim(1), pixels => pack('C*',$icon32->list) };
 $img48 = { width => $icon48->dim(0), height => $icon48->dim(1), pixels => pack('C*',$icon48->list) };
 
-glfwSetWindowIcon($window,$img32);
+glfwSetWindowIcon($window,$img16,$img32,$img48);
 
 #-----------------------------------------------------------
 #  NOTE: OpenGL error checks have been omitted for brevity

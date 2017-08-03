@@ -1152,27 +1152,51 @@ glfwSetJoystickCallback(cbfun)
 #// void
 #// glfwSetWindowIcon(GLFWwindow* window, int count, const GLFWimage* images);
 void
-glfwSetWindowIcon(GLFWwindow* window, SV* image, ...);
+glfwSetWindowIcon(GLFWwindow* window, ...);
    PREINIT:
      GLFWimage* imgstruct;
+     GLFWimage* images[10];
+     SV * image;
      HV * imghv;
      SV** svp;
-     int width, height, n;
+     int width, height, n, numimages;
      unsigned char* pixels;
    CODE:
-   // loop over input image structure hashes
-   if ( SvROK(image) && SvTYPE(SvRV(image))==SVt_PVHV) {
-      imghv = (HV *)SvRV(image);
-      New(0, imgstruct, sizeof(GLFWimage), GLFWimage);
-      SAVEFREEPV(imgstruct);
-   }
-   if (svp = hv_fetch(imghv, "width", 5, 0))
-      imgstruct->width = width = SvIV(*svp);
-   if (svp = hv_fetch(imghv, "height", 6, 0))
-      imgstruct->height = height = SvIV(*svp);
-   if (svp = hv_fetch(imghv, "pixels", 6, 0))
-      imgstruct->pixels = pixels = (unsigned char *)SvPV_nolen(*svp);
-   glfwSetWindowIcon(window,1,imgstruct);  // TODO: handle more than one image
+     printf("glfwSetWindowIcon got %d items\n", items);
+     if (items == 1) {
+        glfwSetWindowIcon(window, 0, NULL);
+     } else if (1 < items && items < 10) {
+        // loop over input image structure hashes
+        // to generate in input images array for
+        // the call to glfwSetWindowIcon().
+        //
+        numimages = items - 1;
+        New(0, imgstruct, numimages*sizeof(GLFWimage), GLFWimage);
+        SAVEFREEPV(imgstruct);
+        for (n=0; n<numimages; n++) {
+           image = ST(n+1);
+           if ( SvROK(image) && SvTYPE(SvRV(image))==SVt_PVHV) {
+              imghv = (HV *)SvRV(image);
+              if (svp = hv_fetch(imghv, "width", 5, 0))
+                 (imgstruct+n)->width = width = SvIV(*svp);
+              if (svp = hv_fetch(imghv, "height", 6, 0))
+                 (imgstruct+n)->height = height = SvIV(*svp);
+              if (svp = hv_fetch(imghv, "pixels", 6, 0))
+                 (imgstruct+n)->pixels = pixels = (unsigned char *)SvPV_nolen(*svp);
+              images[n] = imgstruct+n;
+           } else {
+              croak("Invalid image argument type\n");
+           }
+        }
+        // for (n=0; n<numimages; n++) {
+        //    printf("images[%d].width = %d\n", n, images[n]->width);
+        //    printf("images[%d].height = %d\n", n, images[n]->height);
+        //    printf("images[%d].pixels = %p\n", n, images[n]->pixels);
+        // }
+        glfwSetWindowIcon(window, numimages, *images);
+     } else if (items > 10) {
+        croak("glfwSetWindowIcon got too many images (max is 10)\n");
+     }
 
 
 #//-------------------------------------------------------------------
