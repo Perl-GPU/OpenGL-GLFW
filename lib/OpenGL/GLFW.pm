@@ -612,22 +612,26 @@ XSLoader::load('OpenGL::GLFW', $VERSION);
 1;
 __END__
 
+
 =head1 NAME
 
 OpenGL::GLFW - Perl bindings for the GLFW library
 
+
 =head1 SYNOPSIS
 
   use OpenGL::GLFW qw(:all);
-  blah blah blah
+  use OpenGL::Modern qw(:all);  # for OpenGL
+
 
 =head1 DESCRIPTION
 
 L<OpenGL::GLFW> provides perl5 bindings to the GLFW
 library for OpenGL, OpenGL ES, and Vulkan application
-development.  This is a straight translation of the
-GLFW C interface and you can use their documentation at
-L<http://www.glfw.org/documentation.html>.
+development.  This is a simple translation of the
+GLFW C interface to perl so you can use that documentation
+at L<http://www.glfw.org/documentation.html> for the
+specifics of the API.
 
 This will be cleaned up for the first official
 release of C<OpenGL::GLFW> but for these first
@@ -644,10 +648,25 @@ perl scalar references.
 
 =item *
 
-Return scalar values from the GLFW API in C that are of
-type such as C<int*> are currently stuffed into perl
-scalars passed as the arguments to the function.  This
-is ugly and confusing and needs to be fixed.
+C<GLFWvidmode>, C<GLFWgammaramp>, and C<GLFWimage> types
+are mapped to perl hashes and passed and returned as the
+corresponding references.
+
+The pointers to red, green, and blue channels of the
+gamma ramp become references to strings of packed
+ushort values.
+
+Similarly, the pointer to pixels in the images use
+a packed string of the 4 x width x height unsigned
+character values by pixel as R,G,B,A for pixel (0,0)
+through pixel (w-1,h-1). See the sample code, C<TBD>,
+or the tests, C<TBD>.
+
+=item *
+
+The glfwSetXxxCallback routines do not implement the
+return value for the previous callback.  If you need
+it, you'll need to track and save yourself.
 
 =item *
 
@@ -656,8 +675,9 @@ alwyas returns false.
 
 =item *
 
-C<glfwGetProcAddress> is not implemented.  Use the 
-L<OpenGL::Modern> or L<OpenGL> bindings instead.
+Neither C<glfwGetProcAddress> nor C<glfwExtensionSupported>
+are implemented.  Plesae use the L<OpenGL::Modern> or L<OpenGL>
+bindings instead.
 
 =back
 
@@ -667,19 +687,253 @@ L<OpenGL::Modern> or L<OpenGL> bindings instead.
 None by default.
 
 
+=head1 PERL USAGE
+
+
+=head2 Per-window callbacks
+
+  glfwSetWindowPosCallback($window, $cbfun)
+  $windowpos_cbfun = sub ($window, $xpos, $ypos) { ... }
+  
+  glfwSetWindowSizeCallback($window, $cbfun)
+  $windowsize_cbfun = sub ($window, $width, $height) { ... }
+  
+  glfwSetWindowCloseCallback($window, $cbfun)
+  $windowclose_cbfun = sub ($window) { ... }
+  
+  glfwSetWindowRefreshCallback($window, $cbfun)
+  $windowrefresh_cbfun = sub ($window) { ... }
+  
+  glfwSetWindowFocusCallback($window, $cbfun)
+  $windowfocus_cbfun = sub ($window, $focused) { ... }
+  
+  glfwSetWindowIconifyCallback($window, $cbfun)
+  $windowiconify_cbfun = sub ($window, $iconified) { ... }
+  
+  glfwSetFramebufferSizeCallback($window, $cbfun)
+  $framebuffersize_cbfun = sub ($window, $width, $height) { ... }
+  
+  glfwSetKeyCallback($window, $cbfun)
+  $key_cbfun = sub ($window, $key, $scancode, $action, $mods) { ... }
+  
+  glfwSetCharCallback($window, $cbfun)
+  $char_cbfun = sub ($window, $codepoint) { ... }
+  
+  glfwSetCharModsCallback($window, $cbfun)
+  $charmods_cbfun = sub ($window, $codepoint, $mods) { ... }
+  
+  glfwSetMouseButtonCallback($window, $cbfun)
+  $mousebutton_cbfun = sub ($window, $button, $action, $mods) { ... }
+  
+  glfwSetCursorPosCallback($window, $cbfun)
+  $cursorpos_cbfun = sub ($window, $xpos, $ypos) { ... }
+  
+  glfwSetCursorEnterCallback($window, $cbfun)
+  $cursorenter_cbfun = sub ($window, $entered) { ... }
+  
+  glfwSetScrollCallback($window, $cbfun)
+  $scroll_cbfun = sub ($window, $xoffset, $yoffset) { ... }
+  
+  glfwSetDropCallback($window, $cbfun)
+  $drop_cbfun = sub ($window, $count, @paths) { ... }
+
+
+=head2 Global callbacks
+
+  glfwSetErrorCallback($cbfun)
+  $error_cbfun = sub ($error, $description) { ... }
+  
+  glfwSetMonitorCallback($cbfun)
+  $monitor_cbfun = sub ($monitor, $event) { ... }
+  
+  glfwSetJoystickCallback($cbfun)
+  $joystick_cbfun = sub ($joy_id, $event) { ... }
+
+
+=head2 Icons/Cursors/Images
+
+  glfwSetWindowIcon($window, { image hash }, ...)
+  
+  $cursor = glfwCreateCursor({ image hash }, xhot, yhot)
+  
+  $cursor = glfwCreateStandardCursor($shape)
+  
+  glfwDestroyCursor($cursor)
+  
+  glfwSetCursor($window, $cursor)
+
+
+=head2 Monitors/Windows and the rest
+
+  $monitor = glfwGetPrimaryMonitor()
+  
+  @monitors = glfwGetMonitors()
+  
+  $name = glfwGetMonitorName($monitor)
+  
+  ($widthMM, $heightMM) = glfwGetMonitorPhysicalSize($monitor)
+  
+  ($xpos, $ypos) = glfwGetMonitorPos($monitor)
+  
+  glfwSetGamma($monitor, $gamma)
+  
+  $gammaramp_hash = glfwGetGammaRamp($monitor)
+  
+  glfwSetGammaRamp($monitor, $gammaramp_hash)
+  
+  $vidmode_hash = glfwGetVideoMode($monitor)
+  
+  @vidmodes = glfwGetVideoModes($monitor);  # elements are vid mode hashes
+  
+  $monitor = glfwGetWindowMonitor($window); # monitor of full screen window or undef?
+  
+  $window = glfwCreateWindow($width, $height, $title, $monitor or NULL, $share_window or NULL)
+  
+  glfwSetWindowMonitor($window, $monitor, $xpos, $ypos, $width, $height, $refreshRate)
+  
+  $window = glfwGetCurrentContext()
+  
+  $value = glfwGetInputMode($window, $mode)
+  
+  $pressed = glfwGetKey($window, $key)
+  
+  $pressed = glfwGetMouseButton($window, $button)
+  
+  $value = glfwGetWindowAttrib($window, $attrib)
+  
+  $value = glfwWindowShouldClose($window)
+  
+  glfwDestroyWindow($window)
+  
+  glfwFocusWindow($window)
+  
+  $string = glfwGetClipboardString($window)
+  
+  ($xpos, $ypos) = glfwGetCursorPos($window)
+  
+  ($width, $height) = glfwGetFramebufferSize($window)
+  
+  ($left, $top, $right, $bottom) = glfwGetWindowFrameSize($window)
+  
+  ($xpos, $ypos) = glfwGetWindowPos($window)
+  
+  ($width, $height) = glfwGetWindowSize($window)
+  
+  glfwHideWindow($window)
+  
+  glfwIconifyWindow($window)
+  
+  glfwMakeContextCurrent($window)
+  
+  glfwMaximizeWindow($window)
+  
+  glfwRestoreWindow($window)
+  
+  glfwSetClipboardString($window, $string)
+  
+  glfwSetCursorPos($window, $xpos, $ypos)
+  
+  glfwSetInputMode($window, $mode, $value)
+  
+  glfwSetWindowAspectRatio($window, $numer, $denom)
+  
+  glfwSetWindowPos($window, $xpos, $ypos)
+  
+  glfwSetWindowShouldClose($window, $value)
+  
+  glfwSetWindowSize($window, $width, $height)
+  
+  glfwSetWindowSizeLimits($window, $minwidth, $minheight, $maxwidth, $maxheight)
+  
+  glfwSetWindowTitle($window, $title)
+  
+  glfwSetWindowUserPointer($window, $ref)
+  
+  glfwShowWindow($window)
+  
+  glfwSwapBuffers($window)
+  
+  $ref = glfwGetWindowUserPointer($window)
+  
+  glfwDefaultWindowHints()
+  
+  ($major, $minor, $rev) = glfwGetVersion()
+  
+  glfwPollEvents()
+  
+  glfwPostEmptyEvent()
+  
+  glfwSetTime($time)
+  
+  glfwSwapInterval($interval)
+  
+  glfwTerminate()
+  
+  glfwWaitEvents()
+  
+  glfwWaitEventsTimeout($timeout)
+  
+  glfwWindowHint($hint, $value)
+  
+  $name = glfwGetJoystickName($joy)
+  
+  $name = glfwGetKeyName($key, $scancode)
+  
+  $version = glfwGetVersionString()
+  
+  @axes = glfwGetJoystickAxes($joy)
+  
+  @buttons = glfwGetJoystickButtons($joy)
+  
+  $status = glfwInit()
+  
+  $ispresent = glfwJoystickPresent($joy)
+  
+  $time = glfwGetTime()
+  
+  $frequency = glfwGetTimerFrequency()
+  
+  $timervalue = glfwGetTimerValue()
+  
+  $supported = glfwVulkanSupported()
+
+
+=head2 OpenGL not supported (use GLEW)
+
+  glfwExtensionSupported
+  
+  glfwGetProcAddress
+
+
+=head2 Vulkan not supported
+
+  glfwGetRequiredInstanceExtensions
+  
+  glfwGetInstanceProcAddress
+  
+  glfwGetPhysicalDevicePresentationSupport
+  
+  glfwCreateWindowSurface
+
+
 =head1 SEE ALSO
 
 See the L<OpenGL::Modern> module for the perl bindings
 for modern OpenGL APIs and the original perl L<OpenGL>
 module bindings for OpenGL 1.x-2 with and some extensions.
 
-If you have a mailing list set up for your module, mention it here.
+Please use the Perl OpenGL mailing list at
+L<sf.net|https://sourceforge.net/p/pogl/mailman/?source=navbar>
+ask questions, provide feedback or to discuss L<OpenGL::GLFW>.
 
-If you have a web site set up for your module, mention it here.
+Perl OpenGL IRC is at #pogl on irc.perl.org and may also be
+used for GLFW topics.
+
 
 =head1 AUTHOR
 
 Chris Marshall, E<lt>chm@cpan.orgE<gt>
+
 
 =head1 COPYRIGHT AND LICENSE
 
