@@ -605,7 +605,7 @@ our $XS_VERSION = $VERSION;
 $VERSION = eval $VERSION;    # see L<perlmodstyle>
 
 require XSLoader;
-XSLoader::load('OpenGL::GLFW', $VERSION);
+XSLoader::load('OpenGL::GLFW', $XS_VERSION);
 
 # Preloaded methods go here.
 
