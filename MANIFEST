@@ -3,6 +3,7 @@ GLFW.xs
 MANIFEST
 Makefile.PL
 README.md
+TODO.md
 callback.pl
 checkimg.pl
 lib/OpenGL/GLFW.pm
