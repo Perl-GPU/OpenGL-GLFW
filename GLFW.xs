@@ -33,6 +33,15 @@ enum AVindex {
     AVlen
 };
 
+static int done_non_void_callback_warn = 0;
+
+void callback_warn(void) {
+   if (! done_non_void_callback_warn ) {
+      warn("Callback set in non-void context!  Return values not implemented");
+      done_non_void_callback_warn++;
+   }
+}
+
 //----------------------------------------------------------------
 // Global callbacks
 //----------------------------------------------------------------
@@ -755,9 +764,8 @@ glfwSetWindowPosCallback(window, cbfun);
      int cvind = windowposfun;
      int i;
      SV** fetchval;
-     // Die if used in non-void context
-     if (GIMME_V != G_VOID)
-        croak("Callback set in non-void context!  Return values not implemented");
+     // Warn if used in non-void context
+     if (GIMME_V != G_VOID) callback_warn();
      // Get user pointer
      upoint = glfwGetWindowUserPointer(window);
      if (NULL == upoint) {
@@ -783,9 +791,8 @@ glfwSetWindowSizeCallback(window, cbfun);
      int cvind = windowsizefun;
      int i;
      SV** fetchval;
-     // Die if used in non-void context
-     if (GIMME_V != G_VOID)
-        croak("Callback set in non-void context!  Return values not implemented");
+     // Warn if used in non-void context
+     if (GIMME_V != G_VOID) callback_warn();
      // Get user pointer
      upoint = glfwGetWindowUserPointer(window);
      if (NULL == upoint) {
@@ -810,9 +817,8 @@ glfwSetWindowCloseCallback(window, cbfun);
      int cvind = windowclosefun;
      int i;
      SV** fetchval;
-     // Die if used in non-void context
-     if (GIMME_V != G_VOID)
-        croak("Callback set in non-void context!  Return values not implemented");
+     // Warn if used in non-void context
+     if (GIMME_V != G_VOID) callback_warn();
      // Get user pointer
      upoint = glfwGetWindowUserPointer(window);
      if (NULL == upoint) {
@@ -837,9 +843,8 @@ glfwSetWindowRefreshCallback(window, cbfun);
      int cvind = windowrefreshfun;
      int i;
      SV** fetchval;
-     // Die if used in non-void context
-     if (GIMME_V != G_VOID)
-        croak("Callback set in non-void context!  Return values not implemented");
+     // Warn if used in non-void context
+     if (GIMME_V != G_VOID) callback_warn();
      // Get user pointer
      upoint = glfwGetWindowUserPointer(window);
      if (NULL == upoint) {
@@ -864,9 +869,8 @@ glfwSetWindowFocusCallback(window, cbfun);
      int cvind = windowfocusfun;
      int i;
      SV** fetchval;
-     // Die if used in non-void context
-     if (GIMME_V != G_VOID)
-        croak("Callback set in non-void context!  Return values not implemented");
+     // Warn if used in non-void context
+     if (GIMME_V != G_VOID) callback_warn();
      // Get user pointer
      upoint = glfwGetWindowUserPointer(window);
      if (NULL == upoint) {
@@ -891,9 +895,8 @@ glfwSetWindowIconifyCallback(window, cbfun);
      int cvind = windowiconifyfun;
      int i;
      SV** fetchval;
-     // Die if used in non-void context
-     if (GIMME_V != G_VOID)
-        croak("Callback set in non-void context!  Return values not implemented");
+     // Warn if used in non-void context
+     if (GIMME_V != G_VOID) callback_warn();
      // Get user pointer
      upoint = glfwGetWindowUserPointer(window);
      if (NULL == upoint) {
@@ -918,9 +921,8 @@ glfwSetFramebufferSizeCallback(window, cbfun);
      int cvind = framebuffersizefun;
      int i;
      SV** fetchval;
-     // Die if used in non-void context
-     if (GIMME_V != G_VOID)
-        croak("Callback set in non-void context!  Return values not implemented");
+     // Warn if used in non-void context
+     if (GIMME_V != G_VOID) callback_warn();
      // Get user pointer
      upoint = glfwGetWindowUserPointer(window);
      if (NULL == upoint) {
@@ -945,9 +947,8 @@ glfwSetKeyCallback(window, cbfun);
      int cvind = keyfun;
      int i;
      SV** fetchval;
-     // Die if used in non-void context
-     if (GIMME_V != G_VOID)
-        croak("Callback set in non-void context!  Return values not implemented");
+     // Warn if used in non-void context
+     if (GIMME_V != G_VOID) callback_warn();
      // Get user pointer
      upoint = glfwGetWindowUserPointer(window);
      if (NULL == upoint) {
@@ -973,9 +974,8 @@ glfwSetCharCallback(window, cbfun);
      int cvind = charfun;
      int i;
      SV** fetchval;
-     // Die if used in non-void context
-     if (GIMME_V != G_VOID)
-        croak("Callback set in non-void context!  Return values not implemented");
+     // Warn if used in non-void context
+     if (GIMME_V != G_VOID) callback_warn();
      // Get user pointer
      upoint = glfwGetWindowUserPointer(window);
      if (NULL == upoint) {
@@ -1000,9 +1000,8 @@ glfwSetCharModsCallback(window, cbfun);
      int cvind = charmodsfun;
      int i;
      SV** fetchval;
-     // Die if used in non-void context
-     if (GIMME_V != G_VOID)
-        croak("Callback set in non-void context!  Return values not implemented");
+     // Warn if used in non-void context
+     if (GIMME_V != G_VOID) callback_warn();
      // Get user pointer
      upoint = glfwGetWindowUserPointer(window);
      if (NULL == upoint) {
@@ -1027,9 +1026,8 @@ glfwSetMouseButtonCallback(window, cbfun);
      int cvind = mousebuttonfun;
      int i;
      SV** fetchval;
-     // Die if used in non-void context
-     if (GIMME_V != G_VOID)
-        croak("Callback set in non-void context!  Return values not implemented");
+     // Warn if used in non-void context
+     if (GIMME_V != G_VOID) callback_warn();
      // Get user pointer
      upoint = glfwGetWindowUserPointer(window);
      if (NULL == upoint) {
@@ -1054,9 +1052,8 @@ glfwSetCursorPosCallback(window, cbfun);
      int cvind = cursorposfun;
      int i;
      SV** fetchval;
-     // Die if used in non-void context
-     if (GIMME_V != G_VOID)
-        croak("Callback set in non-void context!  Return values not implemented");
+     // Warn if used in non-void context
+     if (GIMME_V != G_VOID) callback_warn();
      // Get user pointer
      upoint = glfwGetWindowUserPointer(window);
      if (NULL == upoint) {
@@ -1081,9 +1078,8 @@ glfwSetCursorEnterCallback(window, cbfun);
      int cvind = cursorenterfun;
      int i;
      SV** fetchval;
-     // Die if used in non-void context
-     if (GIMME_V != G_VOID)
-        croak("Callback set in non-void context!  Return values not implemented");
+     // Warn if used in non-void context
+     if (GIMME_V != G_VOID) callback_warn();
      // Get user pointer
      upoint = glfwGetWindowUserPointer(window);
      if (NULL == upoint) {
@@ -1108,9 +1104,8 @@ glfwSetScrollCallback(window, cbfun);
      int cvind = scrollfun;
      int i;
      SV** fetchval;
-     // Die if used in non-void context
-     if (GIMME_V != G_VOID)
-        croak("Callback set in non-void context!  Return values not implemented");
+     // Warn if used in non-void context
+     if (GIMME_V != G_VOID) callback_warn();
      // Get user pointer
      upoint = glfwGetWindowUserPointer(window);
      if (NULL == upoint) {
@@ -1135,9 +1130,8 @@ glfwSetDropCallback(window, cbfun);
      int cvind = dropfun;
      int i;
      SV** fetchval;
-     // Die if used in non-void context
-     if (GIMME_V != G_VOID)
-        croak("Callback set in non-void context!  Return values not implemented");
+     // Warn if used in non-void context
+     if (GIMME_V != G_VOID) callback_warn();
      // Get user pointer
      upoint = glfwGetWindowUserPointer(window);
      if (NULL == upoint) {
@@ -1162,9 +1156,9 @@ glfwSetErrorCallback(cbfun)
      SV * cbfun
    CODE:
      void (*fpstatus)();
-     // Die if used in non-void context
-     if (GIMME_V != G_VOID)
-        croak("Callback set in non-void context!  Return values not implemented");
+     // Warn if used in non-void context
+     if (GIMME_V != G_VOID) callback_warn();
+     //
      // Need to fix return of previous CV
      // which was causing a segfault in re.pl
      //
@@ -1182,9 +1176,8 @@ glfwSetMonitorCallback(cbfun)
      SV * cbfun
    CODE:
      void (*fpstatus)();
-     // Die if used in non-void context
-     if (GIMME_V != G_VOID)
-        croak("Callback set in non-void context!  Return values not implemented");
+     // Warn if used in non-void context
+     if (GIMME_V != G_VOID) callback_warn();
      // Need to fix return of previous CV
      // which was causing a segfault in re.pl
      //
@@ -1202,9 +1195,8 @@ glfwSetJoystickCallback(cbfun)
      SV * cbfun
    CODE:
      void (*fpstatus)();
-     // Die if used in non-void context
-     if (GIMME_V != G_VOID)
-        croak("Callback set in non-void context!  Return values not implemented");
+     // Warn if used in non-void context
+     if (GIMME_V != G_VOID) callback_warn();
      // Need to fix return of previous CV
      // which was causing a segfault in re.pl
      //
@@ -1585,7 +1577,7 @@ glfwGetWindowUserPointer(GLFWwindow* window);
 	RETVAL = &PL_sv_undef;
      } else {
         sav = av_fetch((AV*)upoint,userpointer,0);
-	RETVAL = *sav;
+	RETVAL = newSVsv(*sav);
      }
    OUTPUT:
      RETVAL
