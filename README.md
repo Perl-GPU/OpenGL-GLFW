@@ -1,11 +1,14 @@
-OpenGL-GLFW version 0.01
-========================
+OpenGL-GLFW version 0.02_01
+============================
 
 OpenGL::GLFW provides perl bindings to the GLFW3 library.
 
 This first implementation requires you to have the GLFW
-library and header files installed and in your search
-paths.
+library and header files installed and in your compiler
+search paths.  You'll need to edit the LIBS and INC to
+the value appropriate for your system.
+
+Alien::GLFW implementation is on the TODO list.
 
 
 INSTALLATION

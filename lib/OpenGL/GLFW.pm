@@ -600,8 +600,9 @@ our @EXPORT = qw(
 	
 );
 
-our $VERSION = '0.02_001';
-$VERSION = eval $VERSION;
+our $VERSION    = '0.02_01';
+our $XS_VERSION = $VERSION;
+$VERSION = eval $VERSION;    # see L<perlmodstyle>
 
 require XSLoader;
 XSLoader::load('OpenGL::GLFW', $VERSION);

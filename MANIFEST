@@ -4,6 +4,7 @@ MANIFEST
 Makefile.PL
 README.md
 callback.pl
+checkimg.pl
 lib/OpenGL/GLFW.pm
 ppport.h
 simple.pl
