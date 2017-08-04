@@ -1,7 +1,9 @@
 Revision history for Perl extension OpenGL::GLFW.
 
-0.01  Wed Jun 14 13:13:17 2017
-        - original version; created by h2xs 1.23 with options
-                -b 5.10.1 -OAfn OpenGL::GLFW
-        - edit template h2xs files
-      
+0.02_001  2017-08-04 15:08:06-04:00
+          - First complete coverage of GLFW bindings
+
+0.01      2017-06-14 17:13:17-04:00 
+          - original version; created by h2xs 1.23 with options
+              -b 5.10.1 -OAfn OpenGL::GLFW
+          - edit template h2xs files
