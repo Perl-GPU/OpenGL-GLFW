@@ -10,4 +10,5 @@ lib/OpenGL/GLFW.pm
 ppport.h
 simple.pl
 t/OpenGL-GLFW.t
+test.pl
 typemap
