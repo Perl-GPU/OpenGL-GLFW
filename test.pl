@@ -1,5 +1,9 @@
 #!/usr/bin/perl
 #
+# This is basically the simple GLFW example renamed
+# so it runs after the tests so you see something if
+# the build worked
+#
 use OpenGL::GLFW qw(:all);
 use OpenGL::Modern qw(:all);
 use OpenGL::Modern::Helpers qw(glGenBuffers_p glBufferData_p);

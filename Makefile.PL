@@ -13,7 +13,12 @@ my $INCS = ($incs ? $incs : '');
 WriteMakefile(
     NAME              => 'OpenGL::GLFW',
     VERSION_FROM      => 'lib/OpenGL/GLFW.pm', # finds $VERSION, requires EU::MM from perl >= 5.5
-    PREREQ_PM         => {},                   # e.g., Module::Name => 1.1
+    PREREQ_PM         => {
+        'ExtUtils::MakeMaker' => 6.64,         # needed for TEST_REQUIRES
+    },
+    TEST_REQUIRES     => {
+        'OpenGL::Modern' => 0.03_01,
+    },
     ABSTRACT_FROM     => 'lib/OpenGL/GLFW.pm', # retrieve abstract from module
     AUTHOR            => 'Chris Marshall <chm@cpan.org>',
     LICENSE           => 'perl',

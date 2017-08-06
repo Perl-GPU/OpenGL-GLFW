@@ -5,8 +5,10 @@ OpenGL::GLFW provides perl bindings to the GLFW3 library.
 
 This first implementation requires you to have the GLFW
 library and header files installed and in your compiler
-search paths.  You'll need to edit the LIBS and INC to
-the value appropriate for your system.
+search paths.  It does use pkg-config so if you have
+the GLFW libraries built with the glfw3.pc file in your
+PKG_CONFIG_PATH environment or the default location then
+this module should build.
 
 Alien::GLFW implementation is on the TODO list.
 
@@ -21,7 +23,7 @@ following:
 
    perl Makefile.PL
    make
-   make test
+   make test     # will run a sample program as final test
    make install
 
 
