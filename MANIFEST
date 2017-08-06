@@ -4,11 +4,11 @@ MANIFEST
 Makefile.PL
 README.md
 TODO.md
-callback.pl
-checkimg.pl
+examples/callback.pl
+examples/checkimg.pl
+examples/simple.pl
 lib/OpenGL/GLFW.pm
 ppport.h
-simple.pl
 t/OpenGL-GLFW.t
 test.pl
 typemap

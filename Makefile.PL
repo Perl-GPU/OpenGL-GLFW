@@ -5,19 +5,21 @@ use ExtUtils::MakeMaker;
 my $libs = qx(pkg-config glfw3 --libs --static);
 my $incs = qx(pkg-config glfw3 --cflags);
 
+# Try something if the pkg-config failed
+my $LIBS = ($libs ? $libs : '-lglfw3');
+my $INCS = ($incs ? $incs : '');
+
 # the contents of the Makefile that is written.
 WriteMakefile(
     NAME              => 'OpenGL::GLFW',
     VERSION_FROM      => 'lib/OpenGL/GLFW.pm', # finds $VERSION, requires EU::MM from perl >= 5.5
-    PREREQ_PM         => {}, # e.g., Module::Name => 1.1
+    PREREQ_PM         => {},                   # e.g., Module::Name => 1.1
     ABSTRACT_FROM     => 'lib/OpenGL/GLFW.pm', # retrieve abstract from module
     AUTHOR            => 'Chris Marshall <chm@cpan.org>',
     LICENSE           => 'perl',
-    # LIBS              => ['-L/cygdrive/c/Perl/local64/glfw/lib -lglfw3 -lX11 -lxrandr -lxinerama -lxcursor'], # e.g., '-lm'
-    LIBS              => ["$libs"], # e.g., '-lm'
-    DEFINE            => '', # e.g., '-DHAVE_SOMETHING'
-    # INC               => '-I.', # e.g., '-I. -I/usr/include/other'
-    INC               => "$incs", # e.g., '-I. -I/usr/include/other'
+    LIBS              => ["$LIBS"],            # e.g., '-lm'
+    DEFINE            => '',                   # e.g., '-DHAVE_SOMETHING'
+    INC               => "$INCS",              # e.g., '-I. -I/usr/include/other'
     # Un-comment this if you add C files to link with later:
-    # OBJECT            => '$(O_FILES)', # link all the C files too
+    # OBJECT            => '$(O_FILES)',       # link all the C files too
 );

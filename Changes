@@ -2,6 +2,7 @@ Revision history for Perl extension OpenGL::GLFW.
 
 0.02_01  2017-08-04 15:08:06-04:00
          - First complete coverage of GLFW bindings
+         - Add rudimentary pkg-config for build support
 
 0.01     2017-06-14 17:13:17-04:00 
          - original version; created by h2xs 1.23 with options
