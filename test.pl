@@ -1,9 +1,59 @@
-#!/usr/bin/perl
+#========================================================================
+# test.pl is basically the simple GLFW example renamed so it runs
+# after the test suite so you see something if the build worked.
+#========================================================================
+
+#========================================================================
+# Simple GLFW example
+# Copyright (c) Camilla Berglund <elmindreda@glfw.org>
 #
-# This is basically the simple GLFW example renamed
-# so it runs after the tests so you see something if
-# the build worked
+# This software is provided 'as-is', without any express or implied
+# warranty. In no event will the authors be held liable for any damages
+# arising from the use of this software.
 #
+# Permission is granted to anyone to use this software for any purpose,
+# including commercial applications, and to alter it and redistribute it
+# freely, subject to the following restrictions:
+#
+# 1. The origin of this software must not be misrepresented; you must not
+#    claim that you wrote the original software. If you use this software
+#    in a product, an acknowledgment in the product documentation would
+#    be appreciated but is not required.
+#
+# 2. Altered source versions must be plainly marked as such, and must not
+#    be misrepresented as being the original software.
+#
+# 3. This notice may not be removed or altered from any source
+#    distribution.
+#
+#========================================================================
+
+#========================================================================
+# OpenGL routines used:
+# 
+#   glAttachShader
+#   glBindBuffer
+#   glClear
+#   glCompileShader
+#   glCreateProgram
+#   glCreateShader
+#   glDrawArrays
+#   glEnableVertexAttribArray
+#   glLinkProgram
+#   glUseProgram
+#   glViewport
+#   
+#   glGetAttribLocation_c
+#   glGetUniformLocation_c
+#   glUniformMatrix4fv_c
+#   glVertexAttribPointer_c
+#   
+#   glBufferData_p
+#   glGenBuffers_p
+#   glGenBuffers_p 
+#   glShaderSource_p
+#========================================================================
+
 use OpenGL::GLFW qw(:all);
 use OpenGL::Modern qw(:all);
 use OpenGL::Modern::Helpers qw(glGenBuffers_p glBufferData_p);
@@ -35,39 +85,14 @@ my @fragment_shader_text = (
     "}\n",
 );
 
-my $drop_callback = sub {
-    my ($window, @paths) = @_;
-    print "Dropped (@paths)\n";
-};
-
-my $cursorenter_callback = sub {
-    my ($window, $entered) = @_;
-    printf STDERR "CursorEnter callback: " . ($entered ? "entered" : "left") . " window\n";
-};
-
-my $cursorpos_callback = sub {
-    my ($window, $xpos, $ypos) = @_;
-    printf STDERR "CursorPos callback: cursor at ($xpos,$ypos)\n";
-};
-
-my $char_callback = sub {
-    my ($window, $codepoint) = @_;
-    printf STDERR "Char callback: got codepoint=$codepoint\n";
-};
-
-my $charmods_callback = sub {
-    my ($window, $codepoint, $mods) = @_;
-    printf STDERR "CharMods callback: got codepoint=$codepoint, mods=$mods\n";
-};
+# my $drop_callback = sub {
+#     my ($window, @paths) = @_;
+#     print "Dropped (@paths)\n";
+# };
 
 my $error_callback = sub {
     my ($error, $description) = @_;
     printf STDERR "Error #%d from perl: %s\n", $error, $description;
-};
-
-my $framebuffersize_callback = sub {
-   my ($window, $width, $height) = @_;
-   printf STDERR "FrameBufferSize callback: (w,h) = ($width,$height)\n";
 };
 
 my $key_callback = sub {
@@ -76,52 +101,6 @@ my $key_callback = sub {
         glfwSetWindowShouldClose($window, GLFW_TRUE);
     }
 };
-
-my $mousebutton_callback = sub {
-    my ($window,$button,$action,$mods) = @_;
-    printf STDERR "MouseButton callback: button=$button, action=$action, mods=$mods\n";
-};
-
-my $scroll_callback = sub {
-   my ($window, $xoffset, $yoffset) = @_;
-   printf STDERR "Scroll callback: offset=($xoffset,$yoffset)\n";
-};
-
-my $windowclose_callback = sub {
-   my ($window) = @_;
-   printf STDERR "WindowClose callback: closed!\n";
-};
-
-my $windowfocus_callback = sub {
-   my ($window,$focused) = @_;
-   printf STDERR "WindowFocus callback: " . ($focused ? "is " : "is not ") . "focused\n";
-};
-
-my $windowiconify_callback = sub {
-   my ($window,$iconified) = @_;
-   printf STDERR "WindowIconify callback: " . ($iconified ? "is " : "is not ") . "iconified\n";
-};
-
-my $windowpos_callback = sub {
-   my ($window,$xpos,$ypos) = @_;
-   printf STDERR "WindowPos callback: ($xpos,$ypos)\n";
-};
-
-my $windowrefresh_callback = sub {
-   my ($window) = @_;
-   printf STDERR "WindowRefresh callback!\n";
-};
-
-my $windowsize_callback = sub {
-   my ($window,$width,$height) = @_;
-   printf STDERR "WindowSize callback: ($width,$height)\n";
-};
-
-my $joystick_callback = sub {
-   my ($joy_id,$event) = @_;
-   printf STDERR "Joystick callback: joy_id=$joy_id with event=$event\n";
-};
-
 
 # int main(void) {
 #
@@ -139,7 +118,6 @@ die "glfwInit failed, $!\n" if !glfwInit();
 # TODO: implement NULL pointer (is 0 or undef enough?)
 # $window = glfwCreateWindow(640, 480, "Simple example", NULL, NULL);
 #
-# $window = glfwCreateWindow(640, 480, "Simple example", \0, \0);
 $window = glfwCreateWindow(640, 480, "Simple example", NULL, NULL);
 unless (defined $window) {
     glfwTerminate();
@@ -147,35 +125,6 @@ unless (defined $window) {
 }
 
 glfwSetKeyCallback($window, $key_callback);
-
-# glfwSetCharCallback($window, $char_callback);
-
-# glfwSetCharModsCallback($window, $charmods_callback);
-
-# glfwSetCursorEnterCallback($window, $cursorenter_callback);
-
-# glfwSetCursorPosCallback($window, $cursorpos_callback);
-
-# glfwSetFramebufferSizeCallback($window, $framebuffersize_callback);
-
-# glfwSetMouseButtonCallback($window, $mousebutton_callback);
-
-# glfwSetScrollCallback($window, $scroll_callback);
-
-# glfwSetJoystickCallback($joystick_callback);
-
-glfwSetWindowCloseCallback($window, $windowclose_callback);
-
-# glfwSetWindowFocusCallback($window, $windowfocus_callback);
-
-# glfwSetWindowIconifyCallback($window, $windowiconify_callback);
-
-# Doesn't seem to change with using mouse to drag cygwin window
-# glfwSetWindowPosCallback($window, $windowpos_callback);
-
-# glfwSetWindowRefreshCallback($window, $windowrefresh_callback);
-
-# glfwSetWindowSizeCallback($window, $windowsize_callback);
 
 # TODO: It looks like you cant Drag-and-Drop between windows Explorer
 # and cygwin X11 applications.  Need to test for linux and for win32
@@ -188,30 +137,6 @@ glfwMakeContextCurrent($window);
 die "glewInit failed, $!\n" if GLEW_OK != glewInit();
 
 glfwSwapInterval(1);
-
-#-----------------------------------------------------------
-#  This is a test for window icons with different sizes
-#  between 16x16, 32x32, and 48x48
-#-----------------------------------------------------------
-
-use PDL; # make things easy!
-use PDL::NiceSlice;
-
-my $icon16 = zeros(4,16,16);  # red
-$icon16(0) .= 255;
-$icon16(3) .= 255;
-my $icon32 = zeros(4,32,32);  # green
-$icon32(1) .= 255;
-$icon32(3) .= 255;
-my $icon48 = zeros(4,48,48);  # blue
-$icon48(2) .= 255;
-$icon48(3) .= 255;
-
-$img16 = { width => $icon16->dim(0), height => $icon16->dim(1), pixels => pack('C*',$icon16->list) };
-$img32 = { width => $icon32->dim(0), height => $icon32->dim(1), pixels => pack('C*',$icon32->list) };
-$img48 = { width => $icon48->dim(0), height => $icon48->dim(1), pixels => pack('C*',$icon48->list) };
-
-glfwSetWindowIcon($window,$img16,$img32,$img48);
 
 #-----------------------------------------------------------
 #  NOTE: OpenGL error checks have been omitted for brevity
