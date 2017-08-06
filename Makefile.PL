@@ -17,7 +17,7 @@ WriteMakefile(
         'ExtUtils::MakeMaker' => 6.64,         # needed for TEST_REQUIRES
     },
     TEST_REQUIRES     => {
-        'OpenGL::Modern' => 0.03_01,
+        'OpenGL::Modern' => 0.04,
     },
     ABSTRACT_FROM     => 'lib/OpenGL/GLFW.pm', # retrieve abstract from module
     AUTHOR            => 'Chris Marshall <chm@cpan.org>',
