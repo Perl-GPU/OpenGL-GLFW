@@ -619,7 +619,6 @@ __END__
 
 OpenGL::GLFW - Perl bindings for the GLFW library
 
-
 =head1 SYNOPSIS
 
   use OpenGL::GLFW qw(:all);
@@ -655,14 +654,16 @@ are mapped to perl hashes and passed and returned as the
 corresponding references.
 
 The pointers to red, green, and blue channels of the
-gamma ramp become references to strings of packed
-ushort values.
+gamma ramp become to strings of packed ushort values.
 
 Similarly, the pointer to pixels in the images use
 a packed string of the 4 x width x height unsigned
 character values by pixel as R,G,B,A for pixel (0,0)
-through pixel (w-1,h-1). See the sample code, C<TBD>,
-or the tests, C<TBD>.
+through pixel (w-1,h-1).
+
+See the C<examples/checkimg.pl> for an example using the
+Perl Data Language module, L<PDL>, to construct the the
+C<GLFWimage> hash.
 
 =item *
 
