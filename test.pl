@@ -171,7 +171,7 @@ glEnableVertexAttribArray($vcol_location);
 #------------------------------------------------------------ stride, offset
 glVertexAttribPointer_c($vcol_location, 3, GL_FLOAT, GL_FALSE, 4 * 5, 4 * 2 );
 
-while (!glfwWindowShouldClose($window))
+while (!glfwWindowShouldClose($window) and glfwGetTime()<3)
 {
     my ($width, $height);
     my ($angle, $c, $s, $cor, $sor);
