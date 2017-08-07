@@ -1,4 +1,4 @@
-OpenGL-GLFW version 0.02_01
+OpenGL-GLFW version 0.02_02
 ============================
 
 OpenGL::GLFW provides perl bindings to the GLFW3 library.
