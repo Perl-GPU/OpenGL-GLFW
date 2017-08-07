@@ -628,16 +628,15 @@ OpenGL::GLFW - Perl bindings for the GLFW library
 =head1 DESCRIPTION
 
 L<OpenGL::GLFW> provides perl5 bindings to the GLFW
-library for OpenGL, OpenGL ES, and Vulkan application
-development.  This is a simple translation of the
-GLFW C interface to perl so you can use that documentation
-at L<http://www.glfw.org/documentation.html> for the
-specifics of the API.
+library for OpenGL applications development.  The
+implementation is a direct translation of the
+GLFW C interface to perl.  You can use the official
+GLFW documentation at L<http://www.glfw.org/documentation.html>
+for the specifics of the GLFW API.  The documentation
+here is on the perl usages and calling conventions.
 
-This will be cleaned up for the first official
-release of C<OpenGL::GLFW> but for these first
-bindings we have the following correspondences
-between the perl bindings and the C API:
+At the top level, we have the following correspondences
+between these perl bindings and the C API:
 
 =over 4
 
@@ -654,12 +653,12 @@ are mapped to perl hashes and passed and returned as the
 corresponding references.
 
 The pointers to red, green, and blue channels of the
-gamma ramp become to strings of packed ushort values.
+gamma ramp become strings of packed ushort values.
 
 Similarly, the pointer to pixels in the images use
-a packed string of the 4 x width x height unsigned
-character values by pixel as R,G,B,A for pixel (0,0)
-through pixel (w-1,h-1).
+a packed string of C<4 x width x height> unsigned
+char values per pixel as C<[R,G,B,A]> for pixels C<(0,0)>
+through C<(width-1,height-1)>.
 
 See the C<examples/checkimg.pl> for an example using the
 Perl Data Language module, L<PDL>, to construct the the
@@ -679,8 +678,8 @@ alwyas returns false.
 =item *
 
 Neither C<glfwGetProcAddress> nor C<glfwExtensionSupported>
-are implemented.  Plesae use the L<OpenGL::Modern> or L<OpenGL>
-bindings instead.
+are implemented.  Please use the L<OpenGL::Modern> or L<OpenGL>
+modules instead.
 
 =back
 
@@ -755,15 +754,32 @@ None by default.
 
 =head2 Icons/Cursors/Images
 
-  glfwSetWindowIcon($window, { image hash }, ...)
+  glfwSetWindowIcon($window, $image_hash, ...)
   
-  $cursor = glfwCreateCursor({ image hash }, xhot, yhot)
+  $cursor = glfwCreateCursor($image_hash, xhot, yhot)
   
   $cursor = glfwCreateStandardCursor($shape)
   
   glfwDestroyCursor($cursor)
   
   glfwSetCursor($window, $cursor)
+
+where
+
+  $image_hash = {
+
+    # The width, in pixels, of this image.
+    width  => $width,
+    
+    # The height, in pixels, of this image.
+    height => $height,
+
+    # The pixel data of this image, arranged
+    # left-to-right, top-to-bottom in a packed
+    # string of unsigned char data.
+    pixels => $pixels
+
+  }
 
 
 =head2 Monitors/Windows and the rest
@@ -783,11 +799,62 @@ None by default.
   $gammaramp_hash = glfwGetGammaRamp($monitor)
   
   glfwSetGammaRamp($monitor, $gammaramp_hash)
-  
+
+where
+
+  $gammaramp_hash = {
+
+    # An array of values describing the
+    # response of the red channel as a
+    # string of packed unsigned short data.
+    red => $red,
+
+    # An array of values describing the
+    # response of the green channel as a
+    # string of packed unsigned short data.
+    green => $green,
+
+    # An array of values describing the
+    # response of the blue channel as a
+    # string of packed unsigned short data.
+    blue => $blue,
+
+    # The number of elements in each array.
+    size => $size
+
+  }
+
+
+
   $vidmode_hash = glfwGetVideoMode($monitor)
   
   @vidmodes = glfwGetVideoModes($monitor);  # elements are vid mode hashes
-  
+
+where
+
+  $vidmode_hash = {
+
+    # The width, in screen coordinates, of the video mode.
+    width => $width,
+
+    # The height, in screen coordinates, of the video mode.
+    height => $height,
+
+    # The bit depth of the red channel of the video mode.
+    redBits => $redBits,
+
+    # The bit depth of the green channel of the video mode.
+    greenBits => $greenBits,
+
+    # The bit depth of the blue channel of the video mode.
+    blueBits => $blueBitsm,
+
+    # The refresh rate, in Hz, of the video mode.
+    refreshRate => $refreshRate
+
+  }
+
+
   $monitor = glfwGetWindowMonitor($window); # monitor of full screen window or undef?
   
   $window = glfwCreateWindow($width, $height, $title, $monitor or NULL, $share_window or NULL)
@@ -901,14 +968,14 @@ None by default.
   $supported = glfwVulkanSupported()
 
 
-=head2 OpenGL not supported (use GLEW)
+=head2 GLFW OpenGL Extension checks are not implemented
 
   glfwExtensionSupported
   
   glfwGetProcAddress
 
 
-=head2 Vulkan not supported
+=head2 Vulkan not implemented
 
   glfwGetRequiredInstanceExtensions
   
