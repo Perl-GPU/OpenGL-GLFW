@@ -1,6 +1,11 @@
 Revision history for Perl extension OpenGL::GLFW.
 
-0.02_02  TBD
+0.02_02  2017-08-19 14:48:34-04:00
+         - Improved documentation of implementation
+         - Added gears.pl implementation to examples
+         - This is release candidate for our first
+           official release
+
 
 0.02_01  2017-08-06 12:13:54-04:00
          - First complete coverage of GLFW bindings

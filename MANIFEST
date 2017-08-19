@@ -6,6 +6,7 @@ README.md
 TODO.md
 examples/callback.pl
 examples/checkimg.pl
+examples/gears.pl
 examples/simple.pl
 lib/OpenGL/GLFW.pm
 ppport.h

@@ -18,13 +18,20 @@ INSTALLATION
 
 Assuming that you have GLFW installed on your system and
 have the includes and library in the standard, system locations,
-you should be able To install this module by typing the
+you should be able to manually install this module by typing the
 following:
 
    perl Makefile.PL
    make
    make test     # will run a sample program as final test
    make install
+
+or for a much simpler, automated install try
+
+   cpanm --dev OpenGL::GLFW
+
+where the C<--dev> option is required since this is not an
+official release.
 
 
 DEPENDENCIES
