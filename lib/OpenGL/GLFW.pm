@@ -756,7 +756,7 @@ None by default.
 
   glfwSetWindowIcon($window, $image_hash, ...)
   
-  $cursor = glfwCreateCursor($image_hash, xhot, yhot)
+  $cursor = glfwCreateCursor($image_hash, $xhot, $yhot)
   
   $cursor = glfwCreateStandardCursor($shape)
   
