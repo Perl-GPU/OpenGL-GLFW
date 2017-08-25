@@ -600,7 +600,7 @@ our @EXPORT = qw(
 	
 );
 
-our $VERSION    = '0.02_02';
+our $VERSION    = '0.03';
 our $XS_VERSION = $VERSION;
 $VERSION = eval $VERSION;    # see L<perlmodstyle>
 
@@ -673,7 +673,7 @@ it, you'll need to track and save yourself.
 =item *
 
 Vulkan is not currently supported and C<glfwVulkanSupported>
-alwyas returns false.
+always returns false.
 
 =item *
 
@@ -782,7 +782,7 @@ where
   }
 
 
-=head2 Monitors/Windows and the rest
+=head2 Monitors
 
   $monitor = glfwGetPrimaryMonitor()
   
@@ -794,6 +794,8 @@ where
   
   ($xpos, $ypos) = glfwGetMonitorPos($monitor)
   
+=head2 Gamma Settings
+
   glfwSetGamma($monitor, $gamma)
   
   $gammaramp_hash = glfwGetGammaRamp($monitor)
@@ -824,7 +826,7 @@ where
 
   }
 
-
+=head2 Video Mode
 
   $vidmode_hash = glfwGetVideoMode($monitor)
   
@@ -854,6 +856,7 @@ where
 
   }
 
+=head2 Windows and Interaction
 
   $monitor = glfwGetWindowMonitor($window); # monitor of full screen window or undef?
   

@@ -1,14 +1,14 @@
-OpenGL-GLFW version 0.02_02
-============================
+OpenGL::GLFW 0.03
+=================
 
 OpenGL::GLFW provides perl bindings to the GLFW3 library.
 
 This first implementation requires you to have the GLFW
-library and header files installed and in your compiler
-search paths.  It does use pkg-config so if you have
-the GLFW libraries built with the glfw3.pc file in your
-PKG_CONFIG_PATH environment or the default location then
-this module should build.
+library (version 3.2.1) and header files installed and
+in your compiler search paths.  It does use pkg-config so
+if you have the GLFW libraries built with the glfw3.pc
+file in your PKG_CONFIG_PATH environment or the system
+defaults location then this module should build.
 
 Alien::GLFW implementation is on the TODO list.
 
@@ -18,8 +18,7 @@ INSTALLATION
 
 Assuming that you have GLFW installed on your system and
 have the includes and library in the standard, system locations,
-you should be able to manually install this module by typing the
-following:
+you can manually install this module by typing the following:
 
    perl Makefile.PL
    make
@@ -28,10 +27,8 @@ following:
 
 or for a much simpler, automated install try
 
-   cpanm --dev OpenGL::GLFW
+   cpanm OpenGL::GLFW
 
-where the C<--dev> option is required since this is not an
-official release.
 
 
 DEPENDENCIES
@@ -39,7 +36,7 @@ DEPENDENCIES
 
 This module provides a more modern, lighter-weight window and
 system interaction interface compared to OpenGL::GLUT.  You
-can use OpenGL::Modern for the perl bindings to OpenGL.
+can use OpenGL or OpenGL::Modern for perl bindings to OpenGL.
 
 
 COPYRIGHT AND LICENCE
