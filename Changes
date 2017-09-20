@@ -1,6 +1,9 @@
 Revision history for Perl extension OpenGL::GLFW.
 
-0.03_01  TBD
+0.03_01  2017-09-20 13:44:28-04:00
+         - Increment reference counts on callbacks
+	   to avoid problems when the original CV
+	   goes out of scope.
 
 
 0.03     2017-08-25 12:13:51-04:00
