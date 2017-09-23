@@ -1,4 +1,4 @@
-OpenGL::GLFW 0.03_02
+OpenGL::GLFW 0.04
 ====================
 
 OpenGL::GLFW provides perl bindings to the GLFW3 library.
