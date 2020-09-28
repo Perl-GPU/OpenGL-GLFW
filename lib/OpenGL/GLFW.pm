@@ -281,6 +281,7 @@ our %EXPORT_TAGS = ( 'all' => [ qw(
         glfwGetMonitorName
         glfwGetMonitorPhysicalSize
         glfwGetMonitorPos
+        glfwGetMonitorWorkarea				
         glfwGetMonitors
         glfwGetMouseButton
         glfwGetPrimaryMonitor
@@ -795,6 +796,8 @@ where
   ($widthMM, $heightMM) = glfwGetMonitorPhysicalSize($monitor)
   
   ($xpos, $ypos) = glfwGetMonitorPos($monitor)
+
+  ($xpos, $ypos, $width, $height) = glfwGetMonitorWorkarea($monitor)
   
 =head2 Gamma Settings
 
