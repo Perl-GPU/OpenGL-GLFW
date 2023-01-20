@@ -99,6 +99,9 @@ void
 glfwGetMonitorPos(GLFWmonitor* monitor, int* xpos, int* ypos);
 
 void
+glfwGetMonitorWorkarea (GLFWmonitor* monitor, int* xpos, int* ypos, int* width, int* height);
+
+void
 glfwSetGamma(GLFWmonitor* monitor, float gamma);
 
 /* GLFWmonitor with GLFWgammaramp routines */

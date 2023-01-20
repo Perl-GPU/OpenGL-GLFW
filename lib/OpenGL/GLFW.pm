@@ -245,6 +245,7 @@ use constant GLFW_VRESIZE_CURSOR => 0x00036006;
 use constant GLFW_CONNECTED => 0x00040001;
 use constant GLFW_DISCONNECTED => 0x00040002;
 use constant GLFW_DONT_CARE => -1;
+use constant GLFW_TRANSPARENT_FRAMEBUFFER => 0x0002000A;
 
 require Exporter;
 
@@ -280,6 +281,7 @@ our %EXPORT_TAGS = ( 'all' => [ qw(
         glfwGetMonitorName
         glfwGetMonitorPhysicalSize
         glfwGetMonitorPos
+        glfwGetMonitorWorkarea				
         glfwGetMonitors
         glfwGetMouseButton
         glfwGetPrimaryMonitor
@@ -586,6 +588,7 @@ our %EXPORT_TAGS = ( 'all' => [ qw(
         GLFW_CONNECTED
         GLFW_DISCONNECTED
         GLFW_DONT_CARE
+        GLFW_TRANSPARENT_FRAMEBUFFER			       
         glfwCreateWindowSurface
         glfwGetInstanceProcAddress
         glfwGetPhysicalDevicePresentationSupport
@@ -793,6 +796,8 @@ where
   ($widthMM, $heightMM) = glfwGetMonitorPhysicalSize($monitor)
   
   ($xpos, $ypos) = glfwGetMonitorPos($monitor)
+
+  ($xpos, $ypos, $width, $height) = glfwGetMonitorWorkarea($monitor)
   
 =head2 Gamma Settings
 
