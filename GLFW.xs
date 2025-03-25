@@ -1433,7 +1433,7 @@ glfwGetVideoModes(GLFWmonitor* monitor);
      // get video modes
      vidms = glfwGetVideoModes(monitor,&nmodes);
      if (!vidms) croak("null pointer as GLFWvidmode-s");
-     if (nmodes <= 0) croak("no GLFWvidmode-s returnd");
+     if (nmodes <= 0) croak("no GLFWvidmode-s returned");
 
      for (n=0; n<nmodes; n++) {
         // pack vidmode into hash
