@@ -1343,6 +1343,8 @@ glfwGetMonitorPhysicalSize(GLFWmonitor* monitor, OUTLIST int widthMM, OUTLIST in
 void
 glfwGetMonitorPos(GLFWmonitor* monitor, OUTLIST int xpos, OUTLIST int ypos);
 
+void
+glfwGetMonitorWorkarea(GLFWmonitor* monitor, OUTLIST int xpos, OUTLIST int ypos, OUTLIST int width, OUTLIST int height);
 
 void
 glfwSetGamma(GLFWmonitor* monitor, float gamma);
