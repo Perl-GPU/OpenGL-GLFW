@@ -25,7 +25,7 @@
 
 #========================================================================
 # OpenGL routines used:
-# 
+#
 #   glAttachShader
 #   glBindBuffer
 #   glClear
@@ -37,15 +37,15 @@
 #   glLinkProgram
 #   glUseProgram
 #   glViewport
-#   
+#
 #   glGetAttribLocation_c
 #   glGetUniformLocation_c
 #   glUniformMatrix4fv_c
 #   glVertexAttribPointer_c
-#   
+#
 #   glBufferData_p
 #   glGenBuffers_p
-#   glGenBuffers_p 
+#   glGenBuffers_p
 #   glShaderSource_p
 #========================================================================
 

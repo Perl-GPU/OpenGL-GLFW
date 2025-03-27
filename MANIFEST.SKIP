@@ -1,12 +1,13 @@
 # Version control files and dirs.
-\B\.git\b
-^.gitignore$
+^\.git
+.gitignore$
 # Makemaker generated files and dirs.
 ^MANIFEST\.
 ^Makefile$
 ^blib/
 ^MakeMaker-\d
 ^pm_to_blib$
+META\.
 ^GLFW.c$
 # Temp, old and emacs backup files.
 ~$
@@ -17,3 +18,4 @@
 \.bs$
 glfw3.h
 glfw3.xs
+^xt

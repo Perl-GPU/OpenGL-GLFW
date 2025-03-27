@@ -63,11 +63,11 @@ for (my $i = 0;  $i < 4;  $i++)
     {
 	glfwSetErrorCallback( $error_callback );
 	die "glfwInit failed, $!\n"
-    }	
-    
+    }
+
     glfwSetWindowPos($windows{$i}, $xpos + $size * (1 + ($i & 1)), $ypos + $size * (1 + ($i >> 1)));
     glfwSetInputMode($windows{$i}, GLFW_STICKY_KEYS, GLFW_TRUE);
-    
+
     glfwMakeContextCurrent($windows{$i});
     #gladLoadGL(glfwGetProcAddress);
     glClearColor( $colors[$i][0] , $colors[$i][1] , $colors[$i][2] , 1 );
@@ -84,7 +84,7 @@ for (;;)
 	glfwMakeContextCurrent($windows{$i});
 	glClear(GL_COLOR_BUFFER_BIT);
 	glfwSwapBuffers($windows{$i});
-	
+
 	if (glfwWindowShouldClose($windows{$i}) ||
 	    glfwGetKey($windows{$i}, GLFW_KEY_ESCAPE))
 	{
