@@ -603,7 +603,7 @@ our @EXPORT = qw(
 
 );
 
-our $VERSION    = '0.04_01';
+our $VERSION    = '0.0401';
 our $XS_VERSION = $VERSION;
 $VERSION = eval $VERSION;    # see L<perlmodstyle>
 
