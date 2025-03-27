@@ -16,6 +16,4 @@ META\.
 ^\.#
 \.o$
 \.bs$
-glfw3.h
-glfw3.xs
 ^xt
