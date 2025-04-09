@@ -247,9 +247,7 @@ use constant GLFW_DISCONNECTED => 0x00040002;
 use constant GLFW_DONT_CARE => -1;
 use constant GLFW_TRANSPARENT_FRAMEBUFFER => 0x0002000A;
 
-require Exporter;
-
-our @ISA = qw(Exporter);
+use Exporter 'import';
 
 # Items to export into callers namespace by default. Note: do not export
 # names by default without a very good reason. Use EXPORT_OK instead.
