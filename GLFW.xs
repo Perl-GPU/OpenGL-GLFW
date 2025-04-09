@@ -1682,6 +1682,13 @@ glfwGetTimerFrequency();
 uint64_t
 glfwGetTimerValue();
 
+#if (GLFW_VERSION_MAJOR*10000 + GLFW_VERSION_MINOR*100) >= 30300
+
+void
+glfwRequestWindowAttention(GLFWwindow* window);
+
+#endif
+
 #if (GLFW_VERSION_MAJOR*10000 + GLFW_VERSION_MINOR*100) >= 30400
 
 int

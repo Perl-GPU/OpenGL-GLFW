@@ -352,6 +352,7 @@ use Exporter 'import';
 
 my @const = (qw(NULL), sort keys %const_hash);
 my @functions = qw(
+  glfwRequestWindowAttention
   glfwPlatformSupported
   glfwGetPlatform
   glfwGetError

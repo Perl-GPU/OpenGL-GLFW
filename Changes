@@ -1,6 +1,6 @@
 - minimum Perl 5.10 for better Exporter
 - add constants up to GLFW 3.4
-- add functions: glfwPlatformSupported, glfwGetPlatform, glfwGetError, glfwInitHint
+- add functions: glfwPlatformSupported, glfwGetPlatform, glfwGetError, glfwInitHint, glfwRequestWindowAttention
 
 0.0401 2025-03-27
 - add GLFW_TRANSPARENT_FRAMEBUFFER and glfwGetMonitorWorkarea (#1) - thanks @SeHarrys
