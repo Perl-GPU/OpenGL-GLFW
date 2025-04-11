@@ -11,6 +11,7 @@ META\.
 ^GLFW.c$
 # Temp, old and emacs backup files.
 ~$
+\.sw.$
 \.old$
 ^#.*#$
 ^\.#
