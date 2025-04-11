@@ -1705,7 +1705,7 @@ PREINIT:
   int errcode;
   char* description;
 PPCODE:
-  errcode = glfwGetError(&description);
+  errcode = glfwGetError((const char**)&description);
   EXTEND(SP, 2);
   PUSHs(sv_2mortal(newSViv(errcode)));
   PUSHs(!description ? &PL_sv_undef : sv_2mortal(newSVpv(description, 0)));
