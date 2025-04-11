@@ -1,3 +1,4 @@
+0.0402 2025-04-11
 - minimum Perl 5.10 for better Exporter
 - add constants up to GLFW 3.4
 - add functions: glfwPlatformSupported, glfwGetPlatform, glfwGetError, glfwInitHint, glfwRequestWindowAttention
