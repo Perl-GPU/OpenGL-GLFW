@@ -464,8 +464,8 @@ our %EXPORT_TAGS = (
 our @EXPORT_OK = @{ $EXPORT_TAGS{all} };
 
 our $VERSION    = '0.0401';
-our $XS_VERSION = $VERSION;
 $VERSION =~ tr/_//d;
+our $XS_VERSION = $VERSION;
 
 require XSLoader;
 XSLoader::load('OpenGL::GLFW', $XS_VERSION);
