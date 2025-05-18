@@ -118,9 +118,6 @@ die "glfwInit failed, $!\n" if !glfwInit();
 # glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 2);
 # glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
 
-# TODO: implement NULL pointer (is 0 or undef enough?)
-# $window = glfwCreateWindow(640, 480, "Simple example", NULL, NULL);
-#
 $window = glfwCreateWindow(640, 480, "Simple example", NULL, NULL);
 unless (defined $window) {
     glfwTerminate();
@@ -163,9 +160,9 @@ glAttachShader($program, $vertex_shader);
 glAttachShader($program, $fragment_shader);
 glLinkProgram($program);
 
-my $mvp_location  = glGetUniformLocation($program, "MVP");  # TODO change name to _p or no-suffix
-my $vpos_location = glGetAttribLocation($program, "vPos");  # TODO change name to _p or no-suffix
-my $vcol_location = glGetAttribLocation($program, "vCol");  # TODO change name to _p or no-suffix
+my $mvp_location  = glGetUniformLocation($program, "MVP");
+my $vpos_location = glGetAttribLocation($program, "vPos");
+my $vcol_location = glGetAttribLocation($program, "vCol");
 
 glEnableVertexAttribArray($vpos_location);
 #------------------------------------------------------------ stride, offset
