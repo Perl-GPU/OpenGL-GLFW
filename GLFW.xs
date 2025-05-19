@@ -1256,11 +1256,11 @@ glfwSetWindowIcon(GLFWwindow* window, ...);
            image = ST(n+1);
            if ( SvROK(image) && SvTYPE(SvRV(image))==SVt_PVHV) {
               imghv = (HV *)SvRV(image);
-              if (svp = hv_fetch(imghv, "width", 5, 0))
+              if ((svp = hv_fetch(imghv, "width", 5, 0)))
                  (imgstruct+n)->width = width = SvIV(*svp);
-              if (svp = hv_fetch(imghv, "height", 6, 0))
+              if ((svp = hv_fetch(imghv, "height", 6, 0)))
                  (imgstruct+n)->height = height = SvIV(*svp);
-              if (svp = hv_fetch(imghv, "pixels", 6, 0))
+              if ((svp = hv_fetch(imghv, "pixels", 6, 0)))
                  (imgstruct+n)->pixels = pixels = (unsigned char *)SvPV_nolen(*svp);
               images[n] = imgstruct+n;
            } else {
@@ -1295,11 +1295,11 @@ glfwCreateCursor(SV* image, int xhot, int yhot);
      if ( SvROK(image) && SvTYPE(SvRV(image))==SVt_PVHV) {
         imghv = (HV *)SvRV(image);
      }
-     if (svp = hv_fetch(imghv, "width", 5, 0))
+     if ((svp = hv_fetch(imghv, "width", 5, 0)))
         imgstruct.width = width = SvIV(*svp);
-     if (svp = hv_fetch(imghv, "height", 6, 0))
+     if ((svp = hv_fetch(imghv, "height", 6, 0)))
         imgstruct.height = height = SvIV(*svp);
-     if (svp = hv_fetch(imghv, "pixels", 6, 0))
+     if ((svp = hv_fetch(imghv, "pixels", 6, 0)))
         imgstruct.pixels = pixels = (unsigned char *)SvPV_nolen(*svp);
      RETVAL = glfwCreateCursor(&imgstruct, xhot, yhot);
    OUTPUT:
@@ -1385,13 +1385,13 @@ glfwSetGammaRamp(GLFWmonitor* monitor, SV* ramp);
    if ( SvROK(ramp) && SvTYPE(SvRV(ramp))==SVt_PVHV) {
       ramphv = (HV *)SvRV(ramp);
    }
-   if (svp = hv_fetch(ramphv, "size",  4, 0))
+   if ((svp = hv_fetch(ramphv, "size",  4, 0)))
       rampstruct.size = size = SvIV(*svp);
-   if (svp = hv_fetch(ramphv, "red",   3, 0))
+   if ((svp = hv_fetch(ramphv, "red",   3, 0)))
       rampstruct.red = (unsigned short *)SvPV_nolen(*svp);
-   if (svp = hv_fetch(ramphv, "green", 5, 0))
+   if ((svp = hv_fetch(ramphv, "green", 5, 0)))
       rampstruct.green = (unsigned short *)SvPV_nolen(*svp);
-   if (svp = hv_fetch(ramphv, "blue",  4, 0))
+   if ((svp = hv_fetch(ramphv, "blue",  4, 0)))
       rampstruct.blue = (unsigned short *)SvPV_nolen(*svp);
    glfwSetGammaRamp(monitor,&rampstruct);
      
