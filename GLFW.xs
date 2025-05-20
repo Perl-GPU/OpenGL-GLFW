@@ -748,6 +748,7 @@ void windowsizefun_callback (GLFWwindow* window, int width, int height)
 
 MODULE = OpenGL::GLFW           PACKAGE = OpenGL::GLFW
 
+PROTOTYPES: DISABLE
 
 #//----------------------------------------------------
 #// Set Per-window callbacks
