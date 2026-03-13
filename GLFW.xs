@@ -8,15 +8,22 @@
 #include <GLFW/glfw3.h>
 
 typedef void * GFLWpcontext;
+typedef void * GFLWpwindow;
 #if defined(_WIN32)
 #  define GLFW_EXPOSE_NATIVE_WGL
 #  define OGLFW_NATIVE_CONTEXT_FUNC glfwGetWGLContext
+#  define GLFW_EXPOSE_NATIVE_WIN32
+#  define OGLFW_NATIVE_WINDOW_FUNC glfwGetWin32Window
 #elif defined(__APPLE__)
 #  define GLFW_EXPOSE_NATIVE_NSGL
 #  define OGLFW_NATIVE_CONTEXT_FUNC glfwGetNSGLContext
+#  define GLFW_EXPOSE_NATIVE_COCOA
+#  define OGLFW_NATIVE_WINDOW_FUNC glfwGetCocoaWindow
 #else
 #  define GLFW_EXPOSE_NATIVE_GLX
 #  define OGLFW_NATIVE_CONTEXT_FUNC glfwGetGLXContext
+#  define GLFW_EXPOSE_NATIVE_X11
+#  define OGLFW_NATIVE_WINDOW_FUNC glfwGetX11Window
 #endif
 #ifdef OGLFW_NATIVE_CONTEXT_FUNC
 #include <GLFW/glfw3native.h>
@@ -1778,6 +1785,17 @@ GFLWpcontext
 glfwpGetContext(GLFWwindow* window);
    CODE:
      RETVAL = (GFLWpcontext)OGLFW_NATIVE_CONTEXT_FUNC(window);
+   OUTPUT:
+     RETVAL
+
+#endif
+
+#ifdef OGLFW_NATIVE_WINDOW_FUNC
+
+GFLWpwindow
+glfwpGetNativeWindow(GLFWwindow* window);
+   CODE:
+     RETVAL = (GFLWpwindow)OGLFW_NATIVE_WINDOW_FUNC(window);
    OUTPUT:
      RETVAL
 

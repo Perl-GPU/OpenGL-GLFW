@@ -1,4 +1,4 @@
-- implement glfwpGetContext
+- implement glfwpGetContext, glfwpGetNativeWindow
 
 0.0403 2025-05-18
 - fix tests to use latest OpenGL::Modern (glGetUniformLocation_c removed _c)

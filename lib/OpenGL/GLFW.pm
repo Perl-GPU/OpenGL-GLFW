@@ -831,6 +831,15 @@ where
 
   $supported = glfwVulkanSupported()
 
+An extension in this module wraps the various GLFW "native"
+window-getting functions (see
+L<https://www.glfw.org/docs/3.3/group__native.html>), returning an
+opaque object (i.e. an XS C<T_PTROBJ>) that is a pointer to the native
+handle for the given window; assumes (like L<OpenGL::Modern>) any
+non-MacOS, non-Windows platform is X11:
+
+  $handle = glfwpGetNativeWindow($window); # note spelling starting with "glfwp"
+
 =head2 GL context
 
 An extension in this module wraps the various GLFW "native"
