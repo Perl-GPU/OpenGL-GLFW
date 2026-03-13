@@ -48,7 +48,7 @@ exit if exists $ENV{CI} and $^O eq 'darwin' or $^O eq 'MSWin32';
 #   
 #   glGetAttribLocation
 #   glGetUniformLocation
-#   glUniformMatrix4fv_c
+#   glUniformMatrix4fv_p
 #   glVertexAttribPointer_c
 #   
 #   glBufferData_p
@@ -59,7 +59,7 @@ exit if exists $ENV{CI} and $^O eq 'darwin' or $^O eq 'MSWin32';
 
 use OpenGL::GLFW qw(:all);
 use OpenGL::Modern qw(:all);
-use OpenGL::Modern::Helpers qw(glGenBuffers_p glBufferData_p);
+use OpenGL::Modern::Helpers qw(glBufferData_p);
 
 # #include "linmath.h"
 
@@ -105,8 +105,6 @@ my $key_callback = sub {
     }
 };
 
-# int main(void) {
-#
 my ($window);
 my ($vertex_buffer, $vertex_shader, $fragment_shader, $program);
 my ($mvp_location, $vpos_location, $vcol_location);
@@ -138,17 +136,16 @@ glfwSwapInterval(1);
 #  NOTE: OpenGL error checks have been omitted for brevity
 #-----------------------------------------------------------
 
-my $vertex_buffer = glGenBuffers_p(1);  # TODO
+my $vertex_buffer = glGenBuffers_p(1);
 glBindBuffer(GL_ARRAY_BUFFER, $vertex_buffer);
-# glBufferData_p(GL_ARRAY_BUFFER, sizeof(@vertices), @vertices, GL_STATIC_DRAW);  # TODO
-glBufferData_p(GL_ARRAY_BUFFER, 4*scalar(@vertices), @vertices, GL_STATIC_DRAW);  # TODO
+glBufferData_p(GL_ARRAY_BUFFER, 4*scalar(@vertices), @vertices, GL_STATIC_DRAW);
 
 my $vertex_shader = glCreateShader(GL_VERTEX_SHADER);
-glShaderSource_p($vertex_shader, @vertex_shader_text);  # TODO
+glShaderSource_p($vertex_shader, @vertex_shader_text);
 glCompileShader($vertex_shader);
 
 my $fragment_shader = glCreateShader(GL_FRAGMENT_SHADER);
-glShaderSource_p($fragment_shader, @fragment_shader_text);  # TODO
+glShaderSource_p($fragment_shader, @fragment_shader_text);
 glCompileShader($fragment_shader);
 
 my $program = glCreateProgram();
@@ -188,12 +185,9 @@ while (!glfwWindowShouldClose($window) and glfwGetTime()<3)
     $sor = $s/$ratio;
 
     # $p = mat4x4_ortho(-$ratio, $ratio, -1.0, 1.0, 1.0, -1.0);  # TODO
-    # hardwired rotation and orthographic projection MVP matrix
-    my $mvp = pack 'f[16]', $cor, $s, 0, 0, -$sor, $c, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1;
-    my $pointer_to_mvp_data = unpack 'Q', pack 'P', $mvp;
-
     glUseProgram($program);
-    glUniformMatrix4fv_c($mvp_location, 1, GL_FALSE, $pointer_to_mvp_data);  # TODO
+    # hardwired rotation and orthographic projection MVP matrix
+    glUniformMatrix4fv_p($mvp_location, 1, GL_FALSE, $cor, $s, 0, 0, -$sor, $c, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
     glDrawArrays(GL_TRIANGLES, 0, 3);
 
     glfwSwapBuffers($window);
@@ -203,5 +197,3 @@ while (!glfwWindowShouldClose($window) and glfwGetTime()<3)
 glfwDestroyWindow($window);
 
 glfwTerminate();
-#
-# }

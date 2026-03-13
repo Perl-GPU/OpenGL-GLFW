@@ -18,7 +18,7 @@ WriteMakefile(
     },
     MIN_PERL_VERSION => '5.010',
     TEST_REQUIRES     => {
-        'OpenGL::Modern' => '0.0401',
+        'OpenGL::Modern' => '0.0404', # glUniformMatrix4fv_p
     },
     ABSTRACT_FROM     => 'lib/OpenGL/GLFW.pm', # retrieve abstract from module
     AUTHOR            => 'Chris Marshall <chm@cpan.org>',
