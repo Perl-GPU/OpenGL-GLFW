@@ -7,6 +7,21 @@
 
 #include <GLFW/glfw3.h>
 
+typedef void * GFLWpcontext;
+#if defined(_WIN32)
+#  define GLFW_EXPOSE_NATIVE_WGL
+#  define OGLFW_NATIVE_CONTEXT_FUNC glfwGetWGLContext
+#elif defined(__APPLE__)
+#  define GLFW_EXPOSE_NATIVE_NSGL
+#  define OGLFW_NATIVE_CONTEXT_FUNC glfwGetNSGLContext
+#else
+#  define GLFW_EXPOSE_NATIVE_GLX
+#  define OGLFW_NATIVE_CONTEXT_FUNC glfwGetGLXContext
+#endif
+#ifdef OGLFW_NATIVE_CONTEXT_FUNC
+#include <GLFW/glfw3native.h>
+#endif
+
 #include <stdio.h>
 
 // AV index values for callbacks which are stored as an *AV
@@ -1756,3 +1771,14 @@ void
 glfwCreateWindowSurface(...)
    CODE:
      croak("No Vulkan Support: glfwCreateWindowSurface not implemented!");
+
+#ifdef OGLFW_NATIVE_CONTEXT_FUNC
+
+GFLWpcontext
+glfwpGetContext(GLFWwindow* window);
+   CODE:
+     RETVAL = (GFLWpcontext)OGLFW_NATIVE_CONTEXT_FUNC(window);
+   OUTPUT:
+     RETVAL
+
+#endif

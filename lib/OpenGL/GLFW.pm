@@ -454,6 +454,7 @@ my @functions = qw(
   glfwGetPhysicalDevicePresentationSupport
   glfwGetProcAddress
   glfwGetRequiredInstanceExtensions
+  glfwpGetContext
 );
 our %EXPORT_TAGS = (
   constants => \@const,
@@ -830,6 +831,16 @@ where
 
   $supported = glfwVulkanSupported()
 
+=head2 GL context
+
+An extension in this module wraps the various GLFW "native"
+context-getting functions (see
+L<https://www.glfw.org/docs/3.3/group__native.html>), returning an
+opaque object (i.e. an XS C<T_PTROBJ>) that is a pointer to the GL
+context for the given window; assumes (like L<OpenGL::Modern>) any
+non-MacOS, non-Windows platform is X11:
+
+  $context = glfwpGetContext($window); # note spelling starting with "glfwp"
 
 =head2 GLFW OpenGL Extension checks are not implemented
 

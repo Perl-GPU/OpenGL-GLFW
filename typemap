@@ -10,6 +10,8 @@ const GLFWgammaramp *  T_PTR
 const GLFWimage *      T_PTR
 const GLFWvidmode *    T_PTR
 
+GFLWpcontext           T_PTROBJ
+
 uint32_t               T_UV
 uint64_t               T_UV
 
