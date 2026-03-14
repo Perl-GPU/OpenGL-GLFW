@@ -4,7 +4,7 @@
 #========================================================================
 
 # skip test under under headless CI
-exit if exists $ENV{CI} and $^O eq 'darwin' or $^O eq 'MSWin32';
+exit if exists $ENV{CI} and ($^O eq 'darwin' or $^O eq 'MSWin32');
 
 #========================================================================
 # Simple GLFW example
