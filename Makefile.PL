@@ -23,10 +23,11 @@ WriteMakefile(
     META_MERGE        => {
         "meta-spec" => { version => 2 },
         resources => {
+            bugtracker  => {web=>'https://github.com/Perl-GPU/OpenGL-GLFW/issues'},
             repository => {
                 type => 'git',
-                url => 'git://github.com/devel-chm/OpenGL-GLFW.git',
-                web => 'https://github.com/devel-chm/OpenGL-GLFW.git',
+                url => 'git://github.com/Perl-GPU/OpenGL-GLFW.git',
+                web => 'https://github.com/Perl-GPU/OpenGL-GLFW.git',
             },
         },
     },
